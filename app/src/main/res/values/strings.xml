@@ -37,6 +37,7 @@
     <string name="boton_finalizar">Finalizar Registro</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_another">AnotherActivity</string>
 
 
 </resources>
