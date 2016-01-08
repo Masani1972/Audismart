@@ -20,9 +20,13 @@ import retrofit.Response;
  */
 public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     private ProgressDialog dialog;
+    private Object object;
+    private String metodo;
 
     public ServiceTaskAsyn (Context context,String metodo,Object object){
         dialog = new ProgressDialog(context);
+        this.metodo = metodo;
+        this.object = object;
     }
 
     @Override
@@ -37,7 +41,16 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     protected Response doInBackground(Void... unused) {
         Response reponseBody = null;
         APIService taskService = ServiceGenerator.createService(APIService.class);
-        Call<ResponseBody> call = taskService.createUser("ffddfdfdfdf", "fdfdffdffdfdfd", "REGISTRO CLIENTE", "4444@h.com", "1", "1", "24455", "2", "1","1");
+        Call<ResponseBody> call = null;
+        switch (metodo){
+            case "createUser":
+                User user = (User) object;
+                call = taskService.createUser(user.nombres, user.apellidos, user.ACCION, user.email, user.id_departamento, user.id_ciudad, user.telefono, user.contrasena, user.acepto_terminos,user.acepto_envio);
+            break;
+            case "":
+               call = null;
+                break;
+        }
         try {
             reponseBody = call.execute();
         } catch (IOException e) {
@@ -45,10 +58,6 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
         }
         return reponseBody;
     }
-
-
-
-
 
 
     protected void onPostExecute(Response resultado) {
@@ -64,6 +73,8 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             e.printStackTrace();
         }
         String result = sb.toString();
+        IPresenter presenter = new Presenter();
+        presenter.createResponse(result);
 
         if (dialog.isShowing()) {
             dialog.dismiss();

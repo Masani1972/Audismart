@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="D:\Personal\AOSAS\Audismart\Aosmart" vcs="Git" />
-    <mapping directory="D:\Personal\AOSAS\Audismart\AosmartAndroi" vcs="Git" />
-    <mapping directory="D:\Personal\AOSAS\Audismart\AosmartAndroid" vcs="Git" />
   </component>
 </project>

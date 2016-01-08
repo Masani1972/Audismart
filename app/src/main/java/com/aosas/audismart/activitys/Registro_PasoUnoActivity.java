@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import retrofit.Call;
 import retrofit.Response;
 
-public class Registro_PasoUnoActivity extends AppCompatActivity {
+public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseActivity{
     RelativeLayout layout_form;
     EditText nombres, apellidos, correo_electronico,departamento,ciudad, telefono,contrasena;
 
@@ -77,7 +77,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity {
         if (editTextOk == childcount) {
             User user = new User(nombres.getText().toString(),apellidos.getText().toString(),correo_electronico.getText().toString(),departamento.getText().toString(),ciudad.getText().toString(),telefono.getText().toString(),contrasena.getText().toString(),"1","1","REGISTRO CLIENTE");
             IPresenter presenter = new Presenter();
-            presenter.createRequets(Registro_PasoUnoActivity.this,user,"createUser",10);
+            presenter.createRequets(Registro_PasoUnoActivity.this,user,"createUser");
            // Intent intent_pasodos = new Intent(Registro_PasoUnoActivity.this, Registro_PasoDosActivity.class);
            // startActivity(intent_pasodos);
         } else {
@@ -86,5 +86,13 @@ public class Registro_PasoUnoActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void succes(String succes) {
 
+    }
+
+    @Override
+    public void error(String error) {
+
+    }
 }

@@ -4,16 +4,16 @@ package com.aosas.audismart.Object;
  * Created by Lmartinez on 06/01/2016.
  */
 public class User {
-    String nombres ="";
-    String apellidos = "";
-    String email ="";
-    String id_departamento ="";
-    String id_ciudad = "";
-    String telefono ="";
-    String contrasena ="";
-    String acepto_terminos = "";
-    String acepto_envio ="";
-    String ACCION ="";
+    public String nombres ="";
+    public String apellidos = "";
+    public String email ="";
+    public String id_departamento ="";
+    public String id_ciudad = "";
+    public String telefono ="";
+    public String contrasena ="";
+    public String acepto_terminos = "";
+    public String acepto_envio ="";
+    public String ACCION ="";
 
     public User(String nombres, String apellidos, String email, String id_departamento, String id_ciudad, String telefono, String contrasena, String acepto_terminos, String acepto_envio, String ACCION) {
         this.nombres = nombres;

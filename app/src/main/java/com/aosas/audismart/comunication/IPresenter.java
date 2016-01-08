@@ -7,6 +7,6 @@ import android.content.Context;
  */
 public interface IPresenter {
 
-    public void createRequets (Context context,Object object, String metodo,int fields);
-    public void createResponse ();
+    public void createRequets (Context context,Object object, String metodo);
+    public void createResponse (String reponse);
 }
