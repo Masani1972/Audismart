@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Audismart</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Activity Home-->
+    <string name="boton_registro">Registrarme</string>
+    <string name="boton_contrasena">No recuerdo mi contraseña</string>
+    <string name="boton_ingresar">Ingresar</string>
+
+    <!--Actyvity Ingreso -->
+    <string name="usuario">Email</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="sesion">No cerrar Sesión</string>
+
+    <!--Registro Uno -->
+    <string name="titulo">1. Datos Personales</string>
+    <string name="subtitulo">Paso 1 de X</string>
+    <string name="nombre">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="departamento">Departamento</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="telefono">Teléfono / Celular</string>
+    <string name="terminos">Acepto Términos y coniciones/Política de uso de datos</string>
+    <string name="boton_Paso2">Siguiente Paso: Agregar Empresa</string>
+
+    <!--Registro Dos-->
+    <string name="titulo_pasodos">2. Registrar Empresa</string>
+    <string name="subtitulo_pasodos">Paso 2 de X</string>
+    <string name="nombre_empresa">Nombre de la empresa</string>
+    <string name="razon_social">Razón Social</string>
+    <string name="camara_comercio">Cámara de Comercio</string>
+    <string name="tipo_documento">Tipo de Documento</string>
+    <string name="num_documento">Número de Documento</string>
+    <string name="gcm">GCM</string>
+    <string name="tip"><b>Tip:</b> Recuerda que puedes agregar empresas adicionales en tu perfil de administración</string>
+    <string name="boton_finalizar">Finalizar Registro</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+
+</resources>
