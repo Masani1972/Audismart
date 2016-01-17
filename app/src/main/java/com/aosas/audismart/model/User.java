@@ -1,4 +1,4 @@
-package com.aosas.audismart.Object;
+package com.aosas.audismart.model;
 
 /**
  * Created by Lmartinez on 06/01/2016.

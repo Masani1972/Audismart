@@ -1,13 +1,10 @@
 package com.aosas.audismart.comunication;
 
-import com.aosas.audismart.Object.User;
 import com.squareup.okhttp.ResponseBody;
 
 import retrofit.Call;
-import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
-import retrofit.http.Headers;
 import retrofit.http.POST;
 
 

@@ -2,6 +2,14 @@
     <string name="app_name">Audismart</string>
     <string name="action_settings">Settings</string>
 
+    <!--Excepciones y mensajes generales-->
+    <string name="formularioIncompleto">Por favor diligenciar el formulario</string>
+    <string name="campoIvalido">Campo Invalido</string>
+    <string name="consultandoInfo">Consultando Información</string>
+    <string name="registrandoInfo">Registrando Información</string>
+
+
+
     <!-- Activity Home-->
     <string name="boton_registro">Registrarme</string>
     <string name="boton_contrasena">No recuerdo mi contraseña</string>

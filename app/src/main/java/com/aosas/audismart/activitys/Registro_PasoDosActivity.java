@@ -1,7 +1,5 @@
 package com.aosas.audismart.activitys;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,20 +7,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.aosas.audismart.Object.User;
 import com.aosas.audismart.R;
-import com.aosas.audismart.comunication.ServiceGenerator;
-import com.aosas.audismart.comunication.APIService;
-import com.aosas.audismart.comunication.ServiceTaskAsyn;
-import com.squareup.okhttp.ResponseBody;
-
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-import retrofit.Call;
-import retrofit.Response;
 
 
 public class Registro_PasoDosActivity extends AppCompatActivity {

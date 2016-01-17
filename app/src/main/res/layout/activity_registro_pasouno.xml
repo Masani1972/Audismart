@@ -87,7 +87,7 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/editText_Departamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 android:ems="10"
                 android:hint="@string/departamento" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/editText_Ciudad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:text="@string/boton_Paso2"
-                android:onClick="click"/>
+               />
         </RelativeLayout>
     </ScrollView>
 

@@ -4,13 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.aosas.audismart.Object.User;
+import com.aosas.audismart.model.User;
 import com.squareup.okhttp.ResponseBody;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import retrofit.Call;
 import retrofit.Response;

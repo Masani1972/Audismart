@@ -19,7 +19,7 @@ import retrofit.SimpleXmlConverterFactory;
  */
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://166.62.118.200/~aosas/aosmart/movil/";
+    public static final String API_BASE_URL = "http://aosmart.aosas.com/movil/";
     //public static final String API_BASE_URL = "http://www.mocky.io/v2/";
 
 
