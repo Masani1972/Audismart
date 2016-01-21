@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,22 +30,35 @@ public class Util {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Departamento>>(){}.getType();
             ArrayList<Departamento> departamentos = gson.fromJson(json, type);
-        for (Departamento departamento : departamentos){
-            Log.i("Contact Details", departamento.Id_departamento + "-" + departamento.Nombre );
-        }
+
             return departamentos;
         }
         else if(object instanceof Ciudad){
             Gson gson = new Gson();
             Type type = new TypeToken<List<Ciudad>>(){}.getType();
             ArrayList<Ciudad> ciudades = gson.fromJson(json, type);
-            for (Ciudad ciudad : ciudades){
-                Log.i("Contact Details", ciudad.Id_ciudad + "-" + ciudad.Nombre );
-            }
             return ciudades;
         }
 return  null;
+    }
 
+    public static String textToMD5 (String text){
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(text.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i=0; i<messageDigest.length; i++)
+                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

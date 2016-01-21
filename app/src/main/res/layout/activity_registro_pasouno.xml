@@ -128,7 +128,8 @@
                 android:ems="10"
                 android:hint="@string/contrasena"
                 android:inputType="textPassword" />
-        </RelativeLayout>
+
+            </RelativeLayout>
 
             <CheckBox
                 android:id="@+id/checkBox_terminos"

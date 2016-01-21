@@ -6,4 +6,6 @@ package com.aosas.audismart.model;
 public class Departamento {
     public String Id_departamento;
     public String Nombre;
+
+
 }

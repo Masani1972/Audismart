@@ -9,37 +9,38 @@ import android.widget.Button;
 import com.aosas.audismart.R;
 import com.aosas.audismart.util.Util;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
 public class IngresoActivity extends AppCompatActivity {
     private Util util;
+
+    @InjectView(R.id.button_Ingresar)
+    Button button_Ingresar;
+
+    @InjectView(R.id.button_Contrasena)
+    Button button_Contrasena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso);
-        //Inicializar Objetos
-        util = new Util();
+        ButterKnife.inject(this);
 
-
-        //GetViews
-        Button button = (Button) findViewById(R.id.button_Contrasena);
-        button.setPaintFlags(button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        button_Contrasena.setPaintFlags(button_Contrasena.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
-    /*
-   Eventos del todos los botones del layout
-    */
-    public void click(View view) {
-        switch (view.getId()) {
-
-            case R.id.button_Ingresar:
-                ingresar();
-                break;
-
-            case R.id.button_Contrasena:
-                solicitar_Contraseña();
-                break;
-        }
+    @OnClick(R.id.button_Ingresar)
+    public void ingresar(View view) {
+        ingresar();
     }
+
+    @OnClick(R.id.button_Contrasena)
+    public void solicitar_Contraseña(View view) {
+        solicitar_Contraseña();
+    }
+
 
     /*
     Metodo para ingreso a la plataforma

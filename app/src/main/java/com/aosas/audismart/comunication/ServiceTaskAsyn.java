@@ -1,5 +1,6 @@
 package com.aosas.audismart.comunication;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -21,8 +22,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     private ProgressDialog dialog;
     private Object object;
     private String metodo;
+    Activity activity;
 
     public ServiceTaskAsyn (Context context,String metodo,Object object){
+         activity= (Activity)context;
         dialog = new ProgressDialog(context);
         this.metodo = metodo;
         this.object = object;
@@ -44,7 +47,7 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
         switch (metodo){
             case "createUser":
                 User user = (User) object;
-                call = taskService.createUser(user.nombres, user.apellidos, user.ACCION, user.email, user.id_departamento, user.id_ciudad, user.telefono, user.contrasena, user.acepto_terminos,user.acepto_envio);
+                call = taskService.createUser(user.nombres, user.apellidos, user.ACCION, user.email, user.id_departamento, user.id_ciudad, user.telefono, user.contrasena, user.acepto_terminos, user.acepto_envio);
             break;
             case "":
                call = null;
@@ -72,8 +75,8 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             e.printStackTrace();
         }
         String result = sb.toString();
-        IPresenter presenter = new Presenter();
-        presenter.createResponse(result);
+        IRepository presenter = new Repository();
+        presenter.createResponse(result,metodo,activity);
 
         if (dialog.isShowing()) {
             dialog.dismiss();

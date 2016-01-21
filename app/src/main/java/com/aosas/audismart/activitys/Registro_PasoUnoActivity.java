@@ -106,7 +106,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
     }
 
     @OnClick(R.id.button_Continuar)
-    public void continuar(View view) {
+    public void button_Continuar(View view) {
         validar_formulario();
     }
 
@@ -114,7 +114,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
 
 
     /*******************
-    Real presentador¡¡ Logica de la  vista
+    Presentador¡¡ Logica de la  vista
      *******************/
 
     /*
