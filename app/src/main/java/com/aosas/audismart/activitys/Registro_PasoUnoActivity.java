@@ -1,34 +1,45 @@
 package com.aosas.audismart.activitys;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
+import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
+import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.R;
-import com.aosas.audismart.comunication.IPresenter;
-import com.aosas.audismart.comunication.Presenter;
-import com.aosas.audismart.util.Constants;
+import com.aosas.audismart.comunication.IRepository;
+import com.aosas.audismart.comunication.Repository;
+import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.File;
 import com.aosas.audismart.util.Util;
-
-import org.json.JSONObject;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseActivity{
+    private String idDepartamento = "";
+    private String idCiudad = "";
+    private boolean aceptaTerminos = false;
+    private String contrasenaMD5 = "";
+    private static final String TAG = "Registro_PasoUnoActivity";
 
     @InjectView(R.id.layout_Form)
     RelativeLayout layout_Form;
@@ -54,6 +65,9 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
     @InjectView(R.id.editText_Contrasena)
     EditText editText_Contrasena;
 
+    @InjectView(R.id.checkBox_terminos)
+    CheckBox checkBox_terminos;
+
     @InjectView(R.id.button_Continuar)
     Button button_Continuar;
 
@@ -62,57 +76,79 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_pasouno);
         ButterKnife.inject(this);
+
+        /*listener  autocomplete no soportado por ButterKnife*/
+        editText_Departamento.setThreshold(1);
+        editText_Departamento.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                cargarListaDepartamentos();
+                editText_Departamento.showDropDown();
+                return false;
+            }
+        });
+
+        /*listener  autocomplete no soportado por ButterKnife*/
+        editText_Ciudad.setThreshold(1);
+        editText_Ciudad.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                cargarListaCiudades();
+                editText_Ciudad.showDropDown();
+                return false;
+            }
+        });
     }
 
+    @OnCheckedChanged(R.id.checkBox_terminos)
+    public void checkBox_terminos(boolean value){
+        aceptaTerminos = value;
+    }
 
     @OnClick(R.id.button_Continuar)
     public void continuar(View view) {
         validar_formulario();
     }
 
-    @OnClick(R.id.editText_Departamento)
-    public void cargarDepartamentos(View view){
-        cargarListaDepartamentos();
-    }
-
-    @OnClick(R.id.editText_Ciudad)
-    public void cargarCiudades(View view){
-        cargarListaCiudades("3");
-    }
 
 
-    /*
-    Real presentador¡¡ Logica vista
-     */
+
+    /*******************
+    Real presentador¡¡ Logica de la  vista
+     *******************/
 
     /*
     Solicita la lista de departamento al repositorio local
      */
     private void cargarListaDepartamentos() {
         ArrayList arrayListDepartamentos = Util.jsontoArrayList(File.loadJSONFromAsset(this,"departamentos"), new Departamento());
-        String[] departamentos = new String[arrayListDepartamentos.size()];
-        for(int i = 0;i<arrayListDepartamentos.size();i++){
-            Departamento departamento = (Departamento) arrayListDepartamentos.get(i);
-            departamentos[i] = departamento.Nombre;
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, departamentos);
-        editText_Departamento.setAdapter(adapter);
+        AutocompleteDepartamentoAdapter itemadapter = new AutocompleteDepartamentoAdapter(this, R.layout.adapter_autotext,arrayListDepartamentos);
+        editText_Departamento.setAdapter(itemadapter);
+        editText_Departamento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                Departamento departamento = (Departamento) listView.getItemAtPosition(position);
+                idDepartamento = departamento.Id_departamento;
+            }
+        });
     }
 
     /*
     Solicita la lista de ciudades al repositorio local de acuerdo al departamento
      */
-    private void cargarListaCiudades(String departamento) {
-        ArrayList arrayListCiudades= Util.jsontoArrayList(File.readJsonDescripcion(this, departamento),new Ciudad());
-        String[] ciudades = new String[arrayListCiudades.size()];
-        for(int i = 0;i<arrayListCiudades.size();i++){
-            Ciudad ciudad = (Ciudad) arrayListCiudades.get(i);
-            ciudades[i] = ciudad.Nombre;
+    private void cargarListaCiudades() {
+        if(idDepartamento.length()>0) {
+            ArrayList arrayListCiudades = Util.jsontoArrayList(File.readJsonDescripcion(this, idDepartamento), new Ciudad());
+            AutocompleteCiudadAdapter itemadapter = new AutocompleteCiudadAdapter(this, R.layout.adapter_autotext,arrayListCiudades);
+            editText_Ciudad.setAdapter(itemadapter);
+            editText_Ciudad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                    Ciudad ciudad = (Ciudad) listView.getItemAtPosition(position);
+                    idCiudad = ciudad.Id_ciudad;
+                }
+            });
+        }else{
+            Toast.makeText(Registro_PasoUnoActivity.this, R.string.campoDepartamentoIvalido,Toast.LENGTH_LONG).show();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, ciudades);
-        editText_Ciudad.setAdapter(adapter);
 
     }
 
@@ -131,27 +167,31 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
             continue;
         }
 
-        if (editTextOk == childcount) {
-            User user = new User(editText_Nombres.getText().toString(),editText_Apellidos.getText().toString(),editText_Email.getText().toString(),editText_Departamento.getText().toString(),editText_Ciudad.getText().toString(),editText_Telefono.getText().toString(),editText_Contrasena.getText().toString(),"1","1", Constants.REGISTRO_USUARIO);
-            IPresenter presenter = new Presenter();
-            presenter.createRequets(Registro_PasoUnoActivity.this,user,"createUser");
-           // Intent intent_pasodos = new Intent(Registro_PasoUnoActivity.this, Registro_PasoDosActivity.class);
-           // startActivity(intent_pasodos);
-        } else {
-            Toast.makeText(Registro_PasoUnoActivity.this, R.string.formularioIncompleto,Toast.LENGTH_LONG).show();
-        }
+        if(aceptaTerminos) {
+            if (editTextOk == childcount) {
+                if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)
+                    contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
+                User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);
+                IRepository presenter = new Repository();
+                presenter.createRequets(this, user, "createUser");
+
+            } else {
+                Toast.makeText(Registro_PasoUnoActivity.this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();
+            }
+        }else{Toast.makeText(Registro_PasoUnoActivity.this, R.string.campoTerminos,Toast.LENGTH_LONG).show();}
     }
 
 
-
-
     @Override
-    public void succes(String succes) {
-
+    public void succes(String succes, JsonElement jsonElement) {
+        String idUser=jsonElement.getAsString();
+        Toast.makeText(Registro_PasoUnoActivity.this, succes,Toast.LENGTH_SHORT).show();
+        Intent intent_pasodos = new Intent(Registro_PasoUnoActivity.this, Registro_PasoDosActivity.class);
+        startActivity(intent_pasodos);
     }
 
     @Override
     public void error(String error) {
-
+        Toast.makeText(Registro_PasoUnoActivity.this, error,Toast.LENGTH_LONG).show();
     }
 }
