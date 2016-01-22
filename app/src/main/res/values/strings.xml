@@ -37,9 +37,7 @@
     <!--Registro Dos-->
     <string name="titulo_pasodos">2. Registrar Empresa</string>
     <string name="subtitulo_pasodos">Paso 2 de X</string>
-    <string name="nombre_empresa">Nombre de la empresa</string>
-    <string name="razon_social">Razón Social</string>
-    <string name="camara_comercio">Cámara de Comercio</string>
+    <string name="nombre_empresa">Nombre de la empresa/Razón social</string>
     <string name="tipo_documento">Tipo de Documento</string>
     <string name="num_documento">Número de Documento</string>
     <string name="gcm">GCM</string>

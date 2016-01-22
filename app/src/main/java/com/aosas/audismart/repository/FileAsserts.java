@@ -1,4 +1,4 @@
-package com.aosas.audismart.util;
+package com.aosas.audismart.repository;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,7 @@ import java.io.InputStream;
 /**
  * Created by Lmartinez on 16/01/2016.
  */
-public class File {
+public class FileAsserts {
 
     //Metodo que se encarga de leer el archivo
     public static String loadJSONFromAsset(Context context, String nombreArchivo) {

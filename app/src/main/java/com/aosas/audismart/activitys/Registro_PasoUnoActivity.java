@@ -1,8 +1,8 @@
 package com.aosas.audismart.activitys;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,17 +13,16 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-
+import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
 import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
+import com.aosas.audismart.comunication.IRepository;
+import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
 import com.aosas.audismart.model.User;
-import com.aosas.audismart.R;
-import com.aosas.audismart.comunication.IRepository;
-import com.aosas.audismart.comunication.Repository;
+import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.util.Constantes;
-import com.aosas.audismart.util.File;
 import com.aosas.audismart.util.Util;
 import com.google.gson.JsonElement;
 
@@ -121,7 +120,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
     Solicita la lista de departamento al repositorio local
      */
     private void cargarListaDepartamentos() {
-        ArrayList arrayListDepartamentos = Util.jsontoArrayList(File.loadJSONFromAsset(this,"departamentos"), new Departamento());
+        ArrayList arrayListDepartamentos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(this,"departamentos"), new Departamento());
         AutocompleteDepartamentoAdapter itemadapter = new AutocompleteDepartamentoAdapter(this, R.layout.adapter_autotext,arrayListDepartamentos);
         editText_Departamento.setAdapter(itemadapter);
         editText_Departamento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -137,7 +136,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
      */
     private void cargarListaCiudades() {
         if(idDepartamento.length()>0) {
-            ArrayList arrayListCiudades = Util.jsontoArrayList(File.readJsonDescripcion(this, idDepartamento), new Ciudad());
+            ArrayList arrayListCiudades = Util.jsontoArrayList(FileAsserts.readJsonDescripcion(this, idDepartamento), new Ciudad());
             AutocompleteCiudadAdapter itemadapter = new AutocompleteCiudadAdapter(this, R.layout.adapter_autotext,arrayListCiudades);
             editText_Ciudad.setAdapter(itemadapter);
             editText_Ciudad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -172,8 +171,8 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
                 if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
                 User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);
-                IRepository presenter = new Repository();
-                presenter.createRequets(this, user, "createUser");
+                IRepository repository = new Repository();
+                repository.createRequets(this, user, "createUser");
 
             } else {
                 Toast.makeText(Registro_PasoUnoActivity.this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();

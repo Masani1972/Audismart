@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.repository.Preferences;
 
 public  class SplashActivity extends AppCompatActivity {
 
@@ -28,10 +29,15 @@ public  class SplashActivity extends AppCompatActivity {
 
                     e.printStackTrace();
                 }finally{
-                    //Llamo a la nueva actividad
-                    Intent intent = new Intent(SplashActivity.this,
-                            HomeActivity.class);
-                    startActivity(intent);
+                    //Se llama  a la nueva actividad
+                    if(Preferences.getSesion(SplashActivity.this)) {
+                        Intent intent = new Intent(SplashActivity.this,
+                                MenuActivity.class);
+                        startActivity(intent);
+                    }else
+                    { Intent intent = new Intent(SplashActivity.this,
+                            IngresoActivity.class);
+                        startActivity(intent);}
 
                     finish();
                 }

@@ -11,6 +11,13 @@ public  class Constantes {
     /*Metodos Servicios Web
     */
     public static final String REGISTRO_USUARIO = "REGISTRO CLIENTE";
+    public static final String LOGIN = "LOGIN";
+
+
+    /*
+    Preferencias
+     */
+    public static final String SESION="sesion";
 
 
 }

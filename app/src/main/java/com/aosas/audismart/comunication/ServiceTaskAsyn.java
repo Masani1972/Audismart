@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.aosas.audismart.model.Login;
 import com.aosas.audismart.model.User;
 import com.squareup.okhttp.ResponseBody;
 
@@ -23,6 +25,7 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     private Object object;
     private String metodo;
     Activity activity;
+    private static final String TAG = "ServiceTaskAsyn";
 
     public ServiceTaskAsyn (Context context,String metodo,Object object){
          activity= (Activity)context;
@@ -49,6 +52,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 User user = (User) object;
                 call = taskService.createUser(user.nombres, user.apellidos, user.ACCION, user.email, user.id_departamento, user.id_ciudad, user.telefono, user.contrasena, user.acepto_terminos, user.acepto_envio);
             break;
+            case "loginUser":
+                Login login = (Login) object;
+                call = taskService.loginUser(login.email,login.contrasena,login.ACCION);
+                break;
             case "":
                call = null;
                 break;
@@ -75,6 +82,7 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             e.printStackTrace();
         }
         String result = sb.toString();
+        Log.i(TAG, result);
         IRepository presenter = new Repository();
         presenter.createResponse(result,metodo,activity);
 
