@@ -27,4 +27,19 @@ public class Preferences {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
        return sharedPref.getBoolean(Constantes.SESION,false);
     }
+
+
+    public static void setIdClient(Context context, String id) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+        if(id != null)
+            editor.putString(Constantes.IDCLIENT,id);
+        else
+            editor.remove(Constantes.IDCLIENT);
+        editor.commit();
+    }
+
+    public static String getClient(Context context) {
+        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        return sharedPref.getString(Constantes.IDCLIENT,"");
+    }
 }

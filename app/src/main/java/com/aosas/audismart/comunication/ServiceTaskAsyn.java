@@ -3,11 +3,15 @@ package com.aosas.audismart.comunication;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.aosas.audismart.R;
+import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.Login;
 import com.aosas.audismart.model.User;
+import com.aosas.audismart.util.Constantes;
 import com.squareup.okhttp.ResponseBody;
 
 import java.io.BufferedReader;
@@ -16,6 +20,8 @@ import java.io.InputStreamReader;
 
 import retrofit.Call;
 import retrofit.Response;
+
+import static com.aosas.audismart.util.Constantes.REGISTRO_USUARIO_API;
 
 /**
  * Created by Lmartinez on 08/01/2016.
@@ -48,20 +54,26 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
         APIService taskService = ServiceGenerator.createService(APIService.class);
         Call<ResponseBody> call = null;
         switch (metodo){
-            case "createUser":
+            case REGISTRO_USUARIO_API:
                 User user = (User) object;
                 call = taskService.createUser(user.nombres, user.apellidos, user.ACCION, user.email, user.id_departamento, user.id_ciudad, user.telefono, user.contrasena, user.acepto_terminos, user.acepto_envio);
             break;
-            case "loginUser":
+            case Constantes.LOGIN_API:
                 Login login = (Login) object;
-                call = taskService.loginUser(login.email,login.contrasena,login.ACCION);
+                call = taskService.loginUser(login.email, login.contrasena, login.ACCION);
+                break;
+            case Constantes.REGISTRO_EMPRESA_API:
+                Empresa empresa = (Empresa) object;
+                call = taskService.createCompany(empresa.id_cliente,empresa.nombre,empresa.id_departamento,empresa.id_ciudad,empresa.tipo_documento,empresa.documento,empresa.ingresos,empresa.categoria,empresa.impuesto_consumo,empresa.impuesto_riqueza,empresa.ACCION);
                 break;
             case "":
                call = null;
                 break;
         }
         try {
+            if(call!=null)
             reponseBody = call.execute();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,6 +82,7 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
 
 
     protected void onPostExecute(Response resultado) {
+        if(resultado!=null){
         BufferedReader bf = null;
         StringBuilder sb = new StringBuilder();
         try {
@@ -84,11 +97,14 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
         String result = sb.toString();
         Log.i(TAG, result);
         IRepository presenter = new Repository();
-        presenter.createResponse(result,metodo,activity);
+        presenter.createResponse(result, metodo, activity);
 
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
-
+    }
+    else{
+            IRepository presenter = new Repository();
+        presenter.createResponse(Resources.getSystem().getString(R.string.errorServiciosWEb),metodo,activity);}
     }
 }

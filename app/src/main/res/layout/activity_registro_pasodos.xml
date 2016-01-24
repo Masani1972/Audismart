@@ -100,29 +100,113 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:ems="10"
+                android:inputType="number"
                 android:hint="@string/num_documento" />
 
             <EditText
-                android:id="@+id/editText_GCM"
+                android:id="@+id/editText_Ingresos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editText_NumDocumento"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:ems="10"
-                android:hint="@string/gcm"
-           />
-        </RelativeLayout>
+                android:hint="@string/ingresos" />
 
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editText_Ingresos"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:id="@+id/editText_Regimen"
+                    android:hint="@string/regimen" />
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/layout_Radiobutton"
+            android:layout_below="@+id/layout_Form">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/impuesto"
+                android:id="@+id/textView_impuesto"
+                android:layout_alignParentStart="true" />
+
+            <RadioGroup
+                android:id="@+id/radioButton_impuestoConsumo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_below="@+id/textView_impuesto"
+               >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si"
+                android:id="@+id/radioButton_Si"
+                android:onClick="onRadioButtonClickedImpuesto"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no"
+                android:id="@+id/radioButton_No"
+                android:onClick="onRadioButtonClickedImpuesto"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contribuyentedeimpuesto"
+                android:layout_below="@+id/radioButton_impuestoConsumo"
+                android:id="@+id/textView_contribuyenteImpuesto"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentStart="true" />
+
+            <RadioGroup
+                android:id="@+id/radioButton_impuestoRiqueza"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_below="@+id/textView_contribuyenteImpuesto"
+                >
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si"
+                android:onClick="onRadioButtonClickedRiqueza"
+                android:id="@+id/radioButton_SiContribuyente" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no"
+                android:onClick="onRadioButtonClickedRiqueza"
+                android:id="@+id/radioButton_NoContribuyente" />
+
+            </RadioGroup>
+
+
+        </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tip"
                 android:id="@+id/textView_Tip"
-                android:layout_below="@+id/layout_Form"
+                android:layout_below="@+id/layout_Radiobutton"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true" />
+
 
             <Button
                 android:id="@+id/button_Finalizar"
@@ -133,6 +217,8 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/boton_finalizar"
                 android:onClick="click"/>
+
+
 
 
         </RelativeLayout>

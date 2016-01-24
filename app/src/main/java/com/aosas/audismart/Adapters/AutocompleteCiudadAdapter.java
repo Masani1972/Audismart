@@ -101,7 +101,6 @@ public class AutocompleteCiudadAdapter extends ArrayAdapter<Ciudad> {
                         }
                     }
                 } else if (constraint == null) {
-                    // no filter, add entire original list back in
                     mCiudad.addAll(mCiudad_All);
                 }
                 notifyDataSetChanged();

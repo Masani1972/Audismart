@@ -10,37 +10,38 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import com.aosas.audismart.R;
-import com.aosas.audismart.model.Departamento;
+import com.aosas.audismart.model.Categoria;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Lmartinez on 16/01/2016.
+ * Created by Lmartinez on 23/01/2016.
  */
-public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> {
+public class AutocompleteCategoriaAdapter extends ArrayAdapter<Categoria> {
 
     private final Context mContext;
-    private final List<Departamento> mDepartments;
-    private final List<Departamento> mDepartments_All;
-    private final List<Departamento> mDepartments_Suggestion;
+    private final List<Categoria> mCategoria;
+    private final List<Categoria> mCategoria_All;
+    private final List<Categoria> mCategoria_Suggestion;
     private final int mLayoutResourceId;
 
-    public AutocompleteDepartamentoAdapter(Context context, int resource, List<Departamento> departments) {
-        super(context, resource, departments);
+    public AutocompleteCategoriaAdapter(Context context, int resource, List<Categoria> categoria) {
+        super(context, resource, categoria);
         this.mContext = context;
         this.mLayoutResourceId = resource;
-        this.mDepartments = new ArrayList<>(departments);
-        this.mDepartments_All = new ArrayList<>(departments);
-        this.mDepartments_Suggestion = new ArrayList<>();
+        this.mCategoria = new ArrayList<>(categoria);
+        this.mCategoria_All = new ArrayList<>(categoria);
+        this.mCategoria_Suggestion = new ArrayList<>();
     }
 
     public int getCount() {
-        return mDepartments.size();
+        return mCategoria.size();
     }
 
-    public Departamento getItem(int position) {
-        return mDepartments.get(position);
+    public Categoria getItem(int position) {
+        return mCategoria.get(position);
     }
 
     public long getItemId(int position) {
@@ -54,9 +55,9 @@ public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> 
                 LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
                 convertView = inflater.inflate(mLayoutResourceId, parent, false);
             }
-            Departamento department = getItem(position);
+            Categoria categoria = getItem(position);
             TextView name = (TextView) convertView.findViewById(R.id.autoText);
-            name.setText(department.Nombre);
+            name.setText(categoria.nombre_Categoria);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,21 +70,21 @@ public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> 
         return new Filter() {
             @Override
             public String convertResultToString(Object resultValue) {
-                return ((Departamento) resultValue).Nombre;
+                return ((Categoria) resultValue).nombre_Categoria;
             }
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 if (constraint != null) {
-                    mDepartments_Suggestion.clear();
-                    for (Departamento department : mDepartments_All) {
-                        if (department.Nombre.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
-                            mDepartments_Suggestion.add(department);
+                    mCategoria_Suggestion.clear();
+                    for (Categoria categoria : mCategoria_All) {
+                        if (categoria.nombre_Categoria.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                            mCategoria_Suggestion.add(categoria);
                         }
                     }
                     FilterResults filterResults = new FilterResults();
-                    filterResults.values = mDepartments_Suggestion;
-                    filterResults.count = mDepartments_Suggestion.size();
+                    filterResults.values = mCategoria_Suggestion;
+                    filterResults.count = mCategoria_Suggestion.size();
                     return filterResults;
                 } else {
                     return new FilterResults();
@@ -92,21 +93,20 @@ public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> 
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mDepartments.clear();
+                mCategoria.clear();
                 if (results != null && results.count > 0) {
                     List<?> result = (List<?>) results.values;
                     for (Object object : result) {
-                        if (object instanceof Departamento) {
-                            mDepartments.add((Departamento) object);
+                        if (object instanceof Categoria) {
+                            mCategoria.add((Categoria) object);
                         }
                     }
                 } else if (constraint == null) {
-                    mDepartments.addAll(mDepartments_All);
+                    mCategoria.addAll(mCategoria_All);
                 }
                 notifyDataSetChanged();
             }
         };
     }
 }
-
 

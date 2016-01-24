@@ -5,17 +5,17 @@ package com.aosas.audismart.model;
  */
 public class Empresa {
 
-    private String id_cliente;
-    private String nombre;
-    private String id_departamento;
-    private String id_ciudad;
-    private String tipo_documento;
-    private String documento;
-    private String ingresos;
-    private String categoria;
-    private String impuesto_consumo;
-    private String impuesto_riqueza;
-    private String ACCION;
+    public String id_cliente;
+    public String nombre;
+    public String id_departamento;
+    public String id_ciudad;
+    public String tipo_documento;
+    public String documento;
+    public String ingresos;
+    public String categoria;
+    public String impuesto_consumo;
+    public String impuesto_riqueza;
+    public String ACCION;
 
     public Empresa (String id_cliente,
            String nombre,

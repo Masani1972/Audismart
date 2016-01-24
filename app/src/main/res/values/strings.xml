@@ -9,7 +9,8 @@
     <string name="campoTerminos">Por favor aceptar el campo Terminos</string>
     <string name="consultandoInfo">Consultando Información</string>
     <string name="registrandoInfo">Registrando Información</string>
-
+    <string name="errorServiciosWEb">Error en la comunicación</string>
+    <string name="errorPreferencias">Error en la aplicación</string>
 
 
     <!-- Activity Home-->
@@ -39,10 +40,17 @@
     <string name="subtitulo_pasodos">Paso 2 de X</string>
     <string name="nombre_empresa">Nombre de la empresa/Razón social</string>
     <string name="tipo_documento">Tipo de Documento</string>
+    <string name="regimen">Regimen común o Gran contibuyente</string>
     <string name="num_documento">Número de Documento</string>
-    <string name="gcm">GCM</string>
+    <string name="ingresos">Ingresos último año</string>
+    <string name="impuesto">Impuesto al consumo</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="contribuyentedeimpuesto">Contribuyente de impuesto a la riqueza</string>
     <string name="tip"><b>Tip:</b> Recuerda que puedes agregar empresas adicionales en tu perfil de administración</string>
     <string name="boton_finalizar">Finalizar Registro</string>
+
+
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_another">AnotherActivity</string>

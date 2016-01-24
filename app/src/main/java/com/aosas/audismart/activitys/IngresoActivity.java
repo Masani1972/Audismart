@@ -83,7 +83,7 @@ public class IngresoActivity extends AppCompatActivity implements BaseActivity{
             if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0){
                 IRepository repository = new Repository();
                 Login login = new Login(editText_Usuario.getText().toString(),Util.textToMD5(editText_Contrasena.getText().toString()), Constantes.LOGIN);
-                repository.createRequets(this, login, "loginUser");}}else{
+                repository.createRequets(this, login, Constantes.LOGIN_API);}}else{
             Toast.makeText(IngresoActivity.this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();
         }
     }

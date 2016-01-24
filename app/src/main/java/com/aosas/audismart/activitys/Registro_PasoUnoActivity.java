@@ -22,6 +22,7 @@ import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.FileAsserts;
+import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
 import com.google.gson.JsonElement;
@@ -97,6 +98,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
                 return false;
             }
         });
+
     }
 
     @OnCheckedChanged(R.id.checkBox_terminos)
@@ -172,7 +174,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
                 User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);
                 IRepository repository = new Repository();
-                repository.createRequets(this, user, "createUser");
+                repository.createRequets(this, user, Constantes.REGISTRO_USUARIO_API);
 
             } else {
                 Toast.makeText(Registro_PasoUnoActivity.this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();
@@ -185,6 +187,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
     public void succes(String succes, JsonElement jsonElement) {
         String idUser=jsonElement.getAsString();
         Toast.makeText(Registro_PasoUnoActivity.this, succes,Toast.LENGTH_SHORT).show();
+        Preferences.setIdClient(this,idUser);
         Intent intent_pasodos = new Intent(Registro_PasoUnoActivity.this, Registro_PasoDosActivity.class);
         startActivity(intent_pasodos);
     }
