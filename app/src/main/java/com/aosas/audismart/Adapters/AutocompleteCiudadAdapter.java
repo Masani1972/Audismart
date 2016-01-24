@@ -1,50 +1,46 @@
-package com.aosas.audismart.Adapters;
+package com.aosas.audismart.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.BaseAdapter;
 import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.aosas.audismart.R;
-import com.aosas.audismart.model.Departamento;
+import com.aosas.audismart.model.Ciudad;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Lmartinez on 16/01/2016.
+ * Created by Lmartinez on 21/01/2016.
  */
-public class AutocompleteAdapter extends ArrayAdapter<Departamento> {
+public class AutocompleteCiudadAdapter extends ArrayAdapter<Ciudad> {
 
     private final Context mContext;
-    private final List<Departamento> mDepartments;
-    private final List<Departamento> mDepartments_All;
-    private final List<Departamento> mDepartments_Suggestion;
+    private final List<Ciudad> mCiudad;
+    private final List<Ciudad> mCiudad_All;
+    private final List<Ciudad> mCiudad_Suggestion;
     private final int mLayoutResourceId;
 
-    public AutocompleteAdapter(Context context, int resource, List<Departamento> departments) {
-        super(context, resource, departments);
+    public AutocompleteCiudadAdapter(Context context, int resource, List<Ciudad> ciudad) {
+        super(context, resource, ciudad);
         this.mContext = context;
         this.mLayoutResourceId = resource;
-        this.mDepartments = new ArrayList<>(departments);
-        this.mDepartments_All = new ArrayList<>(departments);
-        this.mDepartments_Suggestion = new ArrayList<>();
+        this.mCiudad = new ArrayList<>(ciudad);
+        this.mCiudad_All = new ArrayList<>(ciudad);
+        this.mCiudad_Suggestion = new ArrayList<>();
     }
 
     public int getCount() {
-        return mDepartments.size();
+        return mCiudad.size();
     }
 
-    public Departamento getItem(int position) {
-        return mDepartments.get(position);
+    public Ciudad getItem(int position) {
+        return mCiudad.get(position);
     }
 
     public long getItemId(int position) {
@@ -58,9 +54,10 @@ public class AutocompleteAdapter extends ArrayAdapter<Departamento> {
                 LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
                 convertView = inflater.inflate(mLayoutResourceId, parent, false);
             }
-            Departamento department = getItem(position);
+            Ciudad ciudad = getItem(position);
             TextView name = (TextView) convertView.findViewById(R.id.autoText);
-            name.setText(department.Nombre);
+            name.setText(ciudad.Nombre);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,21 +69,21 @@ public class AutocompleteAdapter extends ArrayAdapter<Departamento> {
         return new Filter() {
             @Override
             public String convertResultToString(Object resultValue) {
-                return ((Departamento) resultValue).Nombre;
+                return ((Ciudad) resultValue).Nombre;
             }
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 if (constraint != null) {
-                    mDepartments_Suggestion.clear();
-                    for (Departamento department : mDepartments_All) {
-                        if (department.Nombre.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
-                            mDepartments_Suggestion.add(department);
+                    mCiudad_Suggestion.clear();
+                    for (Ciudad ciudad : mCiudad_All) {
+                        if (ciudad.Nombre.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                            mCiudad_Suggestion.add(ciudad);
                         }
                     }
                     FilterResults filterResults = new FilterResults();
-                    filterResults.values = mDepartments_Suggestion;
-                    filterResults.count = mDepartments_Suggestion.size();
+                    filterResults.values = mCiudad_Suggestion;
+                    filterResults.count = mCiudad_Suggestion.size();
                     return filterResults;
                 } else {
                     return new FilterResults();
@@ -95,23 +92,20 @@ public class AutocompleteAdapter extends ArrayAdapter<Departamento> {
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mDepartments.clear();
+                mCiudad.clear();
                 if (results != null && results.count > 0) {
-                    // avoids unchecked cast warning when using mDepartments.addAll((ArrayList<Department>) results.values);
                     List<?> result = (List<?>) results.values;
                     for (Object object : result) {
-                        if (object instanceof Departamento) {
-                            mDepartments.add((Departamento) object);
+                        if (object instanceof Ciudad) {
+                            mCiudad.add((Ciudad) object);
                         }
                     }
                 } else if (constraint == null) {
                     // no filter, add entire original list back in
-                    mDepartments.addAll(mDepartments_All);
+                    mCiudad.addAll(mCiudad_All);
                 }
                 notifyDataSetChanged();
             }
         };
     }
 }
-
-
