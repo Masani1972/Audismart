@@ -11,23 +11,26 @@
     tools:context="com.aosas.audismart.activitys.HomeActivity">
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="@string/boton_registro"
         android:id="@+id/button_Registro"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:onClick="click"/>
+        android:background="@drawable/button_rosa"
+        android:textColor="@color/textbotones"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="@string/boton_ingresar"
         android:id="@+id/button_Ingresar"
         android:layout_below="@+id/button_Registro"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:onClick="click"/>
+        android:background="@drawable/button_azul"
+        android:textColor="@color/textbotones"
+        />
 
     <Button
         android:layout_width="wrap_content"
@@ -44,7 +47,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton_ayuda"
+        android:src="@drawable/button_help"
+        android:layout_below="@+id/button_Contrasena"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_footer"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:src="@android:drawable/ic_menu_help" />
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/footer"/>
+
 </RelativeLayout>

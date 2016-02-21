@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.adapters.AlertDialogCustom;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Login;
@@ -51,7 +52,7 @@ public class IngresoActivity extends AppCompatActivity implements BaseActivity{
         setContentView(R.layout.activity_ingreso);
         ButterKnife.inject(this);
 
-        button_Contrasena.setPaintFlags(button_Contrasena.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //button_Contrasena.setPaintFlags(button_Contrasena.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @OnClick(R.id.button_Ingresar)
@@ -61,7 +62,7 @@ public class IngresoActivity extends AppCompatActivity implements BaseActivity{
 
     @OnClick(R.id.button_Contrasena)
     public void solicitar_Contraseña(View view) {
-        solicitar_Contraseña();
+        recuperar_Contraseña();
     }
 
     @OnCheckedChanged(R.id.checkBox_Sesion)
@@ -101,8 +102,9 @@ public class IngresoActivity extends AppCompatActivity implements BaseActivity{
 Permite solicitar de nuevo la contraseña,
 olvidada por el usuario
  */
-    private void solicitar_Contraseña() {
-        util.solicitar_Contraseña();
+    private void recuperar_Contraseña() {
+        AlertDialogCustom alertDialog = new AlertDialogCustom(this);
+        alertDialog.initAlert("Email", "Ingrese Email");
     }
 
     @Override

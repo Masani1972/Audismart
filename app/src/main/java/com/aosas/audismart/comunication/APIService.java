@@ -25,4 +25,8 @@ public interface APIService {
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> createCompany(@Field("id_cliente") String id_cliente, @Field("nombre") String nombre, @Field("id_departamento") String id_departamento, @Field("id_ciudad") String id_ciudad,@Field("tipo_documento") String tipo_documento, @Field("documento") String documento, @Field("ingresos") String ingresos , @Field("categoria") String categoria, @Field("impuesto_consumo") String impuesto_consumo,@Field("impuesto_riqueza") String impuesto_riqueza,@Field("ACCION") String ACCION);
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> forgotPassword(@Field("email") String email, @Field("ACCION") String ACCION);
 }

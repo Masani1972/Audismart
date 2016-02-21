@@ -10,27 +10,42 @@
     android:background="@android:color/white"
     tools:context="com.aosas.audismart.activitys.IngresoActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usuario"
+        android:id="@+id/textView_Usuario"
+            android:layout_marginTop="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editText_Usuario" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
+        android:layout_below="@+id/textView_Usuario"
         android:id="@+id/editText_Usuario"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:hint="@string/usuario"/>
+  />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contrasena"
+        android:id="@+id/textView_Contrasena"
+        android:layout_below="@+id/editText_Usuario"
+        android:layout_alignStart="@+id/editText_Contrasena" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText_Contrasena"
-        android:layout_below="@+id/editText_Usuario"
+        android:layout_below="@+id/textView_Contrasena"
         android:layout_centerHorizontal="true"
-        android:hint="@string/contrasena"
-        android:layout_marginTop="10dp"/>
+        />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -38,17 +53,19 @@
         android:text="@string/sesion"
         android:id="@+id/checkBox_Sesion"
         android:layout_below="@+id/editText_Contrasena"
-        android:layout_marginTop="10dp"/>
+        android:layout_alignStart="@+id/editText_Contrasena"
+/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="@string/boton_ingresar"
         android:id="@+id/button_Ingresar"
         android:layout_below="@+id/checkBox_Sesion"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:onClick="click"/>
+        android:textColor="@color/textbotones"
+        android:background="@drawable/button_rosa"
+        />
 
     <Button
         android:layout_width="wrap_content"
@@ -57,7 +74,27 @@
         android:id="@+id/button_Contrasena"
         android:background="@android:color/transparent"
         android:layout_below="@+id/button_Ingresar"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:onClick="click"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton_ayuda"
+        android:src="@drawable/button_help"
+        android:layout_below="@+id/button_Contrasena"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_footer"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/footer"/>
+
 </RelativeLayout>

@@ -28,16 +28,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:text="@string/titulo"
+                android:textColor="@color/texttitulos"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/textView_subtitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/textView_titulo"
-                android:layout_alignParentEnd="true"
-                android:text="@string/subtitulo"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <View
                 android:id="@+id/separator"
@@ -45,88 +37,137 @@
                 android:layout_height="1dip"
                 android:layout_below="@+id/textView_titulo"
                 android:layout_centerVertical="true"
-                android:background="#000"
+                android:background="@color/texttitulos"
                 />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/layout_Form"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:layout_below="@+id/separator">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nombre"
+                    android:id="@+id/textView_Nombres"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true" />
 
 
             <EditText
                 android:id="@+id/editText_Nombres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="@string/nombre"
+                android:layout_below="@+id/textView_Nombres"
                 android:inputType="textPersonName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apellidos"
+                    android:id="@+id/textView_Apellidos"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/editText_Nombres"
+                    android:layout_alignParentLeft="true" />
 
             <EditText
                 android:id="@+id/editText_Apellidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_Nombres"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_below="@+id/textView_Apellidos"
                 android:ems="10"
-                android:hint="@string/apellidos"
                 android:inputType="textPersonName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:id="@+id/textView_Email"
+                    android:layout_below="@+id/editText_Apellidos"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true" />
 
             <EditText
                 android:id="@+id/editText_Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_Apellidos"
+                android:layout_below="@+id/textView_Email"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
                 android:ems="10"
-                android:hint="@string/email"
                 android:inputType="textEmailAddress" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/departamento"
+                    android:id="@+id/textView_Departamento"
+                    android:layout_below="@+id/editText_Email"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true" />
 
             <AutoCompleteTextView
                 android:id="@+id/editText_Departamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_Email"
+                android:layout_below="@+id/textView_Departamento"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
                 android:ems="10"
-                android:hint="@string/departamento" />
+                 />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ciudad"
+                    android:id="@+id/textView_Ciudad"
+                    android:layout_below="@+id/editText_Departamento"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true" />
 
             <AutoCompleteTextView
                 android:id="@+id/editText_Ciudad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_Departamento"
+                android:layout_below="@+id/textView_Ciudad"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="@string/ciudad" />
+                android:ems="10" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/telefono"
+                    android:id="@+id/textView_Telefono"
+                    android:layout_below="@+id/editText_Ciudad"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true" />
 
             <EditText
                 android:id="@+id/editText_Telefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_Ciudad"
+                android:layout_below="@+id/textView_Telefono"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
                 android:ems="10"
-                android:hint="@string/telefono"
                 android:inputType="phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contrasena"
+                    android:id="@+id/textView_Contrasena"
+                    android:layout_below="@+id/editText_Telefono"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true" />
 
             <EditText
                 android:id="@+id/editText_Contrasena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_Telefono"
+                android:layout_below="@+id/textView_Contrasena"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
                 android:ems="10"
-                android:hint="@string/contrasena"
                 android:inputType="textPassword" />
 
             </RelativeLayout>
@@ -141,13 +182,16 @@
 
             <Button
                 android:id="@+id/button_Continuar"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/checkBox_terminos"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:text="@string/boton_Paso2"
-               />
+                android:background="@drawable/button_rosa"
+                android:textColor="@color/textbotones"             />
+
+
         </RelativeLayout>
     </ScrollView>
 

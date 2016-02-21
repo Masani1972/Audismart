@@ -23,9 +23,7 @@ import java.util.List;
  */
 public class Util {
 
-    public void solicitar_Contraseña(){
 
-    }
 
     public static ArrayList jsontoArrayList(String json, Object object){
         if(object instanceof  Departamento){

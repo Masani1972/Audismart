@@ -21,9 +21,10 @@
     <!--Actyvity Ingreso -->
     <string name="usuario">Email</string>
     <string name="contrasena">Contraseña</string>
-    <string name="sesion">No cerrar Sesión</string>
+    <string name="sesion">No cerrar sesión</string>
 
     <!--Registro Uno -->
+    <string name="name_Activity">Registro</string>
     <string name="titulo">1. Datos Personales</string>
     <string name="subtitulo">Paso 1 de X</string>
     <string name="nombre">Nombres</string>
@@ -33,7 +34,7 @@
     <string name="ciudad">Ciudad</string>
     <string name="telefono">Teléfono / Celular</string>
     <string name="terminos">Acepto Términos y coniciones/Política de uso de datos</string>
-    <string name="boton_Paso2">Siguiente Paso: Agregar Empresa</string>
+    <string name="boton_Paso2">Siguiente</string>
 
     <!--Registro Dos-->
     <string name="titulo_pasodos">2. Registrar Empresa</string>

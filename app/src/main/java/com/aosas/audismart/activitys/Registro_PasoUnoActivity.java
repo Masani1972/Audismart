@@ -2,7 +2,10 @@ package com.aosas.audismart.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -76,6 +79,14 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_pasouno);
         ButterKnife.inject(this);
+
+        /*
+        Permite adicionar un icono al action bar
+         */
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.ic_launcher);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         /*listener  autocomplete no soportado por ButterKnife*/
         editText_Departamento.setThreshold(1);
@@ -160,7 +171,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
     private void validar_formulario() {
         int editTextOk = 0;
         int childcount = layout_Form.getChildCount();
-        for (int i = 0; i < childcount; i++) {
+        for (int i = 1; i < childcount; i=i+2) {
             View v = layout_Form.getChildAt(i);
             EditText tv = (EditText) v;
             if ((tv != null && tv.getText().toString().length() > 0))
@@ -169,7 +180,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
         }
 
         if(aceptaTerminos) {
-            if (editTextOk == childcount) {
+            if (editTextOk == childcount/2) {
                 if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
                 User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);
