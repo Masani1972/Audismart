@@ -26,15 +26,6 @@
                 android:text="@string/titulo_pasodos"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <TextView
-                android:id="@+id/textView_subtitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/textView_titulo"
-                android:layout_alignParentEnd="true"
-                android:text="@string/subtitulo_pasodos"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
             <View
                 android:id="@+id/separator"
                 android:layout_width="fill_parent"
@@ -49,79 +40,116 @@
                 android:id="@+id/layout_Form"
                 android:layout_below="@+id/separator">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nombre_empresa"
+                    android:id="@+id/textView_Nombre_Empresa"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true" />
+
             <EditText
                 android:id="@+id/editText_Nombre_Empresa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="@string/nombre_empresa"
+                android:layout_below="@+id/textView_Nombre_Empresa"
                 />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/departamento"
+                    android:id="@+id/textView_Departamento_Empresa"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_Nombre_Empresa"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/editText_Departamento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/editText_Nombre_Empresa"
-                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/textView_Departamento_Empresa"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ciudad"
+                    android:id="@+id/textView_Ciudad_Empresa"
                     android:layout_marginTop="10dp"
-                    android:ems="10"
-                    android:hint="@string/departamento" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_Departamento"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/editText_Ciudad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/editText_Departamento"
-                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/textView_Ciudad_Empresa"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_documento"
+                    android:id="@+id/textView_Tipo_Doc"
                     android:layout_marginTop="10dp"
-                    android:ems="10"
-                    android:hint="@string/ciudad" />
-
-
-
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_Ciudad"/>
 
             <AutoCompleteTextView
                 android:id="@+id/editText_TipoDocumento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_Ciudad"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="@string/tipo_documento" />
+                android:layout_below="@+id/textView_Tipo_Doc"
+         />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/num_documento"
+                    android:id="@+id/textView_Documento_Empresa"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_TipoDocumento"/>
 
             <EditText
                 android:id="@+id/editText_NumDocumento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_TipoDocumento"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:ems="10"
+                android:layout_below="@+id/textView_Documento_Empresa"
                 android:inputType="number"
-                android:hint="@string/num_documento" />
+                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ingresos"
+                    android:id="@+id/textView_Ingresos"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_NumDocumento"/>
 
             <EditText
                 android:id="@+id/editText_Ingresos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_NumDocumento"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="@string/ingresos" />
+                android:layout_below="@+id/textView_Ingresos"
+                android:inputType="number"
+          />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/regimen"
+                    android:id="@+id/textView_Regimen"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_Ingresos"/>
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/editText_Ingresos"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:ems="10"
-                    android:id="@+id/editText_Regimen"
-                    android:hint="@string/regimen" />
+                    android:layout_below="@+id/textView_Regimen"
+                    android:id="@+id/editText_Regimen" />
 
 
 
@@ -210,13 +238,14 @@
 
             <Button
                 android:id="@+id/button_Finalizar"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_Tip"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:text="@string/boton_finalizar"
-                android:onClick="click"/>
+                android:background="@drawable/button_rosa"
+                android:textColor="@color/textbotones"/>
 
 
 

@@ -2,6 +2,7 @@ package com.aosas.audismart.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -79,6 +80,15 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_pasodos);
         ButterKnife.inject(this);
+
+           /*
+        Permite adicionar un icono al action bar
+         */
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.ic_launcher);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setSubtitle(getResources().getString(R.string.subtitulo_pasodos));
 
           /*listener  autocomplete no soportado por ButterKnife*/
         editText_Departamento.setThreshold(1);
@@ -245,7 +255,7 @@ Carga la lista de documentos al repositorio local
     private void validar_formulario() {
         int editTextOk = 0;
         int childcount = layout_Form.getChildCount();
-        for (int i = 0; i < childcount; i++) {
+        for (int i = 1; i < childcount; i=i+2) {
             View v = layout_Form.getChildAt(i);
             EditText tv = (EditText) v;
             if ((tv != null && tv.getText().toString().length() > 0))
@@ -253,7 +263,7 @@ Carga la lista de documentos al repositorio local
             continue;
         }
 
-         if (editTextOk == childcount&impuestoConsumo!=null&impuestoRiqueza!=null) {
+         if (editTextOk == childcount/2 & impuestoConsumo!=null & impuestoRiqueza!=null) {
              if (Preferences.getClient(this).length() > 0) {
                  Empresa empresa = new Empresa(Preferences.getClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, Constantes.REGISTRO_EMPRESA);
                  IRepository repository = new Repository();

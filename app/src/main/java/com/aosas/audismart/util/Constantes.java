@@ -24,5 +24,10 @@ public  class Constantes {
     public static final String SESION="sesion";
     public static final String IDCLIENT="idClient";
 
+    /***
+     * GCM preferences
+     */
+    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
 
 }

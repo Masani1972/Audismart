@@ -3,9 +3,7 @@ package com.aosas.audismart.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -87,6 +85,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
         actionBar.setLogo(R.mipmap.ic_launcher);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setSubtitle(getResources().getString(R.string.subtitulo));
 
         /*listener  autocomplete no soportado por ButterKnife*/
         editText_Departamento.setThreshold(1);

@@ -26,7 +26,7 @@
     <!--Registro Uno -->
     <string name="name_Activity">Registro</string>
     <string name="titulo">1. Datos Personales</string>
-    <string name="subtitulo">Paso 1 de X</string>
+    <string name="subtitulo">Paso 1 de 2</string>
     <string name="nombre">Nombres</string>
     <string name="apellidos">Apellidos</string>
     <string name="email">Correo Electrónico</string>
@@ -38,7 +38,7 @@
 
     <!--Registro Dos-->
     <string name="titulo_pasodos">2. Registrar Empresa</string>
-    <string name="subtitulo_pasodos">Paso 2 de X</string>
+    <string name="subtitulo_pasodos">Paso 2 de 2</string>
     <string name="nombre_empresa">Nombre de la empresa/Razón social</string>
     <string name="tipo_documento">Tipo de Documento</string>
     <string name="regimen">Regimen común o Gran contibuyente</string>

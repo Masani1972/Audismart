@@ -1,15 +1,23 @@
 package com.aosas.audismart.activitys;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.gcm.RegistrationIntentService;
+import com.aosas.audismart.repository.Preferences;
+import com.aosas.audismart.util.Constantes;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.JsonElement;
 
 import butterknife.ButterKnife;
@@ -17,6 +25,12 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity implements BaseActivity{
+
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private boolean isReceiverRegistered;
+    private static final String TAG="HomeActivity";
 
     @InjectView(R.id.button_Contrasena)
     Button button_Contrasena;
@@ -33,7 +47,10 @@ public class HomeActivity extends AppCompatActivity implements BaseActivity{
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
         //button_Contrasena.setPaintFlags(button_Contrasena.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        registrar_gcm();
     }
+
 
     @OnClick(R.id.button_Ingresar)
     public void ingresar(View view) {
@@ -52,6 +69,19 @@ public class HomeActivity extends AppCompatActivity implements BaseActivity{
         solicitar_Contrasena();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        isReceiverRegistered = false;
+        super.onPause();
+    }
+
 
     /*******************
      Presentador¡¡ Logica de la  vista
@@ -66,6 +96,53 @@ public class HomeActivity extends AppCompatActivity implements BaseActivity{
 
     }
 
+    public void registrar_gcm(){
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+              String token=  Preferences.getTokenGcm(HomeActivity.this);
+                Log.i(TAG,token );
+            }
+        };
+
+        // Registering BroadcastReceiver
+        registerReceiver();
+
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+    }
+
+    private void registerReceiver(){
+        if(!isReceiverRegistered) {
+            LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                    new IntentFilter(Constantes.REGISTRATION_COMPLETE));
+            isReceiverRegistered = true;
+        }
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void succes(String succes, JsonElement jsonElement) {
 
@@ -76,4 +153,6 @@ public class HomeActivity extends AppCompatActivity implements BaseActivity{
     public void error(String error) {
 
     }
+
+
 }
