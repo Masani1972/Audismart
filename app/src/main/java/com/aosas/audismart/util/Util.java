@@ -1,5 +1,7 @@
 package com.aosas.audismart.util;
 
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.aosas.audismart.model.Categoria;
@@ -24,38 +26,44 @@ import java.util.List;
 public class Util {
 
 
-
-    public static ArrayList jsontoArrayList(String json, Object object){
-        if(object instanceof  Departamento){
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<Departamento>>(){}.getType();
+    /*
+    Convierte json en Arrays
+     */
+    public static ArrayList jsontoArrayList(String json, Object object) {
+        if (object instanceof Departamento) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Departamento>>() {
+            }.getType();
             ArrayList<Departamento> departamentos = gson.fromJson(json, type);
 
             return departamentos;
-        }
-        else if(object instanceof Ciudad){
+        } else if (object instanceof Ciudad) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<Ciudad>>(){}.getType();
+            Type type = new TypeToken<List<Ciudad>>() {
+            }.getType();
             ArrayList<Ciudad> ciudades = gson.fromJson(json, type);
             return ciudades;
-        }
-        else if(object instanceof Categoria){
+        } else if (object instanceof Categoria) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<Categoria>>(){}.getType();
+            Type type = new TypeToken<List<Categoria>>() {
+            }.getType();
             ArrayList<Categoria> categorias = gson.fromJson(json, type);
 
             return categorias;
-        }
-        else if(object instanceof DocumentoIdentidad){
+        } else if (object instanceof DocumentoIdentidad) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<DocumentoIdentidad>>(){}.getType();
+            Type type = new TypeToken<List<DocumentoIdentidad>>() {
+            }.getType();
             ArrayList<DocumentoIdentidad> documentos = gson.fromJson(json, type);
             return documentos;
         }
-return  null;
+        return null;
     }
 
-    public static String textToMD5 (String text){
+    /*
+    Se obtiene un ND5 a partir de un texto
+     */
+    public static String textToMD5(String text) {
         try {
             // Create MD5 Hash
             MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
@@ -64,7 +72,7 @@ return  null;
 
             // Create Hex String
             StringBuffer hexString = new StringBuffer();
-            for (int i=0; i<messageDigest.length; i++)
+            for (int i = 0; i < messageDigest.length; i++)
                 hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
             return hexString.toString();
 
@@ -74,4 +82,33 @@ return  null;
         return "";
     }
 
+    /** Returns the consumer friendly device name */
+    public static String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        }
+        return capitalize(manufacturer) + " " + model;
+    }
+
+    private static String capitalize(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return str;
+        }
+        char[] arr = str.toCharArray();
+        boolean capitalizeNext = true;
+        String phrase = "";
+        for (char c : arr) {
+            if (capitalizeNext && Character.isLetter(c)) {
+                phrase += Character.toUpperCase(c);
+                capitalizeNext = false;
+                continue;
+            } else if (Character.isWhitespace(c)) {
+                capitalizeNext = true;
+            }
+            phrase += c;
+        }
+        return phrase;
+    }
 }

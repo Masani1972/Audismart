@@ -27,6 +27,7 @@ import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
 import com.aosas.audismart.model.DocumentoIdentidad;
 import com.aosas.audismart.model.Empresa;
+import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
@@ -47,6 +48,7 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
     private String impuestoRiqueza = null;
     private String idCategoria = null;
     private String idDocumento = null;
+    private IRepository repository = new Repository();
 
     @InjectView(R.id.layout_Form)
     RelativeLayout layout_Form;
@@ -123,6 +125,8 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
             }
         });
 
+        editText_TipoDocumento.setFocusable(false);
+        editText_TipoDocumento.setClickable(true);
          /*listener  autocomplete no soportado por ButterKnife*/
         editText_TipoDocumento.setThreshold(1);
         editText_TipoDocumento.setOnTouchListener(new View.OnTouchListener() {
@@ -266,8 +270,8 @@ Carga la lista de documentos al repositorio local
          if (editTextOk == childcount/2 & impuestoConsumo!=null & impuestoRiqueza!=null) {
              if (Preferences.getClient(this).length() > 0) {
                  Empresa empresa = new Empresa(Preferences.getClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, Constantes.REGISTRO_EMPRESA);
-                 IRepository repository = new Repository();
-                 repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA_API);
+                 repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
+
              } else {
                  Toast.makeText(Registro_PasoDosActivity.this, R.string.errorPreferencias, Toast.LENGTH_LONG).show();
              }
@@ -279,11 +283,20 @@ Carga la lista de documentos al repositorio local
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
-        String idEmpresa=jsonElement.getAsString();
+
+        if(succes.equals("Se ha ingresado la empresa con exito")){
+            String idEmpresa=jsonElement.getAsString();
+        GCM gcm = new GCM(Preferences.getClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
+        repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);}
+        else{
+            String idDispositivo=jsonElement.getAsString();
         Toast.makeText(Registro_PasoDosActivity.this, succes,Toast.LENGTH_SHORT).show();
         Intent intent_menu = new Intent(Registro_PasoDosActivity.this, MenuActivity.class);
-        startActivity(intent_menu);
+        startActivity(intent_menu);}
     }
+
+
+
 
     @Override
     public void error(String error) {

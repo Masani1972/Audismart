@@ -184,7 +184,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
                 User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);
                 IRepository repository = new Repository();
-                repository.createRequets(this, user, Constantes.REGISTRO_USUARIO_API);
+                repository.createRequets(this, user, Constantes.REGISTRO_USUARIO);
 
             } else {
                 Toast.makeText(Registro_PasoUnoActivity.this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();

@@ -11,11 +11,9 @@ public  class Constantes {
     /*Metodos Servicios Web
     */
     public static final String REGISTRO_USUARIO = "REGISTRO CLIENTE";
-    public static final String REGISTRO_USUARIO_API= "createUser";
     public static final String LOGIN = "LOGIN";
-    public static final String LOGIN_API = "loginUser";
     public static final String REGISTRO_EMPRESA="REGISTRO EMPRESA";
-    public static final String REGISTRO_EMPRESA_API="REGISTRO EMPRESA";
+    public static final String REGISTRO_DISPOSITIVO="REGISTRO DISPOSITIVO";
 
 
     /*
@@ -29,5 +27,10 @@ public  class Constantes {
      */
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
+
+    /**
+     * Sistema operativo
+     */
+    public static final String SO = "Android";
 
 }

@@ -29,4 +29,10 @@ public interface APIService {
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> forgotPassword(@Field("email") String email, @Field("ACCION") String ACCION);
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> registerDevice(@Field("id_cliente") String id_cliente, @Field("so") String so,@Field("dispositivo") String dispositivo,@Field("identificador") String identificador,@Field("ACCION") String ACCION);
+
+
 }

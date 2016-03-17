@@ -26,21 +26,27 @@ public class Repository implements IRepository {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         String errorCodigo = (jsonObject.get("error")).getAsString();
         switch (metodo){
-        case Constantes.REGISTRO_USUARIO_API:
+        case Constantes.REGISTRO_USUARIO:
             if(errorCodigo.equals("0"))
                 ((Registro_PasoUnoActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_cliente")));
             else
                 ((Registro_PasoUnoActivity) activity).error((jsonObject.get("message")).getAsString());
         break;
-            case Constantes.LOGIN_API:
+            case Constantes.LOGIN:
                 if(errorCodigo.equals("0"))
                     ((IngresoActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("datos")));
                 else
                     ((IngresoActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
-            case Constantes.REGISTRO_EMPRESA_API:
+            case Constantes.REGISTRO_EMPRESA:
                 if(errorCodigo.equals("0"))
                     ((Registro_PasoDosActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_empresa")));
+                else
+                    ((Registro_PasoDosActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.REGISTRO_DISPOSITIVO:
+                if(errorCodigo.equals("0"))
+                    ((Registro_PasoDosActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_dispositivo")));
                 else
                     ((Registro_PasoDosActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;

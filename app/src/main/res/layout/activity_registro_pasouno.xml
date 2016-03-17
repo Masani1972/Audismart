@@ -111,6 +111,7 @@
             <AutoCompleteTextView
                 android:id="@+id/editText_Departamento"
                 android:layout_width="match_parent"
+                android:focusableInTouchMode="false"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_Departamento"
                 android:layout_centerHorizontal="true"
