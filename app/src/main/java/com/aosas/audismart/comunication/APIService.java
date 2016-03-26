@@ -34,5 +34,8 @@ public interface APIService {
     @POST("WS.php")
     Call<ResponseBody> registerDevice(@Field("id_cliente") String id_cliente, @Field("so") String so,@Field("dispositivo") String dispositivo,@Field("identificador") String identificador,@Field("ACCION") String ACCION);
 
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> consultDateClient(@Field("id_cliente") String id_cliente, @Field("id_calendario ") String id_calendario ,@Field("id_empresa") String id_empresa,@Field("ACCION") String ACCION);
 
 }

@@ -2,8 +2,7 @@ package com.aosas.audismart.util;
 
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
-
+import java.security.MessageDigest;
 import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
@@ -11,11 +10,7 @@ import com.aosas.audismart.model.DocumentoIdentidad;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,22 +59,21 @@ public class Util {
     Se obtiene un ND5 a partir de un texto
      */
     public static String textToMD5(String text) {
+        String original = text;
+        MessageDigest md = null;
         try {
-            // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            digest.update(text.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++)
-                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-            return hexString.toString();
-
+            md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return "";
+        md.update(original.getBytes());
+        byte[] digest = md.digest();
+        StringBuffer sb = new StringBuffer();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b & 0xff));
+        }
+
+        return  sb.toString();
     }
 
     /** Returns the consumer friendly device name */

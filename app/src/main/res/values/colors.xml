@@ -5,4 +5,8 @@
     <color name="colorAccent">#f0565c</color>
     <color name="textbotones">#e1e1e1</color>
     <color name="texttitulos">#666666</color>
+    <color name="texttickets">#ff7835</color>
+    <color name="textperfil">#427e4f</color>
+    <color name="blanco">#ffffff</color>
+    <color name="textnegro">#323232</color>
 </resources>

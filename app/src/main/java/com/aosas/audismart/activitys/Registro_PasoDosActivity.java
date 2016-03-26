@@ -11,9 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
@@ -39,6 +37,8 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+import static android.widget.Toast.*;
 
 
 public class Registro_PasoDosActivity extends AppCompatActivity implements BaseActivity {
@@ -247,7 +247,7 @@ Carga la lista de documentos al repositorio local
                 }
             });
         }else{
-            Toast.makeText(Registro_PasoDosActivity.this, R.string.campoDepartamentoIvalido,Toast.LENGTH_LONG).show();
+            makeText(Registro_PasoDosActivity.this, R.string.campoDepartamentoIvalido, LENGTH_LONG).show();
         }
 
     }
@@ -273,10 +273,10 @@ Carga la lista de documentos al repositorio local
                  repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
 
              } else {
-                 Toast.makeText(Registro_PasoDosActivity.this, R.string.errorPreferencias, Toast.LENGTH_LONG).show();
+                 makeText(Registro_PasoDosActivity.this, R.string.errorPreferencias, LENGTH_LONG).show();
              }
          } else {
-             Toast.makeText(Registro_PasoDosActivity.this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();
+             makeText(Registro_PasoDosActivity.this, R.string.formularioIncompleto, LENGTH_LONG).show();
          }
     }
 
@@ -286,12 +286,14 @@ Carga la lista de documentos al repositorio local
 
         if(succes.equals("Se ha ingresado la empresa con exito")){
             String idEmpresa=jsonElement.getAsString();
-        GCM gcm = new GCM(Preferences.getClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
-        repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);}
+            GCM gcm = new GCM(Preferences.getClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
+            Preferences.setIdCompany(this,idEmpresa);
+            repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);
+        }
         else{
             String idDispositivo=jsonElement.getAsString();
-        Toast.makeText(Registro_PasoDosActivity.this, succes,Toast.LENGTH_SHORT).show();
-        Intent intent_menu = new Intent(Registro_PasoDosActivity.this, MenuActivity.class);
+        makeText(Registro_PasoDosActivity.this, succes, LENGTH_SHORT).show();
+        Intent intent_menu = new Intent(Registro_PasoDosActivity.this, MenuPrincipalActivity.class);
         startActivity(intent_menu);}
     }
 
@@ -300,6 +302,6 @@ Carga la lista de documentos al repositorio local
 
     @Override
     public void error(String error) {
-        Toast.makeText(Registro_PasoDosActivity.this, error,Toast.LENGTH_LONG).show();
+        makeText(Registro_PasoDosActivity.this, error, LENGTH_LONG).show();
     }
 }

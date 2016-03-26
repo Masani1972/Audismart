@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.model.Empresa;
+import com.aosas.audismart.model.FechaCliente;
 import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Login;
 import com.aosas.audismart.model.User;
@@ -68,7 +69,11 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 break;
             case Constantes.REGISTRO_DISPOSITIVO:
                 GCM gcm = (GCM) object;
-                call = taskService.registerDevice(gcm.id_cliente, gcm.so,gcm.dispositivo,gcm.identificador,gcm.ACCION);
+                call = taskService.registerDevice(gcm.id_cliente, gcm.so, gcm.dispositivo, gcm.identificador, gcm.ACCION);
+                break;
+            case Constantes.CONSULTA_FECHASCLIENTE:
+                FechaCliente fechaCliente = (FechaCliente) object;
+                call = taskService.consultDateClient(fechaCliente.idCliente, fechaCliente.idCalendario, fechaCliente.idEmpresa,fechaCliente.ACCION);
                 break;
             case "":
                call = null;

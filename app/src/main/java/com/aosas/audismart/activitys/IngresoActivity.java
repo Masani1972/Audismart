@@ -1,7 +1,6 @@
 package com.aosas.audismart.activitys;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.aosas.audismart.model.Login;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -113,7 +111,7 @@ olvidada por el usuario
         if(sesion)
             Preferences.setSession(IngresoActivity.this,sesion);
           Toast.makeText(IngresoActivity.this, succes, Toast.LENGTH_SHORT).show();
-        Intent intentMenu = new Intent(IngresoActivity.this,MenuActivity.class);
+        Intent intentMenu = new Intent(IngresoActivity.this,MenuPrincipalActivity.class);
         startActivity(intentMenu);
     }
 

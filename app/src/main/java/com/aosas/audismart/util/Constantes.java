@@ -14,6 +14,7 @@ public  class Constantes {
     public static final String LOGIN = "LOGIN";
     public static final String REGISTRO_EMPRESA="REGISTRO EMPRESA";
     public static final String REGISTRO_DISPOSITIVO="REGISTRO DISPOSITIVO";
+    public static final String CONSULTA_FECHASCLIENTE="FECHAS CLIENTE";
 
 
     /*
@@ -21,6 +22,7 @@ public  class Constantes {
      */
     public static final String SESION="sesion";
     public static final String IDCLIENT="idClient";
+    public static final String IDCOMPANY="idCompany";
 
     /***
      * GCM preferences
