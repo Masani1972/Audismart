@@ -109,7 +109,9 @@ olvidada por el usuario
     public void succes(String succes, JsonElement jsonElement) {
         JsonObject jsonObject = (JsonObject)jsonElement;
         if(sesion)
-            Preferences.setSession(IngresoActivity.this,sesion);
+            Preferences.setSession(IngresoActivity.this, sesion);
+        String idUser = jsonObject.get("id_cliente").toString().replaceAll("\"", "");
+        Preferences.setIdClient(this, idUser);
           Toast.makeText(IngresoActivity.this, succes, Toast.LENGTH_SHORT).show();
         Intent intentMenu = new Intent(IngresoActivity.this,MenuPrincipalActivity.class);
         startActivity(intentMenu);

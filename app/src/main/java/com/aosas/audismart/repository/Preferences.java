@@ -80,6 +80,6 @@ public class Preferences {
 
     public static String getIdCompany(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
-        return sharedPref.getString(Constantes.IDCOMPANY, "");
+        return sharedPref.getString(Constantes.IDCOMPANY, "0");
     }
 }

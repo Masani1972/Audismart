@@ -112,7 +112,8 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
     }
 
     @OnCheckedChanged(R.id.checkBox_terminos)
-    public void checkBox_terminos(boolean value){
+    public void checkBox_terminos(boolean value)
+    {
         aceptaTerminos = value;
     }
 

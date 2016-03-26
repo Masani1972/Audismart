@@ -127,6 +127,7 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
 
         editText_TipoDocumento.setFocusable(false);
         editText_TipoDocumento.setClickable(true);
+
          /*listener  autocomplete no soportado por ButterKnife*/
         editText_TipoDocumento.setThreshold(1);
         editText_TipoDocumento.setOnTouchListener(new View.OnTouchListener() {

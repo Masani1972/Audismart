@@ -41,12 +41,6 @@ public class MenuPrincipalActivity extends Activity {
         expListView.setAdapter(listAdapter);
 
 
-
-        /*
-
-         */
-
-
         // Listview Group click listener
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
