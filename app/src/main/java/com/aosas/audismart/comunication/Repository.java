@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.aosas.audismart.activitys.IngresoActivity;
+import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.Registro_PasoDosActivity;
 import com.aosas.audismart.activitys.Registro_PasoUnoActivity;
 import com.aosas.audismart.util.Constantes;
 import com.google.gson.*;
+
+import org.json.JSONArray;
 
 /**
  * Created by Lmartinez on 08/01/2016.
@@ -49,6 +52,12 @@ public class Repository implements IRepository {
                     ((Registro_PasoDosActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_dispositivo")));
                 else
                     ((Registro_PasoDosActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.CONSULTA_FECHASCLIENTE:
+                if(errorCodigo.equals("0"))
+                    ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("datos")).getAsJsonArray());
+                else
+                    ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
         }
     }
