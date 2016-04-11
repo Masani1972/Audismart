@@ -3,7 +3,14 @@ package com.aosas.audismart.repository;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.util.Constantes;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Lmartinez on 21/01/2016.
@@ -81,5 +88,28 @@ public class Preferences {
     public static String getIdCompany(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         return sharedPref.getString(Constantes.IDCOMPANY, "0");
+    }
+
+    /*
+    Almacenamiento notificaciones vencidas
+     */
+    public static void setNotificaciones(Context context, ArrayList<Notificacion> notificaciones ) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+        if(notificaciones != null){
+        Gson gson = new Gson();
+        String json = gson.toJson(notificaciones);
+            editor.putString(Constantes.NOTIFICACIONES, json);}
+        else
+            editor.remove(Constantes.NOTIFICACIONES);
+        editor.commit();
+    }
+
+    public static ArrayList<Notificacion> getNotificaciones(Context context) {
+        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Constantes.NOTIFICACIONES, "0");
+        Type type = new TypeToken<List<String>>() {}.getType();
+        ArrayList<Notificacion> notificaciones = gson.fromJson(json, type);
+        return notificaciones;
     }
 }

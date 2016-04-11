@@ -10,6 +10,15 @@
     android:background="@android:color/white"
     tools:context="com.aosas.audismart.activitys.IngresoActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewLogo"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        android:layout_marginTop="30dp"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,5 +105,7 @@
         android:layout_marginBottom="5dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/footer"/>
+
+
 
 </RelativeLayout>

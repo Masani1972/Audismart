@@ -16,6 +16,7 @@ import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.FechaCliente;
+import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 
@@ -30,9 +31,9 @@ public class ParentLevel extends BaseExpandableListAdapter
     private Context context;
     private List<String> _listDataHeader;
     private List<String> _listDataHeaderSecondLevel;
-    private HashMap<String, List<String>> _listDataChild;
+    private HashMap<String, List<Notificacion>> _listDataChild;
 
-    public ParentLevel(Context context,List<String> listDataHeader,HashMap<String, List<String>> listChildData,List<String> listDataHeaderSecondLevel){
+    public ParentLevel(Context context,List<String> listDataHeader,HashMap<String, List<Notificacion>> listChildData,List<String> listDataHeaderSecondLevel){
         this.context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;

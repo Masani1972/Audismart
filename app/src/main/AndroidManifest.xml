@@ -5,35 +5,40 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="com.aosas.audismart.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="com.aosas.audismart.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.aosas.audismart.permission.C2D_MESSAGE" />
 
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <!-- Notificaciones push-->
+
+        <!-- Notificaciones push -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.example.gcm" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="gcm.MyGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
             android:name=".gcm.RegistrationIntentService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
         <service
             android:name="gcm.MyInstanceIDListenerService"
             android:exported="false">
@@ -41,6 +46,7 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".activitys.SplashActivity"
             android:label="@string/app_name"
@@ -55,27 +61,32 @@
         <activity
             android:name=".activitys.IngresoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activitys.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activitys.Registro_PasoUnoActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/name_Activity" />
+            android:label="@string/name_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.Registro_PasoDosActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.MenuPrincipalActivity"
-            android:label="@string/title_activity_menu"
-             />
+            android:label="@string/title_activity_menu" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name=".activitys.NotificacionesActivity"
+            android:label="@string/title_activity_notificaciones"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

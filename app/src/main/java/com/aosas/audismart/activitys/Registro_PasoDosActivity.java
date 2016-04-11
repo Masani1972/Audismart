@@ -87,7 +87,7 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
         Permite adicionar un icono al action bar
          */
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setLogo(R.mipmap.ic_launcher);
+        actionBar.setLogo(R.drawable.logoapp);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setSubtitle(getResources().getString(R.string.subtitulo_pasodos));

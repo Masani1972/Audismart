@@ -12,8 +12,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by lmartinez on 14/12/2015.
@@ -104,5 +109,16 @@ public class Util {
             phrase += c;
         }
         return phrase;
+    }
+
+    public static Date stringToDate(String fecha){
+        SimpleDateFormat formatter = new SimpleDateFormat(Constantes.FORMATOFECHANOTIDICACIONJSON, Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT-5:00"));
+        try {
+            Date date = (Date)formatter.parse(fecha);
+            return date;
+        } catch (ParseException e) {
+         return null;
+        }
     }
 }

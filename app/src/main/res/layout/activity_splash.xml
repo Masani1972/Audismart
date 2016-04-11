@@ -12,5 +12,5 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo_splash"/>
 </RelativeLayout>

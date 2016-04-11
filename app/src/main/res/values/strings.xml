@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Audismart</string>
+    <string name="app_name">AOsmart</string>
     <string name="action_settings">Settings</string>
 
     <!--Excepciones y mensajes generales-->
@@ -55,6 +55,7 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_another">AnotherActivity</string>
+    <string name="title_activity_notificaciones">Notificaciones</string>
 
 
 </resources>
