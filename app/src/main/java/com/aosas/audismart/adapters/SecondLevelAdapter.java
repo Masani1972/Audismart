@@ -1,5 +1,6 @@
 package com.aosas.audismart.adapters;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,14 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.repository.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +36,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
     Context context;
     private List<String> _listDataHeaderSecondLevel;
     private HashMap<String, List<Notificacion>> _listDataChild;
-    private TextView fecha, descripcion ,nombreEmpresa;
+    private TextView fechaDia,fechaMes,fechaYear, descripcion ,nombreEmpresa,lblListId;
     private Notificacion notificacion;
 
     public SecondLevelAdapter (Context context,List<String> listDataHeaderSecondLevel,HashMap<String, List<Notificacion>> listChildData){
@@ -59,31 +63,63 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
                              boolean isLastChild, View convertView, ViewGroup parent)
     {
 
-         notificacion = (Notificacion)getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item, null);
+
+            notificacion = (Notificacion)getChild(groupPosition, childPosition);
+
+            fechaDia = (TextView) convertView.findViewById(R.id.lblListItemFechaDia);
+            fechaMes = (TextView) convertView.findViewById(R.id.lblListItemFechaMes);
+            fechaYear = (TextView) convertView.findViewById(R.id.lblListItemFechaYear);
+            descripcion = (TextView) convertView.findViewById(R.id.lblListItemDescripcion);
+            nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
+            lblListId = (TextView) convertView.findViewById(R.id.lblListId);
+
+            fechaDia.setText(notificacion.fecha.substring(8, 10));
+            fechaMes.setText(notificacion.fecha.substring(5, 7));
+            fechaYear.setText(notificacion.fecha.substring(0, 4));
+            descripcion.setText(notificacion.nombre);
+            nombreEmpresa.setText(notificacion.nombreEmpresa);
+            lblListId.setText(notificacion.id);
+
+            ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
+            editar.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+
+                    View parent = (View)v.getParent();
+                    if(parent!=null){
+                        TextView txtView = (TextView) parent.findViewById(R.id.lblListId);
+                        ArrayList<Notificacion> notificaciones = Preferences.getNotificaciones(context);
+                        for(int index =0;index<notificaciones.size();index++) {
+
+                            if (notificaciones.get(index).id.equals(txtView.getText().toString())) {
+                                Intent intentNotificaciones = new Intent(context, NotificacionesActivity.class);
+                                intentNotificaciones.putExtra("notificacion", notificaciones.get(index));
+                                context.startActivity(intentNotificaciones);
+                            }
+                        }
+                    }
+                }
+            });
         }
 
-        fecha = (TextView) convertView.findViewById(R.id.lblListItemFecha);
-        descripcion = (TextView) convertView.findViewById(R.id.lblListItemDescripcion);
-        nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
+   /*     if(convertView !=null){
+            convertView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    TextView txtView = (TextView) v.findViewById(R.id.lblListItemFecha);
+                    String text= txtView.getText().toString();
+                }
+            });
+        }*/
 
-        fecha.setText(notificacion.fecha.substring(0, 10));
-        descripcion.setText(notificacion.nombre);
-        nombreEmpresa.setText(notificacion.nombreEmpresa);
 
-        ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
-        editar.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent intentNotificaciones = new Intent(context, NotificacionesActivity.class);
-                intentNotificaciones.putExtra("notificacion", (Parcelable) notificacion);
-                context.startActivity(intentNotificaciones);
-            }
-        });
         return convertView;
     }
 

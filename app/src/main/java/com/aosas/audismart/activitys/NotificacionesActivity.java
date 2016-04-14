@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.model.Notificacion;
 
 public class NotificacionesActivity extends AppCompatActivity {
 
@@ -15,6 +16,9 @@ public class NotificacionesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificaciones);
+
+         Notificacion notificacion = (Notificacion) getIntent().getSerializableExtra("notificacion");
+
 
 
 

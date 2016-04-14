@@ -108,7 +108,7 @@ public class Preferences {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString(Constantes.NOTIFICACIONES, "0");
-        Type type = new TypeToken<List<String>>() {}.getType();
+        Type type = new TypeToken<List<Notificacion>>() {}.getType();
         ArrayList<Notificacion> notificaciones = gson.fromJson(json, type);
         return notificaciones;
     }
