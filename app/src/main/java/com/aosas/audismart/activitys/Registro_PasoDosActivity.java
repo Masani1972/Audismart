@@ -258,7 +258,7 @@ Carga la lista de documentos al repositorio local
    mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
     */
     private void validar_formulario() {
-        int editTextOk = 0;
+      /*  int editTextOk = 0;
         int childcount = layout_Form.getChildCount();
         for (int i = 1; i < childcount; i=i+2) {
             View v = layout_Form.getChildAt(i);
@@ -266,9 +266,8 @@ Carga la lista de documentos al repositorio local
             if ((tv != null && tv.getText().toString().length() > 0))
                 editTextOk++;
             continue;
-        }
-
-         if (editTextOk == childcount/2 & impuestoConsumo!=null & impuestoRiqueza!=null) {
+        }*/
+         if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
              if (Preferences.getClient(this).length() > 0) {
                  Empresa empresa = new Empresa(Preferences.getClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, Constantes.REGISTRO_EMPRESA);
                  repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);

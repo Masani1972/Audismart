@@ -1,7 +1,13 @@
 package com.aosas.audismart.util;
 
 import android.os.Build;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import java.security.MessageDigest;
 import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Ciudad;
@@ -120,5 +126,39 @@ public class Util {
         } catch (ParseException e) {
          return null;
         }
+    }
+
+    public static boolean validateFormularioRelative(RelativeLayout layout_Form){
+        int editTextOk = 0;
+        int childcount = layout_Form.getChildCount();
+        for (int i = 1; i < childcount; i=i+2) {
+            View v = layout_Form.getChildAt(i);
+            EditText tv = (EditText) v;
+            if ((tv != null && tv.getText().toString().length() > 0))
+                editTextOk++;
+            continue;
+        }
+
+        if (editTextOk == childcount/2)
+            return true;
+        else
+            return false;
+    }
+
+    public static boolean validateFormularioLinear(LinearLayout layout_Form){
+        int editTextOk = 0;
+        int childcount = layout_Form.getChildCount();
+        for (int i = 1; i < childcount; i=i+2) {
+            View v = layout_Form.getChildAt(i);
+            EditText tv = (EditText) v;
+            if ((tv != null && tv.getText().toString().length() > 0))
+                editTextOk++;
+            continue;
+        }
+
+        if (editTextOk == childcount/2)
+            return true;
+        else
+            return false;
     }
 }

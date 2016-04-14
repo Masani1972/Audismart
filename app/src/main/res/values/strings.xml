@@ -57,5 +57,15 @@
     <string name="title_activity_another">AnotherActivity</string>
     <string name="title_activity_notificaciones">Notificaciones</string>
 
+    <!--Notificacion Activity-->
+    <string name="impuestoNotificacion">Impuesto</string>
+    <string name="empresNotificacion">Empresa</string>
+    <string name="fechaNotificacion">Notificación</string>
+    <string name="horaNotificacion">Hora</string>
+    <string name="díasNotificacion">Días antes</string>
+    <string name="horaAntesNotificacion">Hora Antes</string>
+    <string name="botonEditar">Editar notificación</string>
+    <string name="botonEliminar">Eliminar notificación</string>
+
 
 </resources>

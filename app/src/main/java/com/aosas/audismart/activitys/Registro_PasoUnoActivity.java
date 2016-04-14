@@ -169,7 +169,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
     mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
      */
     private void validar_formulario() {
-        int editTextOk = 0;
+      /*  int editTextOk = 0;
         int childcount = layout_Form.getChildCount();
         for (int i = 1; i < childcount; i=i+2) {
             View v = layout_Form.getChildAt(i);
@@ -177,10 +177,10 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
             if ((tv != null && tv.getText().toString().length() > 0))
                 editTextOk++;
             continue;
-        }
+        }*/
 
         if(aceptaTerminos) {
-            if (editTextOk == childcount/2) {
+            if (Util.validateFormularioRelative(layout_Form)) {
                 if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
                 User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);

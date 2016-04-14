@@ -177,7 +177,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 String periodo = ((JsonObject)jsonArray.get(i)).get("periodo").getAsString();
                 String cumplido = ((JsonObject)jsonArray.get(i)).get("cumplido").getAsString();
                 String fechaCumplido = (((JsonObject)jsonArray.get(i)).get("fechacumplido"))==null?((JsonObject)jsonArray.get(i)).get("fechacumplido").getAsString():"";
-                Notificacion notificacion = new Notificacion(id,idFecha,idEmpresa,nombreEmpresa,idCalendario,fecha,hora,antesDias,antesHora,antesFecha,nombre,nombreCorto,periodo,cumplido,fechaCumplido);
+                Notificacion notificacion = new Notificacion(id,idFecha,idEmpresa,nombreEmpresa,idCalendario,fecha,hora,antesDias,antesHora,antesFecha,nombre,nombreCorto,periodo,cumplido,fechaCumplido,"");
                 notificaciones.add(i, notificacion);
             }
             Preferences.setNotificaciones(this,notificaciones);
