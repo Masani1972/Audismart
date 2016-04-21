@@ -1,6 +1,9 @@
 package com.aosas.audismart.activitys;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +32,10 @@ import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.repository.Preferences;
+import com.aosas.audismart.util.AlarmReceiver;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
+import com.aosas.audismart.util.alarm.ScheduleClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,6 +45,7 @@ import org.json.JSONArray;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +71,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     private static final SimpleDateFormat SFD = new SimpleDateFormat(Constantes.FORMATOFECHANOTIDICACIONJSON);
     private String idEmpresa = "0";
     private String idCalendario = "0";
+    private ScheduleClient scheduleClient;
 
     @InjectView(R.id.editText_Empresas)
     AutoCompleteTextView editText_Empresas;
@@ -77,6 +84,9 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
         ButterKnife.inject(this);
+
+
+        initalarm();
 
 
         /*listener  autocomplete no soportado por ButterKnife*/
@@ -106,6 +116,25 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     /*******************
      Presentador¡¡ Logica de la  vista
      *******************/
+
+    public void initalarm(){
+
+        Calendar cal=Calendar.getInstance();
+        cal.set(Calendar.MONTH,4);
+        cal.set(Calendar.YEAR,2016);
+        cal.set(Calendar.DAY_OF_MONTH,21);
+        cal.set(Calendar.HOUR_OF_DAY,17);
+        cal.set(Calendar.MINUTE,05);
+        Log.i("fecha hra",""+cal.getTime());
+
+        // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
+        scheduleClient.setAlarmForNotification(cal);
+        // Notify the user what they just did
+
+
+
+        }
+
 
     private void cargarListaEmpresas() {
         ArrayList arrayListEmpresas = Preferences.getEmpresas(this);

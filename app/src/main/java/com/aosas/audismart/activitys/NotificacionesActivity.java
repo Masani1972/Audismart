@@ -1,5 +1,6 @@
 package com.aosas.audismart.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -98,11 +99,13 @@ public class NotificacionesActivity extends AppCompatActivity implements BaseAct
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
-        if(succes.equals("Se actualizo con exito")){}
+        makeText(this, succes, LENGTH_LONG).show();
+        Intent intentMenu = new Intent(this,MenuPrincipalActivity.class);
+        startActivity(intentMenu);
     }
 
     @Override
     public void error(String error) {
-
+        makeText(this,error, LENGTH_LONG).show();
     }
 }
