@@ -11,7 +11,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.comunication.IRepository;
+import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
 import com.google.gson.JsonElement;
 
@@ -19,8 +22,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.makeText;
+
 public class NotificacionesActivity extends AppCompatActivity implements BaseActivity {
     Notificacion notificacion;
+    private IRepository repository = new Repository();
 
     @InjectView(R.id.layout_Form)
     LinearLayout layout_Form;
@@ -74,18 +81,24 @@ public class NotificacionesActivity extends AppCompatActivity implements BaseAct
     }
 
     private void validar_formulario() {
-        if(Util.validateFormularioLinear(layout_Form))
+        if(Util.validateFormularioLinear(layout_Form)){
            notificacion.nombre = editText_impuestoNotificacion.getText().toString();
            notificacion.nombreEmpresa = editText_empresaNotificacion.getText().toString();
            notificacion.fecha = editText_fechaNotificacion.getText().toString();
            notificacion.hora = editText_horaNotificacion.getText().toString();
            notificacion.antesDias = editText_horaNotificacion.getText().toString();
+            notificacion.ACCION = Constantes.ACTUALIZA_NOTIFICACION;
+            repository.createRequets(this, notificacion, Constantes.ACTUALIZA_NOTIFICACION);
+
+        } else {
+        makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
+    }
     }
 
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
-
+        if(succes.equals("Se actualizo con exito")){}
     }
 
     @Override

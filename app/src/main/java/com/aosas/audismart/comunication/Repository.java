@@ -2,9 +2,11 @@ package com.aosas.audismart.comunication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.aosas.audismart.activitys.IngresoActivity;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
+import com.aosas.audismart.activitys.NotificacionesActivity;
 import com.aosas.audismart.activitys.Registro_PasoDosActivity;
 import com.aosas.audismart.activitys.Registro_PasoUnoActivity;
 import com.aosas.audismart.util.Constantes;
@@ -56,6 +58,34 @@ public class Repository implements IRepository {
             case Constantes.CONSULTA_FECHASCLIENTE:
                 if(errorCodigo.equals("0"))
                     ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("datos")).getAsJsonArray());
+                else
+                    ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.ACTUALIZA_NOTIFICACION:
+                if(errorCodigo.equals("0"))
+                    ((NotificacionesActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
+                else
+                    ((NotificacionesActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.EMPRESAS_RELACIONADA:
+
+                if(errorCodigo.equals("0"))
+                    ((IngresoActivity) activity).succes((jsonObject.get("message")).getAsString(),(jsonObject.get("datos")).getAsJsonArray());
+                else
+                    ((IngresoActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+
+            case Constantes.CALENDARIOS:
+
+                if(errorCodigo.equals("0"))
+                    ((IngresoActivity) activity).succes((jsonObject.get("message")).getAsString(),(jsonObject.get("datos")).getAsJsonArray());
+                else
+                    ((IngresoActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.NOTIFICACIONES_CUMPLIO:
+
+                if(errorCodigo.equals("0"))
+                    ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
                 else
                     ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;

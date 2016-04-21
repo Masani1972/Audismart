@@ -88,27 +88,34 @@
             android:id="@+id/editText_horaAntesNotificacion"
             />
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="@string/botonEditar"
-            android:id="@+id/button_Editar"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_rosa"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/textbotones"/>
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="@string/botonEliminar"
-            android:id="@+id/button_Eliminar"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_azul"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/textbotones" />
     </LinearLayout>
+
+
+
+
     </ScrollView>
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/botonEditar"
+        android:id="@+id/button_Editar"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_rosa"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/scrollView"
+        android:textColor="@color/textbotones"/>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/botonEliminar"
+        android:id="@+id/button_Eliminar"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_azul"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/button_Editar"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/textbotones" />
 </RelativeLayout>

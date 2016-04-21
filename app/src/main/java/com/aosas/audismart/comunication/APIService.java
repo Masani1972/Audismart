@@ -36,6 +36,21 @@ public interface APIService {
 
     @FormUrlEncoded
     @POST("WS.php")
-    Call<ResponseBody> consultDateClient(@Field("id_cliente") String id_cliente, @Field("id_calendario ") String id_calendario ,@Field("id_empresa") String id_empresa,@Field("ACCION") String ACCION);
+    Call<ResponseBody> consultDateClient(@Field("id_cliente") String id_cliente, @Field("id_calendario") String id_calendario ,@Field("id_empresa") String id_empresa,@Field("ACCION") String ACCION);
 
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> actualizarNotificacion(@Field("id_empresa") String id_empresa, @Field("id_calendario") String id_calendario ,@Field("hora") String hora ,@Field("antesdias") String antesdias,@Field("anteshora") String anteshora,@Field("ACCION") String ACCION );
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> empresasRelacionadas(@Field("id_empresa") String id_empresa, @Field("id_cliente") String id_cliente ,@Field("ACCION") String ACCION );
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> calendarios(@Field("id_cliente") String id_cliente, @Field("ano") String ano ,@Field("ACCION") String ACCION );
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> notificacionCumplio(@Field("id") String id, @Field("cumplido") String cumplido ,@Field("ACCION") String ACCION );
 }

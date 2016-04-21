@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -21,8 +23,12 @@ import android.widget.Toast;
 import com.aosas.audismart.R;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
+import com.aosas.audismart.comunication.IRepository;
+import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.model.NotificacionCumplio;
 import com.aosas.audismart.repository.Preferences;
+import com.aosas.audismart.util.Constantes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +44,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
     private HashMap<String, List<Notificacion>> _listDataChild;
     private TextView fechaDia,fechaMes,fechaYear, descripcion ,nombreEmpresa,lblListId;
     private Notificacion notificacion;
+    private IRepository repository = new Repository();
 
     public SecondLevelAdapter (Context context,List<String> listDataHeaderSecondLevel,HashMap<String, List<Notificacion>> listChildData){
         this.context = context;
@@ -68,7 +75,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item, null);
-
+        }
             notificacion = (Notificacion)getChild(groupPosition, childPosition);
 
             fechaDia = (TextView) convertView.findViewById(R.id.lblListItemFechaDia);
@@ -105,19 +112,30 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
                     }
                 }
             });
-        }
 
-   /*     if(convertView !=null){
-            convertView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    TextView txtView = (TextView) v.findViewById(R.id.lblListItemFecha);
-                    String text= txtView.getText().toString();
+        CheckBox cumplido = (CheckBox) convertView.findViewById(R.id.checkBoxCumplio);
+        cumplido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                View parent = (View) buttonView.getParent();
+                String cumplio = "1";
+                if (isChecked) {
+                    Log.i("check", "true");
+                    cumplio = "1";
+                } else {
+                    Log.i("check", "false");
+                    cumplio = "0";
                 }
-            });
-        }*/
+
+
+                TextView txtView = (TextView) parent.findViewById(R.id.lblListId);
+                NotificacionCumplio notificacionCumplio = new NotificacionCumplio(txtView.getText().toString(), cumplio, Constantes.NOTIFICACIONES_CUMPLIO);
+                repository.createRequets(context, notificacionCumplio, Constantes.NOTIFICACIONES_CUMPLIO);
+            }
+        });
+
+
 
 
         return convertView;
@@ -178,6 +196,8 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
 
         return true;
     }
+
+
 
 
 

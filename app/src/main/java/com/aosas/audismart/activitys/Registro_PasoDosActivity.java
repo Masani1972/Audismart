@@ -49,6 +49,7 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
     private String idCategoria = null;
     private String idDocumento = null;
     private IRepository repository = new Repository();
+    private Empresa empresa;
 
     @InjectView(R.id.layout_Form)
     RelativeLayout layout_Form;
@@ -269,7 +270,7 @@ Carga la lista de documentos al repositorio local
         }*/
          if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
              if (Preferences.getClient(this).length() > 0) {
-                 Empresa empresa = new Empresa(Preferences.getClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, Constantes.REGISTRO_EMPRESA);
+                 empresa = new Empresa(Preferences.getClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, "",Constantes.REGISTRO_EMPRESA);
                  repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
 
              } else {
@@ -285,9 +286,16 @@ Carga la lista de documentos al repositorio local
     public void succes(String succes, JsonElement jsonElement) {
 
         if(succes.equals("Se ha ingresado la empresa con exito")){
-            String idEmpresa=jsonElement.getAsString();
+            empresa.id_empresa=jsonElement.getAsString();
+            if(Preferences.getEmpresas(this) != null)
+            {ArrayList<Empresa> empresas= Preferences.getEmpresas(this);
+                empresas.add(empresa);
+            }else{
+                ArrayList<Empresa> empresas= new ArrayList<Empresa>();
+                empresas.add(empresa);
+            }
+
             GCM gcm = new GCM(Preferences.getClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
-            Preferences.setIdCompany(this,idEmpresa);
             repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);
         }
         else{

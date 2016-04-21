@@ -67,5 +67,9 @@
     <string name="botonEditar">Editar notificación</string>
     <string name="botonEliminar">Eliminar notificación</string>
 
+    <!--MenuPrincipal Activity-->
+    <string name="impuestos">Impuestos</string>
+    <string name="empresas">Empresas</string>
+
 
 </resources>

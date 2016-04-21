@@ -3,6 +3,8 @@ package com.aosas.audismart.repository;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.aosas.audismart.model.Calendario;
+import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.util.Constantes;
 import com.google.gson.Gson;
@@ -57,6 +59,29 @@ public class Preferences {
     }
 
     /*
+   Almacenamiento clientes
+    */
+    public static void setEmpresas(Context context, ArrayList<Empresa> empresas ) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+        if(empresas != null){
+            Gson gson = new Gson();
+            String json = gson.toJson(empresas);
+            editor.putString(Constantes.EMPRESAS, json);}
+        else
+            editor.remove(Constantes.EMPRESAS);
+        editor.commit();
+    }
+
+    public static ArrayList<Empresa> getEmpresas(Context context) {
+        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Constantes.EMPRESAS, "0");
+        Type type = new TypeToken<List<Empresa>>() {}.getType();
+        ArrayList<Empresa> empresas = gson.fromJson(json, type);
+        return empresas;
+    }
+
+    /*
     Almacenamiento token de GCM
      */
     public static void setTokenGcm(Context context, String token) {
@@ -91,7 +116,7 @@ public class Preferences {
     }
 
     /*
-    Almacenamiento notificaciones vencidas
+    Almacenamiento notificaciones
      */
     public static void setNotificaciones(Context context, ArrayList<Notificacion> notificaciones ) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
@@ -104,6 +129,13 @@ public class Preferences {
         editor.commit();
     }
 
+    public static void clearNotificaciones(Context context) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+
+            editor.remove(Constantes.NOTIFICACIONES);
+        editor.commit();
+    }
+
     public static ArrayList<Notificacion> getNotificaciones(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
@@ -111,5 +143,30 @@ public class Preferences {
         Type type = new TypeToken<List<Notificacion>>() {}.getType();
         ArrayList<Notificacion> notificaciones = gson.fromJson(json, type);
         return notificaciones;
+    }
+
+    /*
+   Almacenamiento calendarios
+    */
+    public static void setCalendarios(Context context, ArrayList<Calendario> calendarios ) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+        if(calendarios != null){
+            Gson gson = new Gson();
+            String json = gson.toJson(calendarios);
+            editor.putString(Constantes.CALENDARIOS_PREFERENCES, json);}
+        else
+            editor.remove(Constantes.CALENDARIOS_PREFERENCES);
+        editor.commit();
+    }
+
+
+
+    public static ArrayList<Calendario> getCalendarios(Context context) {
+        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Constantes.CALENDARIOS_PREFERENCES, "0");
+        Type type = new TypeToken<List<Calendario>>() {}.getType();
+        ArrayList<Calendario> calendarios = gson.fromJson(json, type);
+        return calendarios;
     }
 }

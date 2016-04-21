@@ -8,10 +8,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.model.CalendariosCliente;
 import com.aosas.audismart.model.Empresa;
+import com.aosas.audismart.model.EmpresasUsuarios;
 import com.aosas.audismart.model.FechaCliente;
 import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Login;
+import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.model.NotificacionCumplio;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.util.Constantes;
 import com.squareup.okhttp.ResponseBody;
@@ -74,6 +78,22 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             case Constantes.CONSULTA_FECHASCLIENTE:
                 FechaCliente fechaCliente = (FechaCliente) object;
                 call = taskService.consultDateClient(fechaCliente.idCliente, fechaCliente.idCalendario, fechaCliente.idEmpresa,fechaCliente.ACCION);
+                break;
+            case Constantes.ACTUALIZA_NOTIFICACION:
+                Notificacion notificacion = (Notificacion) object;
+                call = taskService.actualizarNotificacion(notificacion.idEmpresa,notificacion.idCalanedario,notificacion.hora,notificacion.antesDias,notificacion.antesHora,notificacion.ACCION);
+                break;
+            case Constantes.EMPRESAS_RELACIONADA:
+                EmpresasUsuarios empresasUsuarios = (EmpresasUsuarios) object;
+                call = taskService.empresasRelacionadas(empresasUsuarios.id_empresa,empresasUsuarios.id_cliente,empresasUsuarios.ACCION);
+                break;
+            case Constantes.CALENDARIOS:
+                CalendariosCliente calendariosCliente = (CalendariosCliente) object;
+                call = taskService.calendarios(calendariosCliente.id_cliente,calendariosCliente.ano,calendariosCliente.ACCION);
+                break;
+            case Constantes.NOTIFICACIONES_CUMPLIO:
+                NotificacionCumplio notificacionCumplio = (NotificacionCumplio) object;
+                call = taskService.notificacionCumplio(notificacionCumplio.id,notificacionCumplio.cumplido,notificacionCumplio.ACCION);
                 break;
             case "":
                call = null;

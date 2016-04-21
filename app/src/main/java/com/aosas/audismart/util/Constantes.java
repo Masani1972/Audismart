@@ -15,6 +15,10 @@ public  class Constantes {
     public static final String REGISTRO_EMPRESA="REGISTRO EMPRESA";
     public static final String REGISTRO_DISPOSITIVO="REGISTRO DISPOSITIVO";
     public static final String CONSULTA_FECHASCLIENTE="FECHAS CLIENTE";
+    public static final String ACTUALIZA_NOTIFICACION="ACTUALIZA NOTIFICACION";
+    public static final String EMPRESAS_RELACIONADA="EMPRESAS RELACIONADAS";
+    public static final String CALENDARIOS="CALENDARIOS CLIENTE";
+    public static final String NOTIFICACIONES_CUMPLIO="ACTUALIZA CUMPLIDO";
 
 
     /*
@@ -24,6 +28,8 @@ public  class Constantes {
     public static final String IDCLIENT="idClient";
     public static final String IDCOMPANY="idCompany";
     public static final String NOTIFICACIONES="Notificaciones";
+    public static final String CALENDARIOS_PREFERENCES="Calendarios";
+    public static final String EMPRESAS="Empresas";
 
     /***
      * GCM preferences

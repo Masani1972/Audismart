@@ -3,15 +3,47 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/colorPrimary"
+
+    >
+
+
+    <AutoCompleteTextView
+        android:id="@+id/editText_Impuestos"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blanco"
+        android:layout_marginRight="10dp"
+        android:textSize="12dp"
+        android:text="@string/impuestos"
+        />
+
+
+    <AutoCompleteTextView
+        android:id="@+id/editText_Empresas"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blanco"
+        android:layout_marginRight="10dp"
+        android:textSize="12dp"
+        android:text="@string/empresas"
+        />
+
+
+</LinearLayout>
 
     <ExpandableListView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:id="@+id/ParentLevel"
         android:groupIndicator="@android:color/transparent"
         android:divider="@android:color/transparent"
         android:scrollbars="vertical"
         android:transcriptMode="alwaysScroll"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent">
     </ExpandableListView>
 
 </LinearLayout>

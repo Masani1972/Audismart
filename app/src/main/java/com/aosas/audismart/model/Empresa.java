@@ -15,6 +15,7 @@ public class Empresa {
     public String categoria;
     public String impuesto_consumo;
     public String impuesto_riqueza;
+    public String id_empresa;
     public String ACCION;
 
     public Empresa (String id_cliente,
@@ -26,7 +27,7 @@ public class Empresa {
              String ingresos,
              String categoria,
              String impuesto_consumo,
-            String impuesto_riqueza,String ACCION){
+            String impuesto_riqueza,String ACCION, String id_empresa){
         this.id_cliente= id_cliente;
         this.nombre= nombre;
         this.id_departamento=id_departamento;
@@ -38,5 +39,6 @@ public class Empresa {
                 this.impuesto_consumo=impuesto_consumo;
                 this.impuesto_riqueza=impuesto_riqueza;
         this.ACCION= ACCION;
+        this.id_empresa = id_empresa;
     }
 }

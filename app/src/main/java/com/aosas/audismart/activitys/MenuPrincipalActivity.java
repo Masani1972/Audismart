@@ -5,17 +5,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.adapters.AutocompleteCalendarioAdapter;
+import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
+import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
 import com.aosas.audismart.adapters.ParentLevel;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
+import com.aosas.audismart.model.Calendario;
+import com.aosas.audismart.model.Categoria;
+import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.FechaCliente;
 import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
@@ -32,6 +44,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
@@ -43,23 +58,83 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     private HashMap<String, List<String>> listDataChildOne;
     private List<String> listDataHeaderNotificaciones;
     private IRepository repository = new Repository();
-    private List<Notificacion> notificacionesVencidas = new ArrayList<Notificacion>();
-    private List<Notificacion> notificacionesHoy = new ArrayList<Notificacion>();
-    private List<Notificacion> notificacionesProximas = new ArrayList<Notificacion>();
+    private List<Notificacion> notificacionesVencidas;
+    private List<Notificacion> notificacionesHoy;
+    private List<Notificacion> notificacionesProximas;
     private ArrayList<Notificacion> notificaciones;
     private static final SimpleDateFormat SFD = new SimpleDateFormat(Constantes.FORMATOFECHANOTIDICACIONJSON);
+    private String idEmpresa = "0";
+    private String idCalendario = "0";
+
+    @InjectView(R.id.editText_Empresas)
+    AutoCompleteTextView editText_Empresas;
+
+    @InjectView(R.id.editText_Impuestos)
+    AutoCompleteTextView editText_Impuestos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
+        ButterKnife.inject(this);
 
+
+        /*listener  autocomplete no soportado por ButterKnife*/
+        editText_Empresas.setThreshold(1);
+        editText_Empresas.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                cargarListaEmpresas();
+                editText_Empresas.showDropDown();
+                return false;
+            }
+        });
+
+        /*listener  autocomplete no soportado por ButterKnife*/
+        editText_Impuestos.setThreshold(1);
+        editText_Impuestos.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                cargarListaImpuestos();
+                editText_Impuestos.showDropDown();
+                return false;
+            }
+        });
         consumoWSNotificaciones();
+    }
 
+    /*******************
+     Presentador¡¡ Logica de la  vista
+     *******************/
 
+    private void cargarListaEmpresas() {
+        ArrayList arrayListEmpresas = Preferences.getEmpresas(this);
+        AutocompleteEmpresaAdapter itemadapter = new AutocompleteEmpresaAdapter(this, R.layout.adapter_autotext,arrayListEmpresas);
+        editText_Empresas.setAdapter(itemadapter);
+        editText_Empresas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                Empresa empresa = (Empresa) listView.getItemAtPosition(position);
+                idEmpresa = empresa.id_empresa.replaceAll("\"", "");
+                Log.i("",idEmpresa);
 
+                consumoWSNotificaciones();
+            }
+        });
+    }
 
+    private void cargarListaImpuestos() {
+        ArrayList arrayListImpuestos = Preferences.getCalendarios(this);
+        AutocompleteCalendarioAdapter itemadapter = new AutocompleteCalendarioAdapter(this, R.layout.adapter_autotext,arrayListImpuestos);
+        editText_Impuestos.setAdapter(itemadapter);
+        editText_Impuestos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                Calendario calendario = (Calendario) listView.getItemAtPosition(position);
+                idCalendario = calendario.id_calendario.replaceAll("\"", "");
+                Log.i("",idCalendario);
 
+                consumoWSNotificaciones();
+            }
+        });
     }
 
     /*
@@ -67,6 +142,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     */
 
     private void prepareListData() {
+
         listDataHeader = new ArrayList<String>();
         listDataHeaderNotificaciones = new ArrayList<String>();
         listDataChild = new HashMap<String, List<Notificacion>>();
@@ -104,6 +180,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     }
 
     private void notificacionesVencidas() {
+        notificacionesVencidas = new ArrayList<Notificacion>();
         if(notificaciones!=null){
             int j=0;
             for(int i = 0;i<notificaciones.size();i++){
@@ -122,6 +199,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     }
 
     private void notificacionesHoy() {
+        notificacionesHoy = new ArrayList<Notificacion>();
         if(notificaciones!=null){
             int j=0;
             for(int i = 0;i<notificaciones.size();i++){
@@ -133,6 +211,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     }
 
     private void notificacionesProximas() {
+        notificacionesProximas = new ArrayList<Notificacion>();
         if(notificaciones!=null){
             int j=0;
             for(int i = 0;i<notificaciones.size();i++){
@@ -152,12 +231,17 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     }
 
     private void consumoWSNotificaciones(){
-        FechaCliente fechaCliente = new FechaCliente(Preferences.getClient(this), "0", Preferences.getIdCompany(this), Constantes.CONSULTA_FECHASCLIENTE);
+        FechaCliente fechaCliente = new FechaCliente(Preferences.getClient(this), idCalendario, idEmpresa, Constantes.CONSULTA_FECHASCLIENTE);
         repository.createRequets(this, fechaCliente, Constantes.CONSULTA_FECHASCLIENTE);
     }
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
+        if(succes.equals("Se actualizo con exito")){
+            Toast.makeText(this, succes, Toast.LENGTH_LONG).show();
+            consumoWSNotificaciones();
+        }else{
+
          notificaciones = new ArrayList<Notificacion>();
         JsonArray jsonArray = jsonElement.getAsJsonArray();
         if (jsonArray != null) {
@@ -180,6 +264,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 Notificacion notificacion = new Notificacion(id,idFecha,idEmpresa,nombreEmpresa,idCalendario,fecha,hora,antesDias,antesHora,antesFecha,nombre,nombreCorto,periodo,cumplido,fechaCumplido,"");
                 notificaciones.add(i, notificacion);
             }
+            if(Preferences.getNotificaciones(this)!=null)
+                Preferences.clearNotificaciones(this);
             Preferences.setNotificaciones(this,notificaciones);
 
             notificacionesVencidas();
@@ -189,7 +275,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
             explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
             explvlist.setAdapter(new ParentLevel(this, listDataHeader, listDataChild, listDataHeaderNotificaciones));
-        }
+        }}
     }
 
     @Override
