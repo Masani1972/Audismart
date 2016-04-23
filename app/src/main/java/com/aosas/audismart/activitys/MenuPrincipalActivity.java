@@ -84,10 +84,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
         ButterKnife.inject(this);
-
-
-        initalarm();
-
+        scheduleClient = new ScheduleClient(this);
+        scheduleClient.doBindService();
 
         /*listener  autocomplete no soportado por ButterKnife*/
         editText_Empresas.setThreshold(1);
@@ -110,7 +108,24 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 return false;
             }
         });
+
+
         consumoWSNotificaciones();
+    }
+
+    @Override
+    protected void onStop() {
+        // When our activity is stopped ensure we also stop the connection to the service
+        // this stops us leaking our activity into the system *bad*
+        //if(scheduleClient != null)
+          //  scheduleClient.doUnbindService();
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume (){
+
+        super.onResume();
     }
 
     /*******************
@@ -118,22 +133,34 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
      *******************/
 
     public void initalarm(){
+        ArrayList<Notificacion> notificacions = Preferences.getNotificaciones(this);
+       // notificacions.get(0).antesFecha = "2016-04-23 14:43:00";
 
-        Calendar cal=Calendar.getInstance();
-        cal.set(Calendar.MONTH,4);
-        cal.set(Calendar.YEAR,2016);
-        cal.set(Calendar.DAY_OF_MONTH,21);
-        cal.set(Calendar.HOUR_OF_DAY,17);
-        cal.set(Calendar.MINUTE,05);
-        Log.i("fecha hra",""+cal.getTime());
+        ArrayList<Calendar> calendars = new ArrayList<Calendar>();
+        for (int i =0;i<notificacions.size();i++) {
+            String fecha = notificacions.get(i).antesFecha;
 
-        // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
-        scheduleClient.setAlarmForNotification(cal);
-        // Notify the user what they just did
+            Calendar cal = Calendar.getInstance();
+            Date date = Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSONNOTIFICACION, fecha);
+            cal.setTime(date);
 
+
+            calendars.add(i,cal);
+          /*  Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.MONTH, 3);
+            cal.set(Calendar.YEAR, 2016);
+            cal.set(Calendar.DAY_OF_MONTH, 23);
+            cal.set(Calendar.HOUR_OF_DAY, 13);
+            cal.set(Calendar.MINUTE, 31);
+            cal.set(Calendar.SECOND, 00);*/
+            Log.i("fecha hra", "" + cal.getTime());
 
 
         }
+        scheduleClient.setAlarmForNotification(calendars);
+        }
+
+
 
 
     private void cargarListaEmpresas() {
@@ -215,8 +242,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             for(int i = 0;i<notificaciones.size();i++){
                 try {
                     Date todayDate = SFD.parse(SFD.format(new Date ()));
-                    if(notificaciones.get(i).cumplido.equals("0")&(Util.stringToDate(notificaciones.get(i).fecha)!=null )){
-                        Date dateNotificaciones= SFD.parse(SFD.format((Util.stringToDate(notificaciones.get(i).fecha))));
+                    if(notificaciones.get(i).cumplido.equals("0")&(Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha)!=null )){
+                        Date dateNotificaciones= SFD.parse(SFD.format((Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha))));
                         if(dateNotificaciones.before(todayDate)){
                             notificacionesVencidas.add(j,notificaciones.get(i));
                             j++;}}
@@ -232,7 +259,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         if(notificaciones!=null){
             int j=0;
             for(int i = 0;i<notificaciones.size();i++){
-                if(notificaciones.get(i).cumplido.equals("0")&(Util.stringToDate(notificaciones.get(i).fecha)!=null) &(SFD.format(Util.stringToDate(notificaciones.get(i).fecha)).equals(SFD.format(new Date())))){
+                if(notificaciones.get(i).cumplido.equals("0")&(Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha)!=null) &(SFD.format(Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha)).equals(SFD.format(new Date())))){
                     notificacionesHoy.add(j,notificaciones.get(i));
                     j++;}
             }
@@ -246,8 +273,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             for(int i = 0;i<notificaciones.size();i++){
                 try {
                     Date todayDate = SFD.parse(SFD.format(new Date ()));
-                    if(notificaciones.get(i).cumplido.equals("0")&(Util.stringToDate(notificaciones.get(i).fecha)!=null )){
-                        Date dateNotificaciones= SFD.parse(SFD.format((Util.stringToDate(notificaciones.get(i).fecha))));
+                    if(notificaciones.get(i).cumplido.equals("0")&(Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha)!=null )){
+                        Date dateNotificaciones= SFD.parse(SFD.format((Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha))));
                         if(dateNotificaciones.after(todayDate)){
                         notificacionesProximas.add(j,notificaciones.get(i));
                         j++;}}
@@ -269,6 +296,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         if(succes.equals("Se actualizo con exito")){
             Toast.makeText(this, succes, Toast.LENGTH_LONG).show();
             consumoWSNotificaciones();
+
         }else{
 
          notificaciones = new ArrayList<Notificacion>();
@@ -304,7 +332,10 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
             explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
             explvlist.setAdapter(new ParentLevel(this, listDataHeader, listDataChild, listDataHeaderNotificaciones));
+            initalarm();
         }}
+
+
     }
 
     @Override

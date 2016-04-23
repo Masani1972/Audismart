@@ -45,7 +45,8 @@ public  class Constantes {
    /*
    Formatos fechas
     */
-
     public static final String FORMATOFECHANOTIDICACIONJSON="yyyy-MM-dd";
+    public static final String FORMATOFECHANOTIDICACIONJSONNOTIFICACION="yyyy-MM-dd hh:mm:ss";
+
 
 }

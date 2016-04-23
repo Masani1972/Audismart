@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -20,8 +22,11 @@ public class ScheduleClient  {
     // A flag if we are connected to the service or not
     private boolean mIsBound;
 
+
+
     public ScheduleClient(Context context) {
         mContext = context;
+
     }
 
     /**
@@ -29,8 +34,8 @@ public class ScheduleClient  {
      */
     public void doBindService() {
         // Establish a connection with our service
-        mContext.bindService(new Intent(mContext, ScheduleService.class), mConnection, Context.BIND_AUTO_CREATE);
-        mIsBound = true;
+        mIsBound =mContext.bindService(new Intent(mContext, ScheduleService.class), mConnection, Context.BIND_AUTO_CREATE);
+        mContext.startService(new Intent(mContext, ScheduleService.class));
     }
 
     /**
@@ -41,6 +46,8 @@ public class ScheduleClient  {
         public void onServiceConnected(ComponentName className, IBinder service) {
             // This is called when the connection with our service has been established,
             // giving us the service object we can use to interact with our service.
+            Log.i("conect","service");
+
             mBoundService = ((ScheduleService.ServiceBinder) service).getService();
         }
 
@@ -53,8 +60,10 @@ public class ScheduleClient  {
      * Tell our service to set an alarm for the given date
      * @param c a date to set the notification for
      */
-    public void setAlarmForNotification(Calendar c){
-        mBoundService.setAlarm(c);
+    public void setAlarmForNotification(ArrayList<Calendar> calendars){
+        if(mIsBound)
+            if(mBoundService !=null)
+        mBoundService.setAlarm(calendars);
     }
 
     /**

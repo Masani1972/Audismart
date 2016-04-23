@@ -83,8 +83,9 @@
             android:screenOrientation="portrait"
            ></activity>
 
-        <service android:name="util.alarm.ScheduleService" />
-        <service android:name="util.alarm.NotifyService" />
+
+        <service android:name="com.aosas.audismart.util.alarm.NotifyService"  android:enabled="true"/>
+        <service android:name="com.aosas.audismart.util.alarm.ScheduleService"  android:enabled="true"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

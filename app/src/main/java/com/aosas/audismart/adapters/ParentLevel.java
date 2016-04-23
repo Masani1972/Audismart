@@ -19,6 +19,7 @@ import com.aosas.audismart.model.FechaCliente;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
+import com.aosas.audismart.util.alarm.ScheduleClient;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +33,9 @@ public class ParentLevel extends BaseExpandableListAdapter
     private List<String> _listDataHeader;
     private List<String> _listDataHeaderSecondLevel;
     private HashMap<String, List<Notificacion>> _listDataChild;
+    private ScheduleClient scheduleClient;
 
-    public ParentLevel(Context context,List<String> listDataHeader,HashMap<String, List<Notificacion>> listChildData,List<String> listDataHeaderSecondLevel){
+    public ParentLevel(Context context, List<String> listDataHeader, HashMap<String, List<Notificacion>> listChildData, List<String> listDataHeaderSecondLevel){
         this.context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -57,6 +59,7 @@ public class ParentLevel extends BaseExpandableListAdapter
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent)
     {
+
 
         CustExpListview SecondLevelexplv = new CustExpListview(context);
         SecondLevelexplv.setAdapter(new SecondLevelAdapter(context,_listDataHeaderSecondLevel,_listDataChild));

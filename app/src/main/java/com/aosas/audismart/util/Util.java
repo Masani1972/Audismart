@@ -117,8 +117,8 @@ public class Util {
         return phrase;
     }
 
-    public static Date stringToDate(String fecha){
-        SimpleDateFormat formatter = new SimpleDateFormat(Constantes.FORMATOFECHANOTIDICACIONJSON, Locale.US);
+    public static Date stringToDate(String formato, String fecha){
+        SimpleDateFormat formatter = new SimpleDateFormat(formato, Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT-5:00"));
         try {
             Date date = (Date)formatter.parse(fecha);
