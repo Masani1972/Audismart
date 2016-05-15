@@ -13,11 +13,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
-import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
 import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
 import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
 import com.aosas.audismart.adapters.AutocompleteDocumentoAdapter;
+import com.aosas.audismart.R;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Categoria;
@@ -194,7 +194,7 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
    */
     private void cargarListaCategorias() {
         ArrayList arrayListCategorias = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(this, "categorias"), new Categoria());
-        AutocompleteCategoriaAdapter itemadapter = new AutocompleteCategoriaAdapter(this, R.layout.adapter_autotext,arrayListCategorias);
+        com.aosas.audismart.adapters.AutocompleteCategoriaAdapter itemadapter = new AutocompleteCategoriaAdapter(this, R.layout.adapter_autotext,arrayListCategorias);
         editText_Regimen.setAdapter(itemadapter);
         editText_Regimen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> listView, View view, int position, long id) {

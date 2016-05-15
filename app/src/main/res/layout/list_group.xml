@@ -16,4 +16,6 @@
         android:textColor="@color/blanco"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
 
+
+
 </LinearLayout>

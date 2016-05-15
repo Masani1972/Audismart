@@ -53,7 +53,7 @@
 
 
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_menu">Bienvenido</string>
     <string name="title_activity_another">AnotherActivity</string>
     <string name="title_activity_notificaciones">Notificaciones</string>
 

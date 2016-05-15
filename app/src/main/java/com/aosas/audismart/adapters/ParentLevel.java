@@ -1,6 +1,7 @@
 package com.aosas.audismart.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -8,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.activitys.CalendarioActivity;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
@@ -64,6 +67,8 @@ public class ParentLevel extends BaseExpandableListAdapter
         CustExpListview SecondLevelexplv = new CustExpListview(context);
         SecondLevelexplv.setAdapter(new SecondLevelAdapter(context,_listDataHeaderSecondLevel,_listDataChild));
         SecondLevelexplv.setGroupIndicator(null);
+
+
 
         // Listview on child click listener
         SecondLevelexplv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -122,6 +127,7 @@ public class ParentLevel extends BaseExpandableListAdapter
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
             lblListHeader.setBackgroundColor(getColor(groupPosition));
+
         }
         return convertView;
 

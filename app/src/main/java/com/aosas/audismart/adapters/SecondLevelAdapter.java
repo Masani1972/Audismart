@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
@@ -21,10 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.activitys.CalendarioActivity;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
+import com.aosas.audismart.model.Calendario;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.model.NotificacionCumplio;
 import com.aosas.audismart.repository.Preferences;
@@ -181,7 +184,13 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
             lblListHeader.setBackgroundColor(context.getResources().getColor(R.color.textbotones));
+
+
+
+
         }
+
+
         return convertView;
 
     }

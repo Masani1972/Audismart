@@ -9,4 +9,7 @@
     <color name="textperfil">#427e4f</color>
     <color name="blanco">#ffffff</color>
     <color name="textnegro">#323232</color>
+
+    <color name="grid_bg">#FFFFFFFF</color>
+    <color name="grid_border">#FFC6C6C6</color>
 </resources>

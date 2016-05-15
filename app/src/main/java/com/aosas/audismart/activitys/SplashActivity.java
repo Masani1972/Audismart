@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.repository.Preferences;
-import com.aosas.audismart.util.AlarmReceiver;
 
 import java.util.Calendar;
 

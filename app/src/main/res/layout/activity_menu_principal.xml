@@ -33,6 +33,16 @@
         android:text="@string/empresas"
         />
 
+    <ImageButton
+        android:id="@+id/botoncalendario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/calendar"
+        android:background="@android:color/transparent">
+
+    </ImageButton>
+
+
 
 </LinearLayout>
 
@@ -45,5 +55,6 @@
         android:transcriptMode="alwaysScroll"
         android:layout_height="match_parent">
     </ExpandableListView>
+
 
 </LinearLayout>

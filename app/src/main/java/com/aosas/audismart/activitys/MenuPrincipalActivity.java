@@ -1,9 +1,6 @@
 package com.aosas.audismart.activitys;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,36 +9,27 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteCalendarioAdapter;
-import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
 import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
 import com.aosas.audismart.adapters.ParentLevel;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Calendario;
-import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.FechaCliente;
-import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Notificacion;
-import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.repository.Preferences;
-import com.aosas.audismart.util.AlarmReceiver;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
 import com.aosas.audismart.util.alarm.ScheduleClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +42,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 import static android.widget.Toast.LENGTH_LONG;
-import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 
 public class MenuPrincipalActivity extends AppCompatActivity implements BaseActivity {
@@ -67,6 +54,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     private List<Notificacion> notificacionesVencidas;
     private List<Notificacion> notificacionesHoy;
     private List<Notificacion> notificacionesProximas;
+    private List<Notificacion> notificacionesArchivadas;
     private ArrayList<Notificacion> notificaciones;
     private static final SimpleDateFormat SFD = new SimpleDateFormat(Constantes.FORMATOFECHANOTIDICACIONJSON);
     private String idEmpresa = "0";
@@ -109,8 +97,23 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             }
         });
 
+        ImageButton calendario = (ImageButton) findViewById(R.id.botoncalendario);
+        calendario.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intentCalendario = new Intent(MenuPrincipalActivity.this, CalendarioActivity.class);
+                startActivity(intentCalendario);
+
+            }
+        });
 
         consumoWSNotificaciones();
+    }
+
+    public void calendario(View v){
+       Intent i = new Intent(this,CalendarioActivity.class);
+        startActivity(i);
+
     }
 
     @Override
@@ -146,16 +149,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
 
             calendars.add(i,cal);
-          /*  Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.MONTH, 3);
-            cal.set(Calendar.YEAR, 2016);
-            cal.set(Calendar.DAY_OF_MONTH, 23);
-            cal.set(Calendar.HOUR_OF_DAY, 13);
-            cal.set(Calendar.MINUTE, 31);
-            cal.set(Calendar.SECOND, 00);*/
-            Log.i("fecha hra", "" + cal.getTime());
-
-
         }
         scheduleClient.setAlarmForNotification(calendars);
         }
@@ -204,6 +197,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         listDataChild = new HashMap<String, List<Notificacion>>();
         listDataChildOne = new HashMap<String, List<String>>();
 
+
         // Adding child data
         listDataHeader.add("Mis notificaciones");
         listDataHeader.add("Mis tickets");
@@ -212,10 +206,12 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         listDataHeaderNotificaciones.add("Vencidas");
         listDataHeaderNotificaciones.add("Para hoy");
         listDataHeaderNotificaciones.add("Próximas");
+        listDataHeaderNotificaciones.add("Archivadas");
 
         listDataChild.put(listDataHeaderNotificaciones.get(0), notificacionesVencidas);// Header, Child data
         listDataChild.put(listDataHeaderNotificaciones.get(1), notificacionesHoy);
         listDataChild.put(listDataHeaderNotificaciones.get(2), notificacionesProximas);
+        listDataChild.put(listDataHeaderNotificaciones.get(3), notificacionesProximas);
     }
 
 
@@ -246,6 +242,25 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                         Date dateNotificaciones= SFD.parse(SFD.format((Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha))));
                         if(dateNotificaciones.before(todayDate)){
                             notificacionesVencidas.add(j,notificaciones.get(i));
+                            j++;}}
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void notificacionesArchivadas() {
+        notificacionesArchivadas = new ArrayList<Notificacion>();
+        if(notificaciones!=null){
+            int j=0;
+            for(int i = 0;i<notificaciones.size();i++){
+                try {
+                    Date todayDate = SFD.parse(SFD.format(new Date ()));
+                    if(notificaciones.get(i).cumplido.equals("1")&(Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha)!=null )){
+                        Date dateNotificaciones= SFD.parse(SFD.format((Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSON,notificaciones.get(i).fecha))));
+                        if(dateNotificaciones.before(todayDate)){
+                            notificacionesArchivadas.add(j,notificaciones.get(i));
                             j++;}}
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -321,13 +336,13 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 Notificacion notificacion = new Notificacion(id,idFecha,idEmpresa,nombreEmpresa,idCalendario,fecha,hora,antesDias,antesHora,antesFecha,nombre,nombreCorto,periodo,cumplido,fechaCumplido,"");
                 notificaciones.add(i, notificacion);
             }
-            if(Preferences.getNotificaciones(this)!=null)
-                Preferences.clearNotificaciones(this);
+
             Preferences.setNotificaciones(this,notificaciones);
 
             notificacionesVencidas();
             notificacionesHoy();
             notificacionesProximas();
+            notificacionesArchivadas();
             prepareListData();
 
             explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);

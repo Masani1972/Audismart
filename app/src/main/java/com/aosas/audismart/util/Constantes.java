@@ -6,7 +6,7 @@ package com.aosas.audismart.util;
 public  class Constantes {
 
     //URL WebServices
-    public static final  String URLSERVICES="http://aosmart.aosas.com/movil/";
+    public static final  String URLSERVICES="https://aosmart.aosas.com/movil/";
 
     /*Metodos Servicios Web
     */
