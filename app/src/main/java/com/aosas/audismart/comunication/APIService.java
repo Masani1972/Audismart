@@ -53,4 +53,8 @@ public interface APIService {
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> notificacionCumplio(@Field("id") String id, @Field("cumplido") String cumplido ,@Field("ACCION") String ACCION );
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> clienteUnico(@Field("id_cliente") String id_cliente ,@Field("ACCION")String ACCION );
 }

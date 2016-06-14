@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +18,15 @@ import android.widget.Toast;
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteCalendarioAdapter;
 import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
-import com.aosas.audismart.adapters.ParentLevel;
+import com.aosas.audismart.adapters.ParentLevelNotificaciones;
 import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Calendario;
+import com.aosas.audismart.model.ClienteUnico;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.FechaCliente;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
@@ -108,6 +112,26 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         });
 
         consumoWSNotificaciones();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_splash, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.action_perfil:
+                Intent i = new Intent(this,PerfilActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void calendario(View v){
@@ -302,8 +326,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     }
 
     private void consumoWSNotificaciones(){
-        FechaCliente fechaCliente = new FechaCliente(Preferences.getClient(this), idCalendario, idEmpresa, Constantes.CONSULTA_FECHASCLIENTE);
-        repository.createRequets(this, fechaCliente, Constantes.CONSULTA_FECHASCLIENTE);
+            ClienteUnico clienteUnico = new ClienteUnico(Preferences.getIdClient(this),Constantes.BUSCAR_CLIENTE_UNICO);
+            repository.createRequets(this,clienteUnico,Constantes.BUSCAR_CLIENTE_UNICO);
     }
 
     @Override
@@ -311,8 +335,15 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         if(succes.equals("Se actualizo con exito")){
             Toast.makeText(this, succes, Toast.LENGTH_LONG).show();
             consumoWSNotificaciones();
-
-        }else{
+        }else if (succes.equals("Cliente encontrado")){
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            //String h= jsonObject.get("nombres").toString();
+            User user = new User(jsonObject.get("nombres").toString().replace('\"',' '),jsonObject.get("apellidos").toString().replace('\"',' '),jsonObject.get("email").toString().replace('\"',' '),jsonObject.get("id_departamento").toString().replace('\"',' '),jsonObject.get("id_ciudad").toString().replace('\"',' '),jsonObject.get("telefono").toString().replace('\"',' '),"","","","");
+            Preferences.setUsuario(this,user);
+            FechaCliente fechaCliente = new FechaCliente(Preferences.getIdClient(this), idCalendario, idEmpresa, Constantes.CONSULTA_FECHASCLIENTE);
+            repository.createRequets(this, fechaCliente, Constantes.CONSULTA_FECHASCLIENTE);
+        }
+        else if (succes.substring(0,18).equals("Fechas encontradas")){
 
          notificaciones = new ArrayList<Notificacion>();
         JsonArray jsonArray = jsonElement.getAsJsonArray();
@@ -346,7 +377,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             prepareListData();
 
             explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
-            explvlist.setAdapter(new ParentLevel(this, listDataHeader, listDataChild, listDataHeaderNotificaciones));
+            explvlist.setAdapter(new ParentLevelNotificaciones(this, listDataHeader, listDataChild, listDataHeaderNotificaciones));
             initalarm();
         }}
 
@@ -357,10 +388,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     public void error(String error) {
         makeText(MenuPrincipalActivity.this, error, LENGTH_LONG).show();
     }
-
-
-
-
 }
 
 

@@ -269,8 +269,8 @@ Carga la lista de documentos al repositorio local
             continue;
         }*/
          if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
-             if (Preferences.getClient(this).length() > 0) {
-                 empresa = new Empresa(Preferences.getClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, "",Constantes.REGISTRO_EMPRESA);
+             if (Preferences.getIdClient(this).length() > 0) {
+                 empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, "",Constantes.REGISTRO_EMPRESA);
                  repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
 
              } else {
@@ -295,7 +295,7 @@ Carga la lista de documentos al repositorio local
                 empresas.add(empresa);
             }
 
-            GCM gcm = new GCM(Preferences.getClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
+            GCM gcm = new GCM(Preferences.getIdClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
             repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);
         }
         else{

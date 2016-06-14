@@ -16,9 +16,11 @@ import com.aosas.audismart.comunication.IRepository;
 import com.aosas.audismart.comunication.Repository;
 import com.aosas.audismart.model.Calendario;
 import com.aosas.audismart.model.CalendariosCliente;
+import com.aosas.audismart.model.ClienteUnico;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.EmpresasUsuarios;
 import com.aosas.audismart.model.Login;
+import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
@@ -40,6 +42,7 @@ public class IngresoActivity extends AppCompatActivity implements BaseActivity{
     private Util util;
     private boolean sesion = false;
     private IRepository repository = new Repository();
+    private static final String TAG ="IngresoActivity";
 
     @InjectView(R.id.button_Ingresar)
     Button button_Ingresar;
@@ -101,7 +104,7 @@ public class IngresoActivity extends AppCompatActivity implements BaseActivity{
     private boolean validarDatos() {
         if((editText_Usuario != null & editText_Usuario.getText().toString().length()>0)&&(editText_Contrasena!=null&editText_Contrasena.getText().toString().length()>0))
             return true;
-            else
+        else
             return false;
     }
 
@@ -118,26 +121,29 @@ olvidada por el usuario
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
+        Log.i(TAG,succes);
         if(succes.equals("Login exitoso")){
             JsonObject jsonObject = (JsonObject)jsonElement;
-        if(sesion)
-            Preferences.setSession(IngresoActivity.this, sesion);
-        String idClient = jsonObject.get("id_cliente").toString().replaceAll("\"", "");
-        Preferences.setIdClient(this, idClient);
-            EmpresasUsuarios empresasUsuarios = new EmpresasUsuarios(idClient,"0",Constantes.EMPRESAS_RELACIONADA);
-            repository.createRequets(this, empresasUsuarios, Constantes.EMPRESAS_RELACIONADA);
-         }
-       else if(succes.substring(0,20).equals("Empresas encontradas")){
-            JsonArray jsonArray =  (JsonArray)jsonElement;
-            almacenarEmpresas(jsonArray);
-            CalendariosCliente calendariosCliente = new CalendariosCliente(Preferences.getClient(this),"0",Constantes.CALENDARIOS);
-            repository.createRequets(this, calendariosCliente, Constantes.CALENDARIOS);
+            if(sesion)
+                Preferences.setSession(IngresoActivity.this, sesion);
+                String idClient = jsonObject.get("id_cliente").toString().replaceAll("\"", "");
+                Preferences.setIdClient(this, idClient);
+                User user = new User(jsonObject.get("nombres").toString(),jsonObject.get("apellidos").toString(),jsonObject.get("email").toString(),jsonObject.get("id_departamento").toString(),jsonObject.get("id_ciudad").toString(),jsonObject.get("telefono").toString(),"","","","");
+                Preferences.setUsuario(this,user);
+                EmpresasUsuarios empresasUsuarios = new EmpresasUsuarios(idClient,"0",Constantes.EMPRESAS_RELACIONADA);
+                repository.createRequets(this, empresasUsuarios, Constantes.EMPRESAS_RELACIONADA);
         }
 
+        else if(succes.substring(0,20).equals("Empresas encontradas")){
+            JsonArray jsonArray =  (JsonArray)jsonElement;
+            almacenarEmpresas(jsonArray);
+            CalendariosCliente calendariosCliente = new CalendariosCliente(Preferences.getIdClient(this),"0",Constantes.CALENDARIOS);
+            repository.createRequets(this, calendariosCliente, Constantes.CALENDARIOS);
+        }
         else if(succes.substring(0,23).equals("Calendarios encontrados")){
             JsonArray jsonArray =  (JsonArray)jsonElement;
             almacenarCalendarios(jsonArray);
-            Toast.makeText(IngresoActivity.this, succes, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(IngresoActivity.this, succes, Toast.LENGTH_SHORT).show();
             Intent intentMenu = new Intent(IngresoActivity.this,MenuPrincipalActivity.class);
             startActivity(intentMenu);
         }

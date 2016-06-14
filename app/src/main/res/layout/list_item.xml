@@ -82,7 +82,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageButtonEdit"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/editar"/>
+        android:src="@drawable/editar"
+        android:background="@android:color/transparent"/>
 
 
 </LinearLayout>

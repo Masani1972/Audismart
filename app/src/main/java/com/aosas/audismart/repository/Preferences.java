@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.aosas.audismart.model.Calendario;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.model.User;
 import com.aosas.audismart.util.Constantes;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -53,7 +54,7 @@ public class Preferences {
         editor.commit();
     }
 
-    public static String getClient(Context context) {
+    public static String getIdClient(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         return sharedPref.getString(Constantes.IDCLIENT, "");
     }
@@ -159,8 +160,6 @@ public class Preferences {
         editor.commit();
     }
 
-
-
     public static ArrayList<Calendario> getCalendarios(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
@@ -168,5 +167,30 @@ public class Preferences {
         Type type = new TypeToken<List<Calendario>>() {}.getType();
         ArrayList<Calendario> calendarios = gson.fromJson(json, type);
         return calendarios;
+    }
+
+    /*
+    Almacenamiento Usuario
+     */
+    /*
+    Almacenamiento id de la empresa
+     */
+    public static void setUsuario(Context context, User user) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+        if(user != null){
+            Gson gson = new Gson();
+            String json = gson.toJson(user);
+            editor.putString(Constantes.USUSARIO, json);}
+        else
+            editor.remove(Constantes.USUSARIO);
+        editor.commit();
+    }
+
+    public static User getUsuario(Context context) {
+        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Constantes.USUSARIO, "0");
+        User user = gson.fromJson(json, User.class);
+        return user;
     }
 }

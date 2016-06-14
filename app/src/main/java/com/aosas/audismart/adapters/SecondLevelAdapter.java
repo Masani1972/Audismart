@@ -184,15 +184,8 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
             lblListHeader.setBackgroundColor(context.getResources().getColor(R.color.textbotones));
-
-
-
-
         }
-
-
         return convertView;
-
     }
 
     @Override
@@ -205,9 +198,4 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
 
         return true;
     }
-
-
-
-
-
 }

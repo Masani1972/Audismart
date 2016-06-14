@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">AOsmart</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_inicio">Inicio</string>
+    <string name="action_notificaciones">Mis Notificaciones</string>
+    <string name="action_noticias">Noticias</string>
+    <string name="action_perfil">Mi Perfil</string>
 
     <!--Excepciones y mensajes generales-->
     <string name="formularioIncompleto">Por favor diligenciar el formulario</string>
@@ -70,6 +73,11 @@
     <!--MenuPrincipal Activity-->
     <string name="impuestos">Impuestos</string>
     <string name="empresas">Empresas</string>
+    <string name="title_activity_borrar">borrar</string>
+    <string name="title_activity_perfil">Perfil</string>
+
+    <!--Perfil-->
+    <string name="editar_perfil">Editar mis datos de perfil</string>
 
 
 </resources>

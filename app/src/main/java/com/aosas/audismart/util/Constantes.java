@@ -19,6 +19,7 @@ public  class Constantes {
     public static final String EMPRESAS_RELACIONADA="EMPRESAS RELACIONADAS";
     public static final String CALENDARIOS="CALENDARIOS CLIENTE";
     public static final String NOTIFICACIONES_CUMPLIO="ACTUALIZA CUMPLIDO";
+    public static final String BUSCAR_CLIENTE_UNICO="BUSCAR CLIENTE UNICO";
 
 
     /*
@@ -30,6 +31,7 @@ public  class Constantes {
     public static final String NOTIFICACIONES="Notificaciones";
     public static final String CALENDARIOS_PREFERENCES="Calendarios";
     public static final String EMPRESAS="Empresas";
+    public static final String USUSARIO="Usuario";
 
     /***
      * GCM preferences

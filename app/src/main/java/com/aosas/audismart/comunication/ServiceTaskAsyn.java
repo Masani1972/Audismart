@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.model.CalendariosCliente;
+import com.aosas.audismart.model.ClienteUnico;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.EmpresasUsuarios;
 import com.aosas.audismart.model.FechaCliente;
@@ -94,6 +95,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             case Constantes.NOTIFICACIONES_CUMPLIO:
                 NotificacionCumplio notificacionCumplio = (NotificacionCumplio) object;
                 call = taskService.notificacionCumplio(notificacionCumplio.id,notificacionCumplio.cumplido,notificacionCumplio.ACCION);
+                break;
+            case Constantes.BUSCAR_CLIENTE_UNICO:
+                ClienteUnico clienteUnico = (ClienteUnico) object;
+                call = taskService.clienteUnico(clienteUnico.id_cliente,clienteUnico.ACCION);
                 break;
             case "":
                call = null;

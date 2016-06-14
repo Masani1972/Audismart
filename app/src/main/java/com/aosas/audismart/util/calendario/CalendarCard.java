@@ -147,6 +147,7 @@ public class CalendarCard extends RelativeLayout {
     }
 
     private void updateCells() {
+        Boolean flag = false;
         getDatesFromNotificaciones();
         Calendar cal;
         Integer counter = 0;
@@ -197,17 +198,27 @@ public class CalendarCard extends RelativeLayout {
 
 
                 if(calcardText.equals(calNotificacionText)) {
-                    ImageView image = new ImageView(context);
-                    image.setBackground(getResources().getDrawable(R.drawable.ic_calendar));
+                    //Create linearLayout para setear las vistas de manera organizada en la celda
+                    LinearLayout layout = new LinearLayout(context);
+                    layout.setOrientation(LinearLayout.VERTICAL);
 
+                    //Crear y agregar TextView con el dìa
+                    TextView dia = new TextView(context);
+                    dia.setWidth(LayoutParams.MATCH_PARENT);
+                    dia.setText(calcardText.substring(8,10));
+                    dia.setBackground(getResources().getDrawable(R.drawable.ic_calendar));
+                    layout.addView(dia);
 
+                    //Crear y agregar TextView con el nombre del impuesto
                     TextView tv = new TextView(context);
-                    if(j<notificacions.size()){
-                    String nombre = notificacions.get(j).nombre.substring(0,3);
-                    tv.setText(nombre);
-                    tv.setTextSize(getResources().getDimension(R.dimen.textsize));
-                    cell.addView(tv);
-                        cell.addView(image);}
+                    if(!flag){
+                    tv.setText(notificacions.get(j).nombre);
+                    tv.setTextSize(getResources().getDimension(R.dimen.textsizeCalendar));
+                    tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    layout.addView(tv);
+                    flag = true;
+                   }
+                    cell.addView(layout);
                 }
 
             }

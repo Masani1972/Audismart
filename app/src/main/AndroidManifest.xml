@@ -95,7 +95,11 @@
 
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name=".activitys.CalendarioActivity"></activity>
+        <activity android:name=".activitys.CalendarioActivity" />
+        <activity
+            android:name=".activitys.PerfilActivity"
+            android:label="@string/title_activity_perfil"
+            ></activity>
     </application>
 
 </manifest>

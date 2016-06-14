@@ -36,7 +36,7 @@ public class Repository implements IRepository {
                 ((Registro_PasoUnoActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_cliente")));
             else
                 ((Registro_PasoUnoActivity) activity).error((jsonObject.get("message")).getAsString());
-        break;
+                break;
             case Constantes.LOGIN:
                 if(errorCodigo.equals("0"))
                     ((IngresoActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("datos")));
@@ -86,6 +86,13 @@ public class Repository implements IRepository {
 
                 if(errorCodigo.equals("0"))
                     ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
+                else
+                    ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.BUSCAR_CLIENTE_UNICO:
+
+                if(errorCodigo.equals("0"))
+                    ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(),(jsonObject.get("datos")).getAsJsonObject());
                 else
                     ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;

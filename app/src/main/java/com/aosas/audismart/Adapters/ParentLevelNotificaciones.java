@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by Lmartinez on 28/03/2016.
  */
-public class ParentLevel extends BaseExpandableListAdapter
+public class ParentLevelNotificaciones extends BaseExpandableListAdapter
 {
     private Context context;
     private List<String> _listDataHeader;
@@ -38,7 +38,7 @@ public class ParentLevel extends BaseExpandableListAdapter
     private HashMap<String, List<Notificacion>> _listDataChild;
     private ScheduleClient scheduleClient;
 
-    public ParentLevel(Context context, List<String> listDataHeader, HashMap<String, List<Notificacion>> listChildData, List<String> listDataHeaderSecondLevel){
+    public ParentLevelNotificaciones(Context context, List<String> listDataHeader, HashMap<String, List<Notificacion>> listChildData, List<String> listDataHeaderSecondLevel){
         this.context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
