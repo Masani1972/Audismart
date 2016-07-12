@@ -18,8 +18,8 @@ import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
 import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
 import com.aosas.audismart.adapters.AutocompleteDocumentoAdapter;
 import com.aosas.audismart.R;
-import com.aosas.audismart.comunication.IRepository;
-import com.aosas.audismart.comunication.Repository;
+import com.aosas.audismart.comunication.proxy.IRepository;
+import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
@@ -41,7 +41,7 @@ import butterknife.OnClick;
 import static android.widget.Toast.*;
 
 
-public class Registro_PasoDosActivity extends AppCompatActivity implements BaseActivity {
+public class Registro_EmpresaActivity extends AppCompatActivity implements BaseActivity {
     private String idDepartamento = "";
     private String idCiudad = "";
     private String impuestoConsumo = null;
@@ -84,7 +84,7 @@ public class Registro_PasoDosActivity extends AppCompatActivity implements BaseA
         setContentView(R.layout.activity_registro_pasodos);
         ButterKnife.inject(this);
 
-           /*
+        /*
         Permite adicionar un icono al action bar
          */
         ActionBar actionBar = getSupportActionBar();
@@ -249,7 +249,7 @@ Carga la lista de documentos al repositorio local
                 }
             });
         }else{
-            makeText(Registro_PasoDosActivity.this, R.string.campoDepartamentoIvalido, LENGTH_LONG).show();
+            makeText(this, R.string.campoDepartamentoIvalido, LENGTH_LONG).show();
         }
 
     }
@@ -259,25 +259,16 @@ Carga la lista de documentos al repositorio local
    mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
     */
     private void validar_formulario() {
-      /*  int editTextOk = 0;
-        int childcount = layout_Form.getChildCount();
-        for (int i = 1; i < childcount; i=i+2) {
-            View v = layout_Form.getChildAt(i);
-            EditText tv = (EditText) v;
-            if ((tv != null && tv.getText().toString().length() > 0))
-                editTextOk++;
-            continue;
-        }*/
          if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
              if (Preferences.getIdClient(this).length() > 0) {
                  empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, "",Constantes.REGISTRO_EMPRESA);
                  repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
 
              } else {
-                 makeText(Registro_PasoDosActivity.this, R.string.errorPreferencias, LENGTH_LONG).show();
+                 makeText(this, R.string.errorPreferencias, LENGTH_LONG).show();
              }
          } else {
-             makeText(Registro_PasoDosActivity.this, R.string.formularioIncompleto, LENGTH_LONG).show();
+             makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
          }
     }
 
@@ -294,15 +285,11 @@ Carga la lista de documentos al repositorio local
                 ArrayList<Empresa> empresas= new ArrayList<Empresa>();
                 empresas.add(empresa);
             }
+            Intent intent_menu = new Intent(this, MenuPrincipalActivity.class);
+            startActivity(intent_menu);
 
-            GCM gcm = new GCM(Preferences.getIdClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
-            repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);
         }
-        else{
-            String idDispositivo=jsonElement.getAsString();
-        makeText(Registro_PasoDosActivity.this, succes, LENGTH_SHORT).show();
-        Intent intent_menu = new Intent(Registro_PasoDosActivity.this, MenuPrincipalActivity.class);
-        startActivity(intent_menu);}
+
     }
 
 
@@ -310,6 +297,6 @@ Carga la lista de documentos al repositorio local
 
     @Override
     public void error(String error) {
-        makeText(Registro_PasoDosActivity.this, error, LENGTH_LONG).show();
+        makeText(this, error, LENGTH_LONG).show();
     }
 }

@@ -172,9 +172,6 @@ public class Preferences {
     /*
     Almacenamiento Usuario
      */
-    /*
-    Almacenamiento id de la empresa
-     */
     public static void setUsuario(Context context, User user) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
         if(user != null){

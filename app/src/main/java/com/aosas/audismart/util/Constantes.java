@@ -14,6 +14,7 @@ public  class Constantes {
     public static final String LOGIN = "LOGIN";
     public static final String REGISTRO_EMPRESA="REGISTRO EMPRESA";
     public static final String REGISTRO_DISPOSITIVO="REGISTRO DISPOSITIVO";
+    public static final String REGISTRO_DISPOSITIVO_REGISTRO="REGISTRO DISPOSITIVO REGISTRO";
     public static final String CONSULTA_FECHASCLIENTE="FECHAS CLIENTE";
     public static final String ACTUALIZA_NOTIFICACION="ACTUALIZA NOTIFICACION";
     public static final String EMPRESAS_RELACIONADA="EMPRESAS RELACIONADAS";

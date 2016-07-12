@@ -25,22 +25,22 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.example.gcm" />
+                <category android:name="com.aosas.audismart" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="gcm.MyGcmListenerService"
+            android:name="com.aosas.audismart.gcm.NotificationsListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
-            android:name=".gcm.RegistrationIntentService"
+            android:name="com.aosas.audismart.gcm.RegistrationIntentService"
             android:exported="false" />
         <service
-            android:name="gcm.MyInstanceIDListenerService"
+            android:name="com.aosas.audismart.gcm.TokenRefreshListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -67,11 +67,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitys.Registro_PasoUnoActivity"
+            android:name=".activitys.Registro_UsuarioActivity"
             android:label="@string/name_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activitys.Registro_PasoDosActivity"
+            android:name=".activitys.Registro_EmpresaActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.MenuPrincipalActivity"

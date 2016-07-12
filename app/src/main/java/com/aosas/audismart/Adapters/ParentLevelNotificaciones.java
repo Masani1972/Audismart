@@ -1,27 +1,17 @@
 package com.aosas.audismart.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
-import com.aosas.audismart.activitys.CalendarioActivity;
-import com.aosas.audismart.activitys.MenuPrincipalActivity;
-import com.aosas.audismart.comunication.IRepository;
-import com.aosas.audismart.comunication.Repository;
-import com.aosas.audismart.model.FechaCliente;
 import com.aosas.audismart.model.Notificacion;
-import com.aosas.audismart.repository.Preferences;
-import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.alarm.ScheduleClient;
 
 import java.util.HashMap;
@@ -65,7 +55,7 @@ public class ParentLevelNotificaciones extends BaseExpandableListAdapter
 
 
         CustExpListview SecondLevelexplv = new CustExpListview(context);
-        SecondLevelexplv.setAdapter(new SecondLevelAdapter(context,_listDataHeaderSecondLevel,_listDataChild));
+        SecondLevelexplv.setAdapter(new SecondLevelNotificaciones(context,_listDataHeaderSecondLevel,_listDataChild));
         SecondLevelexplv.setGroupIndicator(null);
 
 

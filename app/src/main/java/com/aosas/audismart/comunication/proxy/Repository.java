@@ -1,18 +1,15 @@
-package com.aosas.audismart.comunication;
+package com.aosas.audismart.comunication.proxy;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 
 import com.aosas.audismart.activitys.IngresoActivity;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
-import com.aosas.audismart.activitys.Registro_PasoDosActivity;
-import com.aosas.audismart.activitys.Registro_PasoUnoActivity;
+import com.aosas.audismart.activitys.Registro_EmpresaActivity;
+import com.aosas.audismart.activitys.Registro_UsuarioActivity;
 import com.aosas.audismart.util.Constantes;
 import com.google.gson.*;
-
-import org.json.JSONArray;
 
 /**
  * Created by Lmartinez on 08/01/2016.
@@ -33,9 +30,9 @@ public class Repository implements IRepository {
         switch (metodo){
         case Constantes.REGISTRO_USUARIO:
             if(errorCodigo.equals("0"))
-                ((Registro_PasoUnoActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_cliente")));
+                ((Registro_UsuarioActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_cliente")));
             else
-                ((Registro_PasoUnoActivity) activity).error((jsonObject.get("message")).getAsString());
+                ((Registro_UsuarioActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
             case Constantes.LOGIN:
                 if(errorCodigo.equals("0"))
@@ -45,15 +42,21 @@ public class Repository implements IRepository {
                 break;
             case Constantes.REGISTRO_EMPRESA:
                 if(errorCodigo.equals("0"))
-                    ((Registro_PasoDosActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_empresa")));
+                    ((Registro_EmpresaActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_empresa")));
                 else
-                    ((Registro_PasoDosActivity) activity).error((jsonObject.get("message")).getAsString());
+                    ((Registro_EmpresaActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
             case Constantes.REGISTRO_DISPOSITIVO:
                 if(errorCodigo.equals("0"))
-                    ((Registro_PasoDosActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_dispositivo")));
+                    ((IngresoActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_dispositivo")));
                 else
-                    ((Registro_PasoDosActivity) activity).error((jsonObject.get("message")).getAsString());
+                    ((IngresoActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.REGISTRO_DISPOSITIVO_REGISTRO:
+                if(errorCodigo.equals("0"))
+                    ((Registro_UsuarioActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_dispositivo")));
+                else
+                    ((Registro_UsuarioActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
             case Constantes.CONSULTA_FECHASCLIENTE:
                 if(errorCodigo.equals("0"))

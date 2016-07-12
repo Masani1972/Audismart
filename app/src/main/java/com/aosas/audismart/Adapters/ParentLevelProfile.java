@@ -17,9 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.Preferences;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,11 +32,14 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
     private Context context;
     private List<String> _listDataHeader;
     private EditText nombres,apellidos,email, departamento, ciudad, telefono;
+    private ArrayList<Empresa> empresas;
+    private TextView nombreEmpresa,lblListId;
 
 
     public ParentLevelProfile(Context context, List<String> listDataHeader){
         this.context = context;
         this._listDataHeader = listDataHeader;
+        empresas = Preferences.getEmpresas(context);
     }
 
     @Override
@@ -60,69 +65,85 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = infalInflater.inflate(R.layout.datos_personales_perfil, null);
             }
-            User user = Preferences.getUsuario(context);
-            nombres = (EditText) convertView.findViewById(R.id.editText_Nombres_Usuario);
-            nombres.setText(user.nombres);
-            apellidos = (EditText) convertView.findViewById(R.id.editText_Apellidos);
-            apellidos.setText(user.apellidos);
-            email = (EditText) convertView.findViewById(R.id.editText_email);
-            departamento = (EditText) convertView.findViewById(R.id.editText_Departamento);
-            ciudad = (EditText) convertView.findViewById(R.id.editText_Ciudad);
-            telefono = (EditText) convertView.findViewById(R.id.editText_Telefono);
-
-
-            ImageButton editar = (ImageButton) convertView.findViewById(R.id.button_check_editPerfil);
-            editar.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-
-                    View parent = (View) v.getParent();
-                    if (parent != null) {
-                   /* TextView txtView = (TextView) parent.findViewById(R.id.lblListId);
-                    ArrayList<Notificacion> notificaciones = Preferences.getNotificaciones(context);
-                    for(int index =0;index<notificaciones.size();index++) {
-
-                        if (notificaciones.get(index).id.equals(txtView.getText().toString())) {
-                            Intent intentNotificaciones = new Intent(context, NotificacionesActivity.class);
-                            intentNotificaciones.putExtra("notificacion", notificaciones.get(index));
-                            context.startActivity(intentNotificaciones);
-                        }
-                    }*/
-                    }
-                }
-            });
-
-     /*   CheckBox cumplido = (CheckBox) convertView.findViewById(R.id.checkBoxCumplio);
-        cumplido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                View parent = (View) buttonView.getParent();
-                String cumplio = "1";
-                if (isChecked) {
-                    Log.i("check", "true");
-                    cumplio = "1";
-                } else {
-                    Log.i("check", "false");
-                    cumplio = "0";
-                }
 
 
 
+
+            return cargarDatosPersonales(convertView);
+        } else if(groupPosition == 1) {
+            if (convertView == null) {
+                LayoutInflater infalInflater = (LayoutInflater) this.context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = infalInflater.inflate(R.layout.list_item_empresa, null);
             }
-        });*/
 
 
-            return convertView;
+            return listarEmpresas(convertView,childPosition);
+
         }else{
             return null;
         }
     }
 
+    private View cargarDatosPersonales(View convertView) {
+        User user = Preferences.getUsuario(context);
+        nombres = (EditText) convertView.findViewById(R.id.editText_Nombres_Usuario);
+        nombres.setText(user.nombres);
+        apellidos = (EditText) convertView.findViewById(R.id.editText_Apellidos);
+        apellidos.setText(user.apellidos);
+        email = (EditText) convertView.findViewById(R.id.editText_email);
+        departamento = (EditText) convertView.findViewById(R.id.editText_Departamento);
+        ciudad = (EditText) convertView.findViewById(R.id.editText_Ciudad);
+        telefono = (EditText) convertView.findViewById(R.id.editText_Telefono);
+
+
+        ImageButton editar = (ImageButton) convertView.findViewById(R.id.button_check_editPerfil);
+        editar.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                View parent = (View) v.getParent();
+                if (parent != null) {
+
+                }
+            }
+        });
+
+     return convertView;
+
+    }
+
+    private View listarEmpresas(View convertView, int childPosition) {
+        nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
+        nombreEmpresa.setText(empresas.get(childPosition).nombre);
+
+        lblListId = (TextView) convertView.findViewById(R.id.lblListId);
+        lblListId.setText(empresas.get(childPosition).id_empresa);
+
+        ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
+        editar.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                View parent = (View) v.getParent();
+                if (parent != null) {
+
+                }
+            }
+        });
+        return convertView;
+
+    }
+
     @Override
     public int getChildrenCount(int groupPosition)
     {
-        return 1;
+        if(groupPosition ==0)
+            return 1;
+        else if (groupPosition ==1)
+            return empresas.size();
+        else
+            return 0;
     }
 
     @Override

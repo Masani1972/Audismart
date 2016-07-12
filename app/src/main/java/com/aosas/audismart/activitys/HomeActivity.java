@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements BaseActivity{
 
     @OnClick(R.id.button_Registro)
     public void registrar(View view) {
-        Intent intent_registro = new Intent(HomeActivity.this, Registro_PasoUnoActivity.class);
+        Intent intent_registro = new Intent(HomeActivity.this, Registro_UsuarioActivity.class);
         startActivity(intent_registro);
     }
 

@@ -1,4 +1,4 @@
-package com.aosas.audismart.comunication;
+package com.aosas.audismart.comunication.proxy;
 
 import android.app.Activity;
 import android.content.Context;

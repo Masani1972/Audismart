@@ -17,10 +17,11 @@ import android.widget.Toast;
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
 import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
-import com.aosas.audismart.comunication.IRepository;
-import com.aosas.audismart.comunication.Repository;
+import com.aosas.audismart.comunication.proxy.IRepository;
+import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
+import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.repository.Preferences;
@@ -35,11 +36,15 @@ import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
-public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseActivity{
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
+
+public class Registro_UsuarioActivity extends AppCompatActivity implements BaseActivity{
     private String idDepartamento = "";
     private String idCiudad = "";
     private boolean aceptaTerminos = false;
     private String contrasenaMD5 = "";
+    IRepository repository = new Repository();
     private static final String TAG = "Registro_PasoUnoActivity";
 
     @InjectView(R.id.layout_Form)
@@ -159,7 +164,7 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
                 }
             });
         }else{
-            Toast.makeText(Registro_PasoUnoActivity.this, R.string.campoDepartamentoIvalido,Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.campoDepartamentoIvalido,Toast.LENGTH_LONG).show();
         }
 
     }
@@ -184,27 +189,33 @@ public class Registro_PasoUnoActivity extends AppCompatActivity implements BaseA
                 if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
                 User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);
-                IRepository repository = new Repository();
                 repository.createRequets(this, user, Constantes.REGISTRO_USUARIO);
 
             } else {
-                Toast.makeText(Registro_PasoUnoActivity.this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();
             }
-        }else{Toast.makeText(Registro_PasoUnoActivity.this, R.string.campoTerminos,Toast.LENGTH_LONG).show();}
+        }else{Toast.makeText(this, R.string.campoTerminos,Toast.LENGTH_LONG).show();}
     }
 
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
+        if(succes.equals("Se ha ingresado con exito")){
         String idUser=jsonElement.getAsString();
-        Toast.makeText(Registro_PasoUnoActivity.this, succes,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, succes,Toast.LENGTH_SHORT).show();
         Preferences.setIdClient(this,idUser);
-        Intent intent_pasodos = new Intent(Registro_PasoUnoActivity.this, Registro_PasoDosActivity.class);
-        startActivity(intent_pasodos);
+        GCM gcm = new GCM(Preferences.getIdClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
+        repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO_REGISTRO);
+        }else{
+            String idDispositivo=jsonElement.getAsString();
+            makeText(this, succes, LENGTH_SHORT).show();
+            Intent intent_menu = new Intent(this, Registro_EmpresaActivity.class);
+            startActivity(intent_menu);
+        }
     }
 
     @Override
     public void error(String error) {
-        Toast.makeText(Registro_PasoUnoActivity.this, error,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, error,Toast.LENGTH_LONG).show();
     }
 }

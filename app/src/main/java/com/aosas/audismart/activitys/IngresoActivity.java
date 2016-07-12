@@ -12,31 +12,32 @@ import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AlertDialogCustom;
-import com.aosas.audismart.comunication.IRepository;
-import com.aosas.audismart.comunication.Repository;
+import com.aosas.audismart.comunication.proxy.IRepository;
+import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.Calendario;
 import com.aosas.audismart.model.CalendariosCliente;
-import com.aosas.audismart.model.ClienteUnico;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.EmpresasUsuarios;
+import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Login;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
 
 public class IngresoActivity extends AppCompatActivity implements BaseActivity{
     private Util util;
@@ -143,9 +144,14 @@ olvidada por el usuario
         else if(succes.substring(0,23).equals("Calendarios encontrados")){
             JsonArray jsonArray =  (JsonArray)jsonElement;
             almacenarCalendarios(jsonArray);
-            //Toast.makeText(IngresoActivity.this, succes, Toast.LENGTH_SHORT).show();
-            Intent intentMenu = new Intent(IngresoActivity.this,MenuPrincipalActivity.class);
-            startActivity(intentMenu);
+            GCM gcm = new GCM(Preferences.getIdClient(this), Constantes.SO, Util.getDeviceName(), Preferences.getTokenGcm(this), Constantes.REGISTRO_DISPOSITIVO);
+            repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);
+        }
+        else{
+            String idDispositivo=jsonElement.getAsString();
+            makeText(this, succes, LENGTH_SHORT).show();
+            Intent intent_menu = new Intent(this, MenuPrincipalActivity.class);
+            startActivity(intent_menu);
         }
     }
 

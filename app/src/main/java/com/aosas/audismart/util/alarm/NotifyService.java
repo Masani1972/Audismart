@@ -72,16 +72,25 @@ public class NotifyService extends Service {
         long time = System.currentTimeMillis();
 
 
-        Notification notification = new Notification(icon, text, time);
+       // Notification notification = new Notification(icon, text, time);
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, SecondActivity.class), 0);
 
         // Set the info for the views that show in the notification panel.
-        notification.setLatestEventInfo(this, title, text, contentIntent);
+        //notification.setLatestEventInfo(this, title, text, contentIntent);
 
         // Clear the notification when it is pressed
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+       // notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+
+        Notification notification = new Notification.Builder(this)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setSmallIcon(icon)
+                .setAutoCancel(true)
+                .setContentIntent(contentIntent)
+                .build();
 
         // Send the notification to the system.
         mNM.notify(NOTIFICATION, notification);

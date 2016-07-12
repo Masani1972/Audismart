@@ -79,5 +79,8 @@
     <!--Perfil-->
     <string name="editar_perfil">Editar mis datos de perfil</string>
 
+    <!--Lstado empresa-->
+    <string name="nombre_empresa_list">Nombre de la empresa</string>
+
 
 </resources>

@@ -1,33 +1,22 @@
 package com.aosas.audismart.adapters;
 
-import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ExpandableListView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aosas.audismart.R;
-import com.aosas.audismart.activitys.CalendarioActivity;
-import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
-import com.aosas.audismart.comunication.IRepository;
-import com.aosas.audismart.comunication.Repository;
-import com.aosas.audismart.model.Calendario;
+import com.aosas.audismart.comunication.proxy.IRepository;
+import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.model.NotificacionCumplio;
 import com.aosas.audismart.repository.Preferences;
@@ -40,7 +29,7 @@ import java.util.List;
 /**
  * Created by Lmartinez on 28/03/2016.
  */
-public class SecondLevelAdapter extends BaseExpandableListAdapter
+public class SecondLevelNotificaciones extends BaseExpandableListAdapter
 {
     Context context;
     private List<String> _listDataHeaderSecondLevel;
@@ -49,7 +38,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
     private Notificacion notificacion;
     private IRepository repository = new Repository();
 
-    public SecondLevelAdapter (Context context,List<String> listDataHeaderSecondLevel,HashMap<String, List<Notificacion>> listChildData){
+    public SecondLevelNotificaciones(Context context, List<String> listDataHeaderSecondLevel, HashMap<String, List<Notificacion>> listChildData){
         this.context = context;
         this._listDataChild = listChildData;
         this._listDataHeaderSecondLevel = listDataHeaderSecondLevel;
@@ -80,7 +69,6 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter
             convertView = infalInflater.inflate(R.layout.list_item, null);
         }
             notificacion = (Notificacion)getChild(groupPosition, childPosition);
-
             fechaDia = (TextView) convertView.findViewById(R.id.lblListItemFechaDia);
             fechaMes = (TextView) convertView.findViewById(R.id.lblListItemFechaMes);
             fechaYear = (TextView) convertView.findViewById(R.id.lblListItemFechaYear);

@@ -1,4 +1,4 @@
-package com.aosas.audismart.comunication;
+package com.aosas.audismart.comunication.proxy;
 
 /**
  * Created by Lmartinez on 07/01/2016.
