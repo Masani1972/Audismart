@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -17,11 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.activitys.Registro_EmpresaActivity;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.Preferences;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,7 +48,7 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
     @Override
     public Object getChild(int groupPosition, int childPosititon)
     {
-         return 0;
+         return this.empresas.get(childPosititon);
     }
 
     @Override
@@ -58,17 +61,12 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent)
     {
-        Log.i("groupPosition", ""+groupPosition);
         if(groupPosition == 0) {
             if (convertView == null) {
                 LayoutInflater infalInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = infalInflater.inflate(R.layout.datos_personales_perfil, null);
             }
-
-
-
-
             return cargarDatosPersonales(convertView);
         } else if(groupPosition == 1) {
             if (convertView == null) {
@@ -78,7 +76,7 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
             }
 
 
-            return listarEmpresas(convertView,childPosition);
+            return listarEmpresas(convertView,childPosition,isLastChild);
 
         }else{
             return null;
@@ -96,7 +94,6 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
         ciudad = (EditText) convertView.findViewById(R.id.editText_Ciudad);
         telefono = (EditText) convertView.findViewById(R.id.editText_Telefono);
 
-
         ImageButton editar = (ImageButton) convertView.findViewById(R.id.button_check_editPerfil);
         editar.setOnClickListener(new View.OnClickListener() {
 
@@ -108,29 +105,44 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
                 }
             }
         });
-
      return convertView;
-
     }
 
-    private View listarEmpresas(View convertView, int childPosition) {
-        nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
-        nombreEmpresa.setText(empresas.get(childPosition).nombre);
+    private View listarEmpresas(View convertView, int childPosition,boolean isLastChild) {
 
-        lblListId = (TextView) convertView.findViewById(R.id.lblListId);
-        lblListId.setText(empresas.get(childPosition).id_empresa);
 
-        ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
-        editar.setOnClickListener(new View.OnClickListener() {
+                nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
+                nombreEmpresa.setText(empresas.get(childPosition).nombre);
 
-            public void onClick(View v) {
+                Button botonAgregar = (Button) convertView.findViewById(R.id.button_Agregar);
 
-                View parent = (View) v.getParent();
-                if (parent != null) {
+
+                lblListId = (TextView) convertView.findViewById(R.id.lblListId);
+                lblListId.setText(empresas.get(childPosition).id_empresa);
+
+                ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
+                editar.setOnClickListener(new View.OnClickListener() {
+
+                    public void onClick(View v) {
+                        Intent intentEmpresa = new Intent(context, Registro_EmpresaActivity.class);
+                    }
+                });
+                if (isLastChild){
+                    botonAgregar.setVisibility(View.VISIBLE);
+                    botonAgregar.setOnClickListener(new View.OnClickListener() {
+
+                        public void onClick(View v) {
+                            Intent intentEmpresa = new Intent(context, Registro_EmpresaActivity.class);
+                            context.startActivity(intentEmpresa);
+                        }
+                    });
 
                 }
-            }
-        });
+
+
+
+
+
         return convertView;
 
     }
@@ -169,9 +181,7 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
                              View convertView, ViewGroup parent)
     {
         String headerTitle = (String) getGroup(groupPosition);
-
         if (convertView == null) {
-
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group, null);
@@ -179,7 +189,6 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
             lblListHeader.setBackgroundColor(getColor(groupPosition));
-
         }
         return convertView;
 

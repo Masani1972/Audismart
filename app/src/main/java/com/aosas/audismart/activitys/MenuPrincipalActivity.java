@@ -52,7 +52,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     private ExpandableListView explvlist;
     private List<String> listDataHeader;
     private HashMap<String, List<Notificacion>> listDataChild;
-    private HashMap<String, List<String>> listDataChildOne;
     private List<String> listDataHeaderNotificaciones;
     private IRepository repository = new Repository();
     private List<Notificacion> notificacionesVencidas;
@@ -219,7 +218,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         listDataHeader = new ArrayList<String>();
         listDataHeaderNotificaciones = new ArrayList<String>();
         listDataChild = new HashMap<String, List<Notificacion>>();
-        listDataChildOne = new HashMap<String, List<String>>();
 
 
         // Adding child data
@@ -242,18 +240,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     /*******************
      Presentador¡¡ Logica de la  vista
      *******************/
-
-    private  void asignarResponsabilidad(int groupPosition){
-        switch (groupPosition ){
-            case 0 :
-                notificacionesVencidas();
-                break;
-            case 1 :
-                notificacionesHoy();
-                break;
-
-        }
-    }
 
     private void notificacionesVencidas() {
         notificacionesVencidas = new ArrayList<Notificacion>();
@@ -337,7 +323,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             consumoWSNotificaciones();
         }else if (succes.equals("Cliente encontrado")){
             JsonObject jsonObject = jsonElement.getAsJsonObject();
-            //String h= jsonObject.get("nombres").toString();
             User user = new User(jsonObject.get("nombres").toString().replace('\"',' '),jsonObject.get("apellidos").toString().replace('\"',' '),jsonObject.get("email").toString().replace('\"',' '),jsonObject.get("id_departamento").toString().replace('\"',' '),jsonObject.get("id_ciudad").toString().replace('\"',' '),jsonObject.get("telefono").toString().replace('\"',' '),"","","","");
             Preferences.setUsuario(this,user);
             FechaCliente fechaCliente = new FechaCliente(Preferences.getIdClient(this), idCalendario, idEmpresa, Constantes.CONSULTA_FECHASCLIENTE);

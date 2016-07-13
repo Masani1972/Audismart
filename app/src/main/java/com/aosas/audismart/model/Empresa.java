@@ -11,6 +11,8 @@ public class Empresa {
     public String id_ciudad;
     public String tipo_documento;
     public String documento;
+    public String fecharegistromercantil;
+    public String id_periodo;
     public String ingresos;
     public String categoria;
     public String impuesto_consumo;
@@ -26,7 +28,9 @@ public class Empresa {
              String documento,
              String ingresos,
              String categoria,
-             String impuesto_consumo,
+                    String impuesto_consumo,
+                    String fecharegistromercantil,
+                    String id_periodo,
             String impuesto_riqueza,String ACCION, String id_empresa){
         this.id_cliente= id_cliente;
         this.nombre= nombre;
@@ -36,6 +40,8 @@ public class Empresa {
                 this.documento=documento;
                 this.ingresos=ingresos;
                 this.categoria=categoria;
+                this.fecharegistromercantil=fecharegistromercantil;
+                this.id_periodo=id_periodo;
                 this.impuesto_consumo=impuesto_consumo;
                 this.impuesto_riqueza=impuesto_riqueza;
         this.ACCION= ACCION;

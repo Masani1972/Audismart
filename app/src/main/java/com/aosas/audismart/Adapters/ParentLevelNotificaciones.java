@@ -26,7 +26,6 @@ public class ParentLevelNotificaciones extends BaseExpandableListAdapter
     private List<String> _listDataHeader;
     private List<String> _listDataHeaderSecondLevel;
     private HashMap<String, List<Notificacion>> _listDataChild;
-    private ScheduleClient scheduleClient;
 
     public ParentLevelNotificaciones(Context context, List<String> listDataHeader, HashMap<String, List<Notificacion>> listChildData, List<String> listDataHeaderSecondLevel){
         this.context = context;

@@ -53,7 +53,8 @@
     <string name="contribuyentedeimpuesto">Contribuyente de impuesto a la riqueza</string>
     <string name="tip"><b>Tip:</b> Recuerda que puedes agregar empresas adicionales en tu perfil de administración</string>
     <string name="boton_finalizar">Finalizar Registro</string>
-
+    <string name="fecha_Mercantil">Fecha de Registro Mercantil</string>
+    <string name="periodicidad">Periodicidad</string>
 
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_menu">Bienvenido</string>
@@ -81,6 +82,7 @@
 
     <!--Lstado empresa-->
     <string name="nombre_empresa_list">Nombre de la empresa</string>
+    <string name="button_Agregar">Agregar Empresa</string>
 
 
 </resources>

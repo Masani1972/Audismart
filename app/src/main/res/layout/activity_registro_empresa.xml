@@ -152,6 +152,39 @@
                     android:layout_below="@+id/textView_Regimen"
                     android:id="@+id/editText_Regimen" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fecha_Mercantil"
+                    android:id="@+id/textView_Fecha_Mercantil"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_Regimen"/>
+
+                <EditText
+                    android:id="@+id/editText_FechaMercantil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView_Fecha_Mercantil"
+                    android:inputType="date"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/periodicidad"
+                    android:id="@+id/textView_Periodicidad"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/editText_FechaMercantil"/>
+
+                <AutoCompleteTextView
+                    android:id="@+id/editText_Periodicidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView_Periodicidad"
+                    android:inputType="date"
+                    />
 
 
         </RelativeLayout>

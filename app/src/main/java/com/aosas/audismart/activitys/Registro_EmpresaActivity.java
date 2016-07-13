@@ -25,7 +25,6 @@ import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
 import com.aosas.audismart.model.DocumentoIdentidad;
 import com.aosas.audismart.model.Empresa;
-import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
@@ -78,10 +77,12 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     @InjectView(R.id.button_Finalizar)
     Button button_Finalizar;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_pasodos);
+        setContentView(R.layout.activity_registro_empresa);
         ButterKnife.inject(this);
 
         /*

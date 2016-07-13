@@ -1,0 +1,4 @@
+[{"id_Categoria":"NA","nombre_Categoria":"Anual"},
+  {"id_Categoria":"BI","nombre_Categoria":"Bimestral"},
+  {"id_Categoria":"CU","nombre_Categoria":"Cuatrimestral"},
+  {"id_Categoria":"ME","nombre_Categoria":"Mensual"}]

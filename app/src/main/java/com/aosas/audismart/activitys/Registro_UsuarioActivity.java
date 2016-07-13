@@ -80,7 +80,7 @@ public class Registro_UsuarioActivity extends AppCompatActivity implements BaseA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_pasouno);
+        setContentView(R.layout.activity_registro_usuario);
         ButterKnife.inject(this);
 
         /*
