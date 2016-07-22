@@ -24,7 +24,7 @@ public interface APIService {
 
     @FormUrlEncoded
     @POST("WS.php")
-    Call<ResponseBody> createCompany(@Field("id_cliente") String id_cliente, @Field("nombre") String nombre, @Field("id_departamento") String id_departamento, @Field("id_ciudad") String id_ciudad,@Field("tipo_documento") String tipo_documento, @Field("documento") String documento, @Field("ingresos") String ingresos , @Field("categoria") String categoria, @Field("impuesto_consumo") String impuesto_consumo,@Field("impuesto_riqueza") String impuesto_riqueza,@Field("ACCION") String ACCION);
+    Call<ResponseBody> createCompany(@Field("id_cliente") String id_cliente, @Field("nombre") String nombre, @Field("id_departamento") String id_departamento, @Field("id_ciudad") String id_ciudad,@Field("tipo_documento") String tipo_documento, @Field("documento") String documento,@Field("fecharegistromercantil") String fecharegistromercantil ,@Field("ingresos") String ingresos ,@Field("id_periodo") String id_periodo, @Field("categoria") String categoria, @Field("impuesto_consumo") String impuesto_consumo,@Field("impuesto_riqueza") String impuesto_riqueza,@Field("ACCION") String ACCION);
 
     @FormUrlEncoded
     @POST("WS.php")
@@ -57,4 +57,8 @@ public interface APIService {
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> clienteUnico(@Field("id_cliente") String id_cliente ,@Field("ACCION")String ACCION );
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> updateCompany(@Field("id_cliente") String id_cliente, @Field("nombre") String nombre, @Field("id_departamento") String id_departamento, @Field("id_ciudad") String id_ciudad,@Field("tipo_documento") String tipo_documento, @Field("documento") String documento,@Field("fecharegistromercantil") String fecharegistromercantil ,@Field("ingresos") String ingresos ,@Field("id_periodo") String id_periodo, @Field("categoria") String categoria, @Field("impuesto_consumo") String impuesto_consumo,@Field("impuesto_riqueza") String impuesto_riqueza,@Field("ACCION") String ACCION);
 }

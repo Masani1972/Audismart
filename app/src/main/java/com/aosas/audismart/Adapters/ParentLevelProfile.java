@@ -1,5 +1,6 @@
 package com.aosas.audismart.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -22,7 +23,9 @@ import com.aosas.audismart.activitys.Registro_EmpresaActivity;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.Preferences;
+import com.aosas.audismart.util.Constantes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,9 +93,13 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
         apellidos = (EditText) convertView.findViewById(R.id.editText_Apellidos);
         apellidos.setText(user.apellidos);
         email = (EditText) convertView.findViewById(R.id.editText_email);
+        email.setText(user.email);
         departamento = (EditText) convertView.findViewById(R.id.editText_Departamento);
+        departamento.setText(user.id_departamento);
         ciudad = (EditText) convertView.findViewById(R.id.editText_Ciudad);
+        ciudad.setText(user.id_ciudad);
         telefono = (EditText) convertView.findViewById(R.id.editText_Telefono);
+        telefono.setText(user.telefono);
 
         ImageButton editar = (ImageButton) convertView.findViewById(R.id.button_check_editPerfil);
         editar.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +109,7 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
                 View parent = (View) v.getParent();
                 if (parent != null) {
 
+
                 }
             }
         });
@@ -109,8 +117,6 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
     }
 
     private View listarEmpresas(View convertView, int childPosition,boolean isLastChild) {
-
-
                 nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
                 nombreEmpresa.setText(empresas.get(childPosition).nombre);
 
@@ -125,6 +131,13 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
 
                     public void onClick(View v) {
                         Intent intentEmpresa = new Intent(context, Registro_EmpresaActivity.class);
+                        for(int i =0;i<empresas.size();i++){
+                            if(empresas.get(i).id_empresa == lblListId.getText().toString()){
+                               intentEmpresa.putExtra("empresa", empresas.get(i));
+                               // ((Activity)context).startActivityForResult(intentEmpresa, Constantes.UPDATECOMPANY);
+                                context.startActivity(intentEmpresa);
+                            }
+                        }
                     }
                 });
                 if (isLastChild){
@@ -138,13 +151,7 @@ public class ParentLevelProfile extends BaseExpandableListAdapter
                     });
 
                 }
-
-
-
-
-
         return convertView;
-
     }
 
     @Override

@@ -3,12 +3,16 @@ package com.aosas.audismart.repository;
 import android.content.Context;
 import android.util.Log;
 
+import com.aosas.audismart.model.Ciudad;
+import com.aosas.audismart.util.Util;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by Lmartinez on 16/01/2016.
@@ -51,11 +55,11 @@ public class FileAsserts {
             }
 
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             Log.e("error",e.getMessage());
 
         }
         return null;
     }
-
 }
+
+

@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_email"
-            android:enabled="false"/>
+        />
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_Departamento"
-            android:enabled="false"/>
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_Ciudad"
-            android:enabled="false"/>
+           />
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_Telefono"
-            android:enabled="false"/>
+            />
 
     </LinearLayout>
 </LinearLayout>

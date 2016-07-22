@@ -174,16 +174,6 @@ public class Registro_UsuarioActivity extends AppCompatActivity implements BaseA
     mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
      */
     private void validar_formulario() {
-      /*  int editTextOk = 0;
-        int childcount = layout_Form.getChildCount();
-        for (int i = 1; i < childcount; i=i+2) {
-            View v = layout_Form.getChildAt(i);
-            EditText tv = (EditText) v;
-            if ((tv != null && tv.getText().toString().length() > 0))
-                editTextOk++;
-            continue;
-        }*/
-
         if(aceptaTerminos) {
             if (Util.validateFormularioRelative(layout_Form)) {
                 if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)

@@ -51,29 +51,15 @@ public class ParentLevelNotificaciones extends BaseExpandableListAdapter
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent)
     {
-
+        if(groupPosition == 0) {
 
         CustExpListview SecondLevelexplv = new CustExpListview(context);
         SecondLevelexplv.setAdapter(new SecondLevelNotificaciones(context,_listDataHeaderSecondLevel,_listDataChild));
         SecondLevelexplv.setGroupIndicator(null);
 
+        return SecondLevelexplv;}
 
-
-        // Listview on child click listener
-        SecondLevelexplv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-
-                Toast.makeText(context,
-                        groupPosition + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        return SecondLevelexplv;
+        return null;
     }
 
     @Override

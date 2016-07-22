@@ -99,6 +99,13 @@ public class Repository implements IRepository {
                 else
                     ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
+            case Constantes.ACTUALIZA_EMPRESA:
+
+                if(errorCodigo.equals("0"))
+                    ((Registro_EmpresaActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
+                else
+                    ((Registro_EmpresaActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
         }
     }
 }

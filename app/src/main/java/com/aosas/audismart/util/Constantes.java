@@ -21,6 +21,7 @@ public  class Constantes {
     public static final String CALENDARIOS="CALENDARIOS CLIENTE";
     public static final String NOTIFICACIONES_CUMPLIO="ACTUALIZA CUMPLIDO";
     public static final String BUSCAR_CLIENTE_UNICO="BUSCAR CLIENTE UNICO";
+    public static final String ACTUALIZA_EMPRESA="ACTUALIZA EMPRESA";
 
 
     /*
@@ -51,5 +52,13 @@ public  class Constantes {
     public static final String FORMATOFECHANOTIDICACIONJSON="yyyy-MM-dd";
     public static final String FORMATOFECHANOTIDICACIONJSONNOTIFICACION="yyyy-MM-dd hh:mm:ss";
 
+    /*
+    Activitys result
+     */
+    public static final int UPDATECOMPANY=1;
 
+    /*
+    Response
+     */
+    public static final String ACTUALIZA_EMPRESA_RESPONSE="Se actualizo con exito";
 }

@@ -1,8 +1,10 @@
 package com.aosas.audismart.util;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,6 +15,8 @@ import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
 import com.aosas.audismart.model.DocumentoIdentidad;
+import com.aosas.audismart.model.Periodicidad;
+import com.aosas.audismart.repository.FileAsserts;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -62,7 +66,17 @@ public class Util {
             }.getType();
             ArrayList<DocumentoIdentidad> documentos = gson.fromJson(json, type);
             return documentos;
-        }
+
+         } else if (object instanceof Periodicidad) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Periodicidad>>() {
+            }.getType();
+            ArrayList<Periodicidad> periodos = gson.fromJson(json, type);
+            return periodos;
+
+
+
+    }
         return null;
     }
 
@@ -161,4 +175,71 @@ public class Util {
         else
             return false;
     }
+
+
+    /*
+    Buscar nombre ciudad
+     */
+    public static String buscarCiudad (Context context, String id,String idCiudad){
+        ArrayList<Ciudad> ciudad = Util.jsontoArrayList(FileAsserts.readJsonDescripcion(context, id), new Ciudad());
+        for(int i =0;i<ciudad.size();i++){
+            if(ciudad.get(i).Id_ciudad.equals(idCiudad)){
+                return ciudad.get(i).Nombre;
+            }
+        }
+        return "";
+    }
+
+    /*
+    Buscar nombre departamento
+     */
+    public static String buscarDepartamento (Context context, String id){
+        ArrayList<Departamento> departamentos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"departamentos"),new Departamento());
+        for(int i =0;i<departamentos.size();i++){
+            if(departamentos.get(i).Id_departamento.equals(id)){
+                return departamentos.get(i).Nombre;
+            }
+        }
+        return "";
+    }
+
+    /*
+    Buscar nombre documento
+   */
+    public static String buscarDocumento (Context context, String id){
+        ArrayList<DocumentoIdentidad> tipoDocumento = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"documentos"),new DocumentoIdentidad());
+        for(int i =0;i<tipoDocumento.size();i++){
+            if(tipoDocumento.get(i).id_Documento.equals(id)){
+                return tipoDocumento.get(i).nombre;
+            }
+        }
+        return "";
+    }
+
+    /*
+    Buscar nombre categoria
+   */
+    public static String buscarCategoria(Context context, String id){
+        ArrayList<Categoria> categorias = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"categorias"),new Categoria());
+        for(int i =0;i<categorias.size();i++){
+            if(categorias.get(i).id_Categoria.equals(id)){
+                return categorias.get(i).nombre_Categoria;
+            }
+        }
+        return "";
+    }
+
+    /*
+   Buscar nombre priodicidad
+  */
+    public static String buscarPeriodo(Context context, String id){
+        ArrayList<Periodicidad> prediodos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"periodicidad"),new Periodicidad());
+        for(int i =0;i<prediodos.size();i++){
+            if(prediodos.get(i).id.equals(id)){
+                return prediodos.get(i).nombre;
+            }
+        }
+        return "";
+    }
+
 }

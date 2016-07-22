@@ -48,7 +48,6 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
 
     @Override
     protected void onPreExecute() {
-        // TODO i18n
         dialog.setMessage("Consultando información..");
         dialog.show();
 
@@ -70,7 +69,7 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 break;
             case Constantes.REGISTRO_EMPRESA:
                 Empresa empresa = (Empresa) object;
-                call = taskService.createCompany(empresa.id_cliente, empresa.nombre, empresa.id_departamento, empresa.id_ciudad, empresa.tipo_documento, empresa.documento, empresa.ingresos, empresa.categoria, empresa.impuesto_consumo, empresa.impuesto_riqueza, empresa.ACCION);
+                call = taskService.createCompany(empresa.id_cliente, empresa.nombre, empresa.id_departamento, empresa.id_ciudad, empresa.tipo_documento, empresa.documento,empresa.fecharegistromercantil, empresa.ingresos,empresa.id_periodo, empresa.categoria, empresa.impuesto_consumo, empresa.impuesto_riqueza, empresa.ACCION);
                 break;
             case Constantes.REGISTRO_DISPOSITIVO:
                 GCM gcm = (GCM) object;
@@ -99,6 +98,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             case Constantes.BUSCAR_CLIENTE_UNICO:
                 ClienteUnico clienteUnico = (ClienteUnico) object;
                 call = taskService.clienteUnico(clienteUnico.id_cliente,clienteUnico.ACCION);
+                break;
+            case Constantes.ACTUALIZA_EMPRESA:
+                Empresa empresaUpdate = (Empresa) object;
+                call = taskService.createCompany(empresaUpdate.id_cliente, empresaUpdate.nombre, empresaUpdate.id_departamento, empresaUpdate.id_ciudad, empresaUpdate.tipo_documento, empresaUpdate.documento,empresaUpdate.fecharegistromercantil, empresaUpdate.ingresos,empresaUpdate.id_periodo, empresaUpdate.categoria, empresaUpdate.impuesto_consumo, empresaUpdate.impuesto_riqueza, empresaUpdate.ACCION);
                 break;
             case "":
                call = null;
@@ -132,13 +135,12 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
         Log.i(TAG, result);
         IRepository presenter = new Repository();
         presenter.createResponse(result, metodo, activity);
-
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
     }
     else{
-            IRepository presenter = new Repository();
+        IRepository presenter = new Repository();
         presenter.createResponse(Resources.getSystem().getString(R.string.errorServiciosWEb),metodo,activity);}
     }
 }

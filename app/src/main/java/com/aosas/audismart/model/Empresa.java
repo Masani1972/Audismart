@@ -1,14 +1,18 @@
 package com.aosas.audismart.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Lmartinez on 21/01/2016.
  */
-public class Empresa {
+public class Empresa implements Serializable {
 
     public String id_cliente;
     public String nombre;
     public String id_departamento;
+    public String departamento;
     public String id_ciudad;
+    public String ciudad;
     public String tipo_documento;
     public String documento;
     public String fecharegistromercantil;
@@ -23,7 +27,9 @@ public class Empresa {
     public Empresa (String id_cliente,
            String nombre,
              String id_departamento,
+             String departamento,
              String id_ciudad,
+             String ciudad,
             String tipo_documento,
              String documento,
              String ingresos,
@@ -35,6 +41,8 @@ public class Empresa {
         this.id_cliente= id_cliente;
         this.nombre= nombre;
         this.id_departamento=id_departamento;
+        this.departamento = departamento;
+        this.ciudad = ciudad;
                 this.id_ciudad=id_ciudad;
                 this.tipo_documento=tipo_documento;
                 this.documento=documento;

@@ -281,9 +281,17 @@
                 android:background="@drawable/button_rosa"
                 android:textColor="@color/textbotones"/>
 
-
-
-
+            <Button
+                android:id="@+id/button_Agregar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_Tip"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/boton_agregar"
+                android:background="@drawable/button_rosa"
+                android:textColor="@color/textbotones"
+                android:visibility="invisible"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
 import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
 import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
 import com.aosas.audismart.adapters.AutocompleteDocumentoAdapter;
 import com.aosas.audismart.R;
+import com.aosas.audismart.adapters.AutocompletePeriodicidadAdapter;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.Categoria;
@@ -25,6 +27,7 @@ import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
 import com.aosas.audismart.model.DocumentoIdentidad;
 import com.aosas.audismart.model.Empresa;
+import com.aosas.audismart.model.Periodicidad;
 import com.aosas.audismart.repository.FileAsserts;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
@@ -47,8 +50,10 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     private String impuestoRiqueza = null;
     private String idCategoria = null;
     private String idDocumento = null;
+    private String periodicidad = null;
     private IRepository repository = new Repository();
     private Empresa empresa;
+    private Empresa empresaEdit;
 
     @InjectView(R.id.layout_Form)
     RelativeLayout layout_Form;
@@ -74,10 +79,20 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     @InjectView(R.id.editText_Regimen)
     AutoCompleteTextView editText_Regimen;
 
+    @InjectView(R.id.editText_FechaMercantil)
+    EditText editText_FechaMercantil;
+
+    @InjectView(R.id.editText_Periodicidad)
+    AutoCompleteTextView editText_Periodicidad;
+
+    @InjectView(R.id.textView_Tip)
+    TextView textView_Tip;
+
     @InjectView(R.id.button_Finalizar)
     Button button_Finalizar;
 
-
+    @InjectView(R.id.button_Agregar)
+    Button button_Agregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +100,7 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
         setContentView(R.layout.activity_registro_empresa);
         ButterKnife.inject(this);
 
-        /*
+         /*
         Permite adicionar un icono al action bar
          */
         ActionBar actionBar = getSupportActionBar();
@@ -93,6 +108,12 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setSubtitle(getResources().getString(R.string.subtitulo_pasodos));
+
+        if (this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("empresa")) {
+            empresaEdit = (Empresa) this.getIntent().getExtras().getSerializable("empresa");
+            actualizarEmpresa(empresaEdit);
+            actionBar.setSubtitle("");
+        }
 
           /*listener  autocomplete no soportado por ButterKnife*/
         editText_Departamento.setThreshold(1);
@@ -140,17 +161,64 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
                 return false;
             }
         });
+
+        editText_Periodicidad.setFocusable(false);
+        editText_Periodicidad.setClickable(true);
+
+         /*listener  autocomplete no soportado por ButterKnife*/
+        editText_Periodicidad.setThreshold(1);
+        editText_Periodicidad.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                cargarListaPeriocidad();
+                editText_Periodicidad.showDropDown();
+                return false;
+            }
+        });
     }
 
 
     @OnClick(R.id.button_Finalizar)
     public void button_Finalizar(View view) {
-        validar_formulario();
+        validar_formulario_registro();
+    }
+
+    @OnClick(R.id.button_Agregar)
+    public void setButton_Agregar(View view) {
+        validar_formulario_actualizacion();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constantes.UPDATECOMPANY) {
+            if (resultCode == RESULT_OK) {
+
+            }
+        }
     }
 
     /*******************
      Presentador¡¡ Logica de la  vista
      *******************/
+
+    /*
+    Set valores para editar datos empresa
+     */
+    private void actualizarEmpresa(Empresa empresaEdit) {
+        editText_Nombre_Empresa.setText(empresaEdit.nombre);
+        editText_Departamento.setText(empresaEdit.departamento);
+        editText_Ciudad.setText(empresaEdit.ciudad);
+        editText_TipoDocumento.setText(empresaEdit.tipo_documento);
+        editText_NumDocumento.setText(empresaEdit.documento);
+        editText_Ingresos.setText(empresaEdit.ingresos);
+        editText_Regimen.setText(empresaEdit.categoria);
+        editText_FechaMercantil.setText(empresaEdit.fecharegistromercantil);
+        editText_Periodicidad.setText(empresaEdit.id_periodo);
+
+        textView_Tip.setVisibility(View.INVISIBLE);
+        button_Finalizar.setVisibility(View.INVISIBLE);
+        button_Agregar.setVisibility(View.VISIBLE);
+    }
 
     /*
     Valor para impuesto al consumo RadioButton
@@ -206,8 +274,8 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     }
 
     /*
-Carga la lista de documentos al repositorio local
-*/
+    Carga la lista de documentos al repositorio local
+    */
     private void cargarListaDocumento() {
         ArrayList arrayListDocumentos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(this, "documentos"), new DocumentoIdentidad());
         AutocompleteDocumentoAdapter itemadapter = new AutocompleteDocumentoAdapter(this, R.layout.adapter_autotext,arrayListDocumentos);
@@ -216,6 +284,21 @@ Carga la lista de documentos al repositorio local
             public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
                 DocumentoIdentidad documento = (DocumentoIdentidad) listView.getItemAtPosition(position);
                 idDocumento = documento.id_Documento;
+            }
+        });
+    }
+
+    /*
+   Carga la lista de documentos al repositorio local
+   */
+    private void cargarListaPeriocidad() {
+        ArrayList arrayListPeriodo = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(this, "periodicidad"), new Periodicidad());
+        AutocompletePeriodicidadAdapter itemadapter = new AutocompletePeriodicidadAdapter(this, R.layout.adapter_autotext,arrayListPeriodo);
+        editText_Periodicidad.setAdapter(itemadapter);
+        editText_Periodicidad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                Periodicidad periodo = (Periodicidad) listView.getItemAtPosition(position);
+                periodicidad = periodo.id;
             }
         });
     }
@@ -259,10 +342,10 @@ Carga la lista de documentos al repositorio local
    Validar los campos EditText del formulario
    mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
     */
-    private void validar_formulario() {
+    private void validar_formulario_registro() {
          if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
              if (Preferences.getIdClient(this).length() > 0) {
-                 empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, idCiudad, idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo, impuestoRiqueza, "",Constantes.REGISTRO_EMPRESA);
+                 empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, editText_Departamento.getText().toString(), idCiudad,editText_Ciudad.getText().toString(), idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo,editText_FechaMercantil.getText().toString(), periodicidad,impuestoRiqueza,Constantes.REGISTRO_EMPRESA,"");
                  repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
 
              } else {
@@ -272,6 +355,26 @@ Carga la lista de documentos al repositorio local
              makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
          }
     }
+
+    /*
+  Validar los campos EditText del formulario
+  mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
+   */
+    private void validar_formulario_actualizacion() {
+        if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
+            if (Preferences.getIdClient(this).length() > 0) {
+                empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, editText_Departamento.getText().toString(), idCiudad,editText_Ciudad.getText().toString(), idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo,editText_FechaMercantil.getText().toString(), periodicidad,impuestoRiqueza,Constantes.ACTUALIZA_EMPRESA,"");
+                repository.createRequets(this, empresa, Constantes.ACTUALIZA_EMPRESA);
+
+            } else {
+                makeText(this, R.string.errorPreferencias, LENGTH_LONG).show();
+            }
+        } else {
+            makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
+        }
+    }
+
+
 
 
     @Override
@@ -288,9 +391,9 @@ Carga la lista de documentos al repositorio local
             }
             Intent intent_menu = new Intent(this, MenuPrincipalActivity.class);
             startActivity(intent_menu);
-
+        }else if(succes.equals(Constantes.ACTUALIZA_EMPRESA_RESPONSE)){
+            finish();
         }
-
     }
 
 

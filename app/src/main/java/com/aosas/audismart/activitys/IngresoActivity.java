@@ -177,12 +177,14 @@ olvidada por el usuario
                 JsonParser parser = new JsonParser();
                 JsonElement tradeElement = parser.parse(result.get(i).toString());
                 JsonObject jsonObject = tradeElement.getAsJsonObject();
-                Empresa empresa = new Empresa(jsonObject.get("id_cliente").toString(),jsonObject.get("nombre").toString(),jsonObject.get("id_departamento").toString(),jsonObject.get("id_ciudad").toString(),jsonObject.get("tipo_documento").toString(),jsonObject.get("documento").toString(),jsonObject.get("ingresos").toString(),jsonObject.get("categoria").toString(),jsonObject.get("impuesto_consumo").toString(),jsonObject.get("impuesto_riqueza").toString(),"",jsonObject.get("id_empresa").toString());
+                String idDepartamento = jsonObject.get("id_departamento").toString().replaceAll("\"","");
+                String departamento = Util.buscarDepartamento(this,idDepartamento);
+                String ciudad = Util.buscarCiudad(this,idDepartamento,jsonObject.get("id_ciudad").toString().replaceAll("\"",""));
+                Empresa empresa = new Empresa(jsonObject.get("id_cliente").toString().replaceAll("\"",""),jsonObject.get("nombre").toString().replaceAll("\"",""),idDepartamento,departamento,jsonObject.get("id_ciudad").toString().replaceAll("\"",""),ciudad,Util.buscarDocumento(this,jsonObject.get("tipo_documento").toString().replaceAll("\"","")),jsonObject.get("documento").toString().replaceAll("\"",""),jsonObject.get("ingresos").toString().replaceAll("\"",""),Util.buscarCategoria(this,jsonObject.get("categoria").toString().replaceAll("\"","")),jsonObject.get("impuesto_consumo").toString().replaceAll("\"",""),jsonObject.get("fecharegistromercantil").toString().replaceAll("\"",""),Util.buscarPeriodo(this,jsonObject.get("id_periodo").toString().replaceAll("\"","")),jsonObject.get("impuesto_riqueza").toString().replaceAll("\"",""),"",jsonObject.get("id_empresa").toString().replaceAll("\"",""));
                 empresas.add(i,empresa);
             }
             Preferences.setEmpresas(this,empresas);
         }
-
     }
 
     @Override
