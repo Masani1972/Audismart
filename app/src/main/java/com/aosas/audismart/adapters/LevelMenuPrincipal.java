@@ -14,30 +14,38 @@ import com.aosas.audismart.R;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.util.alarm.ScheduleClient;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Lmartinez on 28/03/2016.
  */
-public class ParentLevelNotificaciones extends BaseExpandableListAdapter
+public class LevelMenuPrincipal extends BaseExpandableListAdapter
 {
     private Context context;
-    private List<String> _listDataHeader;
-    private List<String> _listDataHeaderSecondLevel;
+    private List<String> listDataHeader;
+    private List<String> _listDataHeaderLevelNotifications;
     private HashMap<String, List<Notificacion>> _listDataChild;
+    private List<String> listDataHeaderLevelProfile;
 
-    public ParentLevelNotificaciones(Context context, List<String> listDataHeader, HashMap<String, List<Notificacion>> listChildData, List<String> listDataHeaderSecondLevel){
+    public LevelMenuPrincipal(Context context, HashMap<String, List<Notificacion>> listChildData, List<String> listDataHeaderLevelNotifications){
         this.context = context;
-        this._listDataHeader = listDataHeader;
+        intilist();
         this._listDataChild = listChildData;
-        this._listDataHeaderSecondLevel = listDataHeaderSecondLevel;
+        this._listDataHeaderLevelNotifications = listDataHeaderLevelNotifications;
+    }
+
+    private void intilist() {
+        listDataHeader = Arrays.asList(context.getResources().getStringArray(R.array.title_menuprincipal));
+        listDataHeaderLevelProfile =Arrays.asList(context.getResources().getStringArray(R.array.title_perfil));
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosititon)
     {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+        return this._listDataChild.get(this.listDataHeader.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -54,10 +62,16 @@ public class ParentLevelNotificaciones extends BaseExpandableListAdapter
         if(groupPosition == 0) {
 
         CustExpListview SecondLevelexplv = new CustExpListview(context);
-        SecondLevelexplv.setAdapter(new SecondLevelNotificaciones(context,_listDataHeaderSecondLevel,_listDataChild));
+        SecondLevelexplv.setAdapter(new SecondLevelNotificaciones(context,_listDataHeaderLevelNotifications,_listDataChild));
         SecondLevelexplv.setGroupIndicator(null);
 
         return SecondLevelexplv;}
+        else if(groupPosition == 2){
+            CustExpListview SecondLevelexplv = new CustExpListview(context);
+            SecondLevelexplv.setAdapter(new SecondLevelProfile(context,listDataHeaderLevelProfile,true));
+            SecondLevelexplv.setGroupIndicator(null);
+            return SecondLevelexplv;
+        }
 
         return null;
     }
@@ -71,13 +85,13 @@ public class ParentLevelNotificaciones extends BaseExpandableListAdapter
     @Override
     public Object getGroup(int groupPosition)
     {
-        return this._listDataHeader.get(groupPosition);
+        return this.listDataHeader.get(groupPosition);
     }
 
     @Override
     public int getGroupCount()
     {
-        return this._listDataHeader.size();
+        return this.listDataHeader.size();
     }
 
     @Override

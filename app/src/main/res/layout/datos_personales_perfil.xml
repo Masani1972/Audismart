@@ -4,31 +4,13 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="@string/editar_perfil"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:id="@+id/button_check_editPerfil"
-        android:src="@drawable/editar"/>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:id="@+id/layout_Form"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
@@ -69,10 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/departamento"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <AutoCompleteTextView
             android:id="@+id/editText_Departamento"
+            android:layout_width="match_parent"
+            android:focusableInTouchMode="false"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_Departamento"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
             />
 
         <TextView
@@ -80,11 +66,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/ciudad"/>
-        <EditText
+        <AutoCompleteTextView
+            android:id="@+id/editText_Ciudad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText_Ciudad"
-           />
+            android:layout_below="@+id/textView_Ciudad"
+            android:layout_centerHorizontal="true"
+            android:ems="10" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,7 +83,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_Telefono"
+            android:inputType="phone"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/contrasena"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_Contrasena"
+            android:inputType="textPassword"
             />
 
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBox_terminos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/terminos" />
+
+    <CheckBox
+        android:id="@+id/checkBox_envio_inf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/envio_inf" />
+
+    <Button
+        android:id="@+id/button_Actualizar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/buton_actualizar"
+        android:background="@drawable/button_rosa"
+        android:textColor="@color/textbotones"
+        />
 </LinearLayout>

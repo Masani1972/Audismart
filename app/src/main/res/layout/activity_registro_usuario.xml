@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activitys.Registro_PasoUnoActivity">
+    tools:context=".activitys.Registro_UsuarioActivity">
 
 
     <ScrollView
@@ -180,6 +180,14 @@
                 android:layout_below="@+id/layout_Form"
                 android:layout_marginTop="10dp"
                 android:text="@string/terminos" />
+
+            <CheckBox
+                android:id="@+id/checkBox_envio_inf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_Form"
+                android:layout_marginTop="10dp"
+                android:text="@string/envio_inf" />
 
             <Button
                 android:id="@+id/button_Continuar"

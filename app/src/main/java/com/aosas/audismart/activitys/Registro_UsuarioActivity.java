@@ -43,6 +43,7 @@ public class Registro_UsuarioActivity extends AppCompatActivity implements BaseA
     private String idDepartamento = "";
     private String idCiudad = "";
     private boolean aceptaTerminos = false;
+    private boolean envioInfo = false;
     private String contrasenaMD5 = "";
     IRepository repository = new Repository();
     private static final String TAG = "Registro_PasoUnoActivity";
@@ -122,6 +123,12 @@ public class Registro_UsuarioActivity extends AppCompatActivity implements BaseA
         aceptaTerminos = value;
     }
 
+    @OnCheckedChanged(R.id.checkBox_envio_inf)
+    public void checkBox_envio_inf(boolean value)
+    {
+        envioInfo = value;
+    }
+
     @OnClick(R.id.button_Continuar)
     public void button_Continuar(View view) {
         validar_formulario();
@@ -174,7 +181,7 @@ public class Registro_UsuarioActivity extends AppCompatActivity implements BaseA
     mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
      */
     private void validar_formulario() {
-        if(aceptaTerminos) {
+        if(aceptaTerminos & envioInfo) {
             if (Util.validateFormularioRelative(layout_Form)) {
                 if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());

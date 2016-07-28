@@ -94,6 +94,9 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     @InjectView(R.id.button_Agregar)
     Button button_Agregar;
 
+    @InjectView(R.id.button_Actualizar)
+    Button button_Actualizar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,6 +188,11 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
 
     @OnClick(R.id.button_Agregar)
     public void setButton_Agregar(View view) {
+        validar_formulario_registro();
+    }
+
+    @OnClick(R.id.button_Actualizar)
+    public void button_Actualizar(View view) {
         validar_formulario_actualizacion();
     }
 
@@ -217,7 +225,9 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
 
         textView_Tip.setVisibility(View.INVISIBLE);
         button_Finalizar.setVisibility(View.INVISIBLE);
-        button_Agregar.setVisibility(View.VISIBLE);
+        button_Agregar.setVisibility(View.INVISIBLE);
+        button_Actualizar.setVisibility(View.VISIBLE);
+
     }
 
     /*

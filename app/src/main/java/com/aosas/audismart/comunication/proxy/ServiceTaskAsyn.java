@@ -101,7 +101,11 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 break;
             case Constantes.ACTUALIZA_EMPRESA:
                 Empresa empresaUpdate = (Empresa) object;
-                call = taskService.createCompany(empresaUpdate.id_cliente, empresaUpdate.nombre, empresaUpdate.id_departamento, empresaUpdate.id_ciudad, empresaUpdate.tipo_documento, empresaUpdate.documento,empresaUpdate.fecharegistromercantil, empresaUpdate.ingresos,empresaUpdate.id_periodo, empresaUpdate.categoria, empresaUpdate.impuesto_consumo, empresaUpdate.impuesto_riqueza, empresaUpdate.ACCION);
+                call = taskService.updateCompany(empresaUpdate.id_cliente, empresaUpdate.nombre, empresaUpdate.id_departamento, empresaUpdate.id_ciudad, empresaUpdate.tipo_documento, empresaUpdate.documento,empresaUpdate.fecharegistromercantil, empresaUpdate.ingresos,empresaUpdate.id_periodo, empresaUpdate.categoria, empresaUpdate.impuesto_consumo, empresaUpdate.impuesto_riqueza, empresaUpdate.ACCION);
+                break;
+            case Constantes.ACTUALIZA_CLIENTE:
+                User userUpdate = (User) object;
+                call = taskService.updateClient(userUpdate.nombres, userUpdate.apellidos, userUpdate.email, userUpdate.id_departamento,  userUpdate.id_ciudad, userUpdate.telefono,userUpdate.ACCION);
                 break;
             case "":
                call = null;

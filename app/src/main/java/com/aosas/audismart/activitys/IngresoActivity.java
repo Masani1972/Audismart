@@ -148,7 +148,6 @@ olvidada por el usuario
             repository.createRequets(this, gcm, Constantes.REGISTRO_DISPOSITIVO);
         }
         else{
-            String idDispositivo=jsonElement.getAsString();
             makeText(this, succes, LENGTH_SHORT).show();
             Intent intent_menu = new Intent(this, MenuPrincipalActivity.class);
             startActivity(intent_menu);

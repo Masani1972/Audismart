@@ -22,6 +22,7 @@ public  class Constantes {
     public static final String NOTIFICACIONES_CUMPLIO="ACTUALIZA CUMPLIDO";
     public static final String BUSCAR_CLIENTE_UNICO="BUSCAR CLIENTE UNICO";
     public static final String ACTUALIZA_EMPRESA="ACTUALIZA EMPRESA";
+    public static final String ACTUALIZA_CLIENTE="ACTUALIZA CLIENTE";
 
 
     /*

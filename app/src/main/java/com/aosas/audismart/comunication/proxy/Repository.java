@@ -48,7 +48,7 @@ public class Repository implements IRepository {
                 break;
             case Constantes.REGISTRO_DISPOSITIVO:
                 if(errorCodigo.equals("0"))
-                    ((IngresoActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("id_dispositivo")));
+                    ((IngresoActivity) activity).succes((jsonObject.get("message")).getAsString(), null);
                 else
                     ((IngresoActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
@@ -105,6 +105,13 @@ public class Repository implements IRepository {
                     ((Registro_EmpresaActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
                 else
                     ((Registro_EmpresaActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.ACTUALIZA_CLIENTE:
+
+                if(errorCodigo.equals("0"))
+                    ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
+                else
+                    ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
         }
     }

@@ -37,6 +37,7 @@
     <string name="ciudad">Ciudad</string>
     <string name="telefono">Teléfono / Celular</string>
     <string name="terminos">Acepto Términos y coniciones/Política de uso de datos</string>
+    <string name="envio_inf">Acepto envío de información</string>
     <string name="boton_Paso2">Siguiente</string>
 
     <!--Registro Dos-->
@@ -54,6 +55,7 @@
     <string name="tip"><b>Tip:</b> Recuerda que puedes agregar empresas adicionales en tu perfil de administración</string>
     <string name="boton_finalizar">Finalizar Registro</string>
     <string name="boton_agregar">Agregar</string>
+    <string name="boton_actualizar">Actualizar</string>
     <string name="fecha_Mercantil">Fecha de Registro Mercantil</string>
     <string name="periodicidad">Periodicidad</string>
 
@@ -77,9 +79,21 @@
     <string name="empresas">Empresas</string>
     <string name="title_activity_borrar">borrar</string>
     <string name="title_activity_perfil">Perfil</string>
+    <string-array name="title_menuprincipal">
+        <item name="tittle1">Mis notificaciones</item>
+        <item name="tittle2">Mis tickets</item>
+        <item name="tittle3">Mi Perfil</item>
+    </string-array>
+    <string-array name="title_perfil">
+        <item name="tittle1">Mis Datos Personales</item>
+        <item name="tittle2">Mis empresas inscritas</item>
+    </string-array>
+
+
 
     <!--Perfil-->
     <string name="editar_perfil">Editar mis datos de perfil</string>
+    <string name="buton_actualizar">Actualizar Datos</string>
 
     <!--Lstado empresa-->
     <string name="nombre_empresa_list">Nombre de la empresa</string>

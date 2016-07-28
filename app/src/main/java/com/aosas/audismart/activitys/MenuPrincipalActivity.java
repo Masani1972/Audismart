@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteCalendarioAdapter;
 import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
-import com.aosas.audismart.adapters.ParentLevelNotificaciones;
+import com.aosas.audismart.adapters.LevelMenuPrincipal;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.Calendario;
@@ -50,7 +50,6 @@ import static android.widget.Toast.makeText;
 
 public class MenuPrincipalActivity extends AppCompatActivity implements BaseActivity {
     private ExpandableListView explvlist;
-    private List<String> listDataHeader;
     private HashMap<String, List<Notificacion>> listDataChild;
     private List<String> listDataHeaderNotificaciones;
     private IRepository repository = new Repository();
@@ -141,10 +140,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
     @Override
     protected void onStop() {
-        // When our activity is stopped ensure we also stop the connection to the service
-        // this stops us leaking our activity into the system *bad*
-        //if(scheduleClient != null)
-          //  scheduleClient.doUnbindService();
         super.onStop();
     }
 
@@ -215,15 +210,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
     private void prepareListData() {
 
-        listDataHeader = new ArrayList<String>();
         listDataHeaderNotificaciones = new ArrayList<String>();
         listDataChild = new HashMap<String, List<Notificacion>>();
-
-
-        // Adding child data
-        listDataHeader.add("Mis notificaciones");
-        listDataHeader.add("Mis tickets");
-        listDataHeader.add("Mi Perfil");
 
         listDataHeaderNotificaciones.add("Vencidas");
         listDataHeaderNotificaciones.add("Para hoy");
@@ -362,7 +350,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             prepareListData();
 
             explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
-            explvlist.setAdapter(new ParentLevelNotificaciones(this, listDataHeader, listDataChild, listDataHeaderNotificaciones));
+            explvlist.setAdapter(new LevelMenuPrincipal(this, listDataChild, listDataHeaderNotificaciones));
             initalarm();
         }}
 
