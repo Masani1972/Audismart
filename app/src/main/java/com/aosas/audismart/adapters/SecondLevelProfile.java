@@ -120,6 +120,7 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
         contrasena = (EditText) convertView.findViewById(R.id.editText_Contrasena);
         layout_Form = (LinearLayout)convertView.findViewById(R.id.layout_Form);
         chTerminos = (CheckBox) convertView.findViewById(R.id.checkBox_terminos);
+
         /*listener checkbox*/
         chTerminos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 

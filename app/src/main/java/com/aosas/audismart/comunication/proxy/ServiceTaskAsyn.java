@@ -107,6 +107,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 User userUpdate = (User) object;
                 call = taskService.updateClient(userUpdate.nombres, userUpdate.apellidos, userUpdate.email, userUpdate.id_departamento,  userUpdate.id_ciudad, userUpdate.telefono,userUpdate.ACCION);
                 break;
+            case Constantes.ELIMINAR_EMPRESA:
+                Empresa empresaDelete = (Empresa) object;
+                call = taskService.deleteCompany(empresaDelete.id_empresa, empresaDelete.ACCION);
+                break;
             case "":
                call = null;
                 break;

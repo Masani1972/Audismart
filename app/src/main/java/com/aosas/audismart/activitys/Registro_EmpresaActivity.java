@@ -97,6 +97,9 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     @InjectView(R.id.button_Actualizar)
     Button button_Actualizar;
 
+    @InjectView(R.id.button_Eliminar)
+    Button button_Eliminar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,6 +199,12 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
         validar_formulario_actualizacion();
     }
 
+    @OnClick(R.id.button_Eliminar)
+    public void button_Eliminar(View view) {
+        eliminarEmpresa();
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constantes.UPDATECOMPANY) {
@@ -227,6 +236,7 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
         button_Finalizar.setVisibility(View.INVISIBLE);
         button_Agregar.setVisibility(View.INVISIBLE);
         button_Actualizar.setVisibility(View.VISIBLE);
+        button_Eliminar.setVisibility(View.VISIBLE);
 
     }
 
@@ -266,6 +276,12 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
                 break;
         }
 
+    }
+
+    /*
+    Eliminar empresas
+     */
+    private void eliminarEmpresa() {
     }
 
     /*

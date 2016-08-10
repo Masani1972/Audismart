@@ -56,6 +56,7 @@
     <string name="boton_finalizar">Finalizar Registro</string>
     <string name="boton_agregar">Agregar</string>
     <string name="boton_actualizar">Actualizar</string>
+    <string name="boton_eliminar">Eliminar</string>
     <string name="fecha_Mercantil">Fecha de Registro Mercantil</string>
     <string name="periodicidad">Periodicidad</string>
 
