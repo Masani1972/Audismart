@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aosas.audismart.activitys.TicketActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/header_home"
+        android:background="@color/texttickets">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_tickets"
+            android:layout_centerVertical="true"
+            android:textSize="15dp"
+            android:textColor="@color/blanco"
+            android:layout_marginLeft="10dp"
+            />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_home"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+    <TextView
+        android:id="@+id/text_empresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/text_empresa"
+        android:background="@android:color/background_dark"
+        android:id="@+id/view"/>
+
+    <TextView
+        android:id="@+id/text_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/view"/>
+
+    <TextView
+        android:id="@+id/text_estado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_area"
+            android:id="@+id/icon_user"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_account_circle_black_24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/yo"
+            android:layout_toRightOf="@+id/icon_user"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/text_area"
+            android:text="@string/yo"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:id="@+id/text_respuesta"
+            android:layout_below="@+id/icon_user"
+            android:enabled="false"
+             />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
