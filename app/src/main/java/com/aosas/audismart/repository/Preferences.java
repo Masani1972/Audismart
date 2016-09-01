@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.aosas.audismart.model.Calendario;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.model.Ticket;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.util.Constantes;
 import com.google.gson.Gson;
@@ -189,5 +190,35 @@ public class Preferences {
         String json = sharedPref.getString(Constantes.USUSARIO, "0");
         User user = gson.fromJson(json, User.class);
         return user;
+    }
+
+    /*
+    Almacenamiento tickets
+    */
+    public static void setTickets(Context context, ArrayList<Ticket> tikets ) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+        if(tikets != null){
+            Gson gson = new Gson();
+            String json = gson.toJson(tikets);
+            editor.putString(Constantes.TICKETS, json);}
+        else
+            editor.remove(Constantes.TICKETS);
+        editor.commit();
+    }
+
+    public static void clearTickets(Context context) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+
+        editor.remove(Constantes.TICKETS);
+        editor.commit();
+    }
+
+    public static ArrayList<Ticket> getTickets(Context context) {
+        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Constantes.TICKETS, "0");
+        Type type = new TypeToken<List<Ticket>>() {}.getType();
+        ArrayList<Ticket> tickets = gson.fromJson(json, type);
+        return tickets;
     }
 }

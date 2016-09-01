@@ -24,7 +24,7 @@ import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
 public class NotificacionesActivity extends AppCompatActivity implements BaseActivity {
-    Notificacion notificacion;
+    private Notificacion notificacion;
     private IRepository repository = new Repository();
 
     @InjectView(R.id.layout_Form)

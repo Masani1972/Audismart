@@ -6,15 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.model.Notificacion;
-import com.aosas.audismart.util.alarm.ScheduleClient;
-
-import java.util.ArrayList;
+import com.aosas.audismart.model.Ticket;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,25 +23,30 @@ public class LevelMenuPrincipal extends BaseExpandableListAdapter
     private Context context;
     private List<String> listDataHeader;
     private List<String> _listDataHeaderLevelNotifications;
-    private HashMap<String, List<Notificacion>> _listDataChild;
+    private HashMap<String, List<Notificacion>> _listDataChildNotificaciones;
     private List<String> listDataHeaderLevelProfile;
+    private List<String> _listDataHeaderLevelTickets;
+    private HashMap<String, List<Ticket>> _listDataChildTickets;
 
-    public LevelMenuPrincipal(Context context, HashMap<String, List<Notificacion>> listChildData, List<String> listDataHeaderLevelNotifications){
+    public LevelMenuPrincipal(Context context, HashMap<String, List<Notificacion>> listChildDataNotificaciones, List<String> listDataHeaderLevelNotifications, HashMap<String, List<Ticket>> listChildDataTickets, List<String> listDataHeaderLevelTickets){
         this.context = context;
         intilist();
-        this._listDataChild = listChildData;
+        this._listDataChildNotificaciones = listChildDataNotificaciones;
         this._listDataHeaderLevelNotifications = listDataHeaderLevelNotifications;
+        this._listDataHeaderLevelTickets = listDataHeaderLevelTickets;
+        this._listDataChildTickets = listChildDataTickets;
     }
 
     private void intilist() {
         listDataHeader = Arrays.asList(context.getResources().getStringArray(R.array.title_menuprincipal));
         listDataHeaderLevelProfile =Arrays.asList(context.getResources().getStringArray(R.array.title_perfil));
+
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosititon)
     {
-        return this._listDataChild.get(this.listDataHeader.get(groupPosition))
+        return this._listDataChildNotificaciones.get(this.listDataHeader.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -62,10 +63,16 @@ public class LevelMenuPrincipal extends BaseExpandableListAdapter
         if(groupPosition == 0) {
 
         CustExpListview SecondLevelexplv = new CustExpListview(context);
-        SecondLevelexplv.setAdapter(new SecondLevelNotificaciones(context,_listDataHeaderLevelNotifications,_listDataChild));
+        SecondLevelexplv.setAdapter(new SecondLevelNotificaciones(context,_listDataHeaderLevelNotifications,_listDataChildNotificaciones));
         SecondLevelexplv.setGroupIndicator(null);
 
         return SecondLevelexplv;}
+        else if(groupPosition == 1){
+            CustExpListview SecondLevelexplv = new CustExpListview(context);
+            SecondLevelexplv.setAdapter(new SecondLevelTickets(context,_listDataHeaderLevelTickets,_listDataChildTickets));
+            SecondLevelexplv.setGroupIndicator(null);
+            return SecondLevelexplv;
+        }
         else if(groupPosition == 2){
             CustExpListview SecondLevelexplv = new CustExpListview(context);
             SecondLevelexplv.setAdapter(new SecondLevelProfile(context,listDataHeaderLevelProfile,true));

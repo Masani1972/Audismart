@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.model.BuscarTicket;
 import com.aosas.audismart.model.CalendariosCliente;
 import com.aosas.audismart.model.ClienteUnico;
 import com.aosas.audismart.model.Empresa;
@@ -110,6 +111,14 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             case Constantes.ELIMINAR_EMPRESA:
                 Empresa empresaDelete = (Empresa) object;
                 call = taskService.deleteCompany(empresaDelete.id_empresa, empresaDelete.ACCION);
+                break;
+            case Constantes.BUSCAR_TICKET:
+                BuscarTicket buscarTicket = (BuscarTicket) object;
+                call = taskService.searchTicket(buscarTicket.id_ticket,buscarTicket.id_cliente,buscarTicket.grupo, buscarTicket.ACCION);
+                break;
+            case Constantes.BUSCAR_TICKET_RESPUESTA:
+                BuscarTicket buscarTicketRespuesta = (BuscarTicket) object;
+                call = taskService.searchResponseTicket(buscarTicketRespuesta.id_ticket, buscarTicketRespuesta.ACCION);
                 break;
             case "":
                call = null;

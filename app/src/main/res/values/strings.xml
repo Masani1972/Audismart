@@ -89,16 +89,30 @@
         <item name="tittle1">Mis Datos Personales</item>
         <item name="tittle2">Mis empresas inscritas</item>
     </string-array>
-
+    <string-array name="title_tickets">
+        <item name="tittle1">Pendientes</item>
+        <item name="tittle2">Respondidos</item>
+        <item name="tittle3">Por Calificar</item>
+    </string-array>
 
 
     <!--Perfil-->
     <string name="editar_perfil">Editar mis datos de perfil</string>
     <string name="buton_actualizar">Actualizar Datos</string>
+    <string name="buton_eliminar">Eliminar mi cuenta</string>
+
 
     <!--Lstado empresa-->
     <string name="nombre_empresa_list">Nombre de la empresa</string>
     <string name="button_Agregar">Agregar Empresa</string>
+
+    <!--Creacion de Tickets-->
+    <string name="title_tickets">Mis tickets</string>
+    <string name="titulo_ticket">Titulo</string>
+
+    <!--Edicion Tickets-->
+    <string name="yo">Yo</string>
+    <string name="soporte">Soporte</string>
 
 
 </resources>

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.aosas.audismart.activitys.Registro_PasoDosActivity">
+    tools:context="com.aosas.audismart.activitys.Registro_EmpresaActivity">
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="wrap_content"
@@ -281,17 +281,7 @@
                 android:background="@drawable/button_rosa"
                 android:textColor="@color/textbotones"/>
 
-            <Button
-                android:id="@+id/button_Agregar"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_Tip"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="@string/boton_agregar"
-                android:background="@drawable/button_rosa"
-                android:textColor="@color/textbotones"
-                android:visibility="invisible"/>
+
 
 
             <Button
@@ -309,14 +299,17 @@
             <Button
                 android:id="@+id/button_Eliminar"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_Tip"
                 android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/boton_eliminar"
-                android:background="@drawable/button_azul"
+                android:layout_marginBottom="10dp"
+                android:text="@string/buton_eliminar"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/textbotones"
+
                 android:visibility="invisible"/>
+
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

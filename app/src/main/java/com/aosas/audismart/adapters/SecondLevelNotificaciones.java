@@ -66,7 +66,7 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_item, null);
+            convertView = infalInflater.inflate(R.layout.list_item_notificacioes, null);
         }
             notificacion = (Notificacion)getChild(groupPosition, childPosition);
             fechaDia = (TextView) convertView.findViewById(R.id.lblListItemFechaDia);
