@@ -65,4 +65,16 @@ public interface APIService {
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> updateClient(@Field("nombres") String nombres, @Field("apellidos") String apellidos, @Field("email") String email, @Field("id_departamento") String id_departamento,@Field("id_ciudad") String id_ciudad, @Field("telefono") String telefono,@Field("ACCION") String ACCION);
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> deleteCompany(@Field("id_empresa") String id_empresa,@Field("ACCION") String ACCION);
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> searchTicket(@Field("id_ticket") String id_ticket,@Field("id_cliente") String id_cliente,@Field("grupo") String grupo,@Field("ACCION") String ACCION);
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> searchResponseTicket(@Field("id_ticket") String id_ticket,@Field("ACCION") String ACCION);
 }

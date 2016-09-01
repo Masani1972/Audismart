@@ -21,11 +21,13 @@ import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
 import com.aosas.audismart.adapters.LevelMenuPrincipal;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
+import com.aosas.audismart.model.BuscarTicket;
 import com.aosas.audismart.model.Calendario;
 import com.aosas.audismart.model.ClienteUnico;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.model.FechaCliente;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.model.Ticket;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
@@ -37,6 +39,7 @@ import com.google.gson.JsonObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,7 +53,7 @@ import static android.widget.Toast.makeText;
 
 public class MenuPrincipalActivity extends AppCompatActivity implements BaseActivity {
     private ExpandableListView explvlist;
-    private HashMap<String, List<Notificacion>> listDataChild;
+    private HashMap<String, List<Notificacion>> listDataChildNotificaciones;
     private List<String> listDataHeaderNotificaciones;
     private IRepository repository = new Repository();
     private List<Notificacion> notificacionesVencidas;
@@ -58,10 +61,18 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     private List<Notificacion> notificacionesProximas;
     private List<Notificacion> notificacionesArchivadas;
     private ArrayList<Notificacion> notificaciones;
+    private ArrayList<Ticket> tickets;
+    private List<Ticket> ticketsAbiertos;
+    private List<Ticket> ticketsRespondidos;
+    private List<Ticket> ticketsCerrados;
+    private List<Ticket> ticketsHistorial;
+    private List<String> listDataHeaderTickets;
+    private HashMap<String, List<Ticket>> listDataChildTickets;
     private static final SimpleDateFormat SFD = new SimpleDateFormat(Constantes.FORMATOFECHANOTIDICACIONJSON);
     private String idEmpresa = "0";
     private String idCalendario = "0";
     private ScheduleClient scheduleClient;
+    private ClienteUnico clienteUnico;
 
     @InjectView(R.id.editText_Empresas)
     AutoCompleteTextView editText_Empresas;
@@ -124,8 +135,11 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         switch (item.getItemId())
         {
             case R.id.action_perfil:
-                Intent i = new Intent(this,PerfilActivity.class);
-                startActivity(i);
+                Intent intentProfile = new Intent(this,PerfilActivity.class);
+                startActivity(intentProfile);
+                return true;
+            case R.id.action_notificaciones:
+                consumoWSNotificaciones();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -211,17 +225,26 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     private void prepareListData() {
 
         listDataHeaderNotificaciones = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<Notificacion>>();
+        listDataChildNotificaciones = new HashMap<String, List<Notificacion>>();
 
         listDataHeaderNotificaciones.add("Vencidas");
         listDataHeaderNotificaciones.add("Para hoy");
         listDataHeaderNotificaciones.add("Próximas");
         listDataHeaderNotificaciones.add("Archivadas");
 
-        listDataChild.put(listDataHeaderNotificaciones.get(0), notificacionesVencidas);// Header, Child data
-        listDataChild.put(listDataHeaderNotificaciones.get(1), notificacionesHoy);
-        listDataChild.put(listDataHeaderNotificaciones.get(2), notificacionesProximas);
-        listDataChild.put(listDataHeaderNotificaciones.get(3), notificacionesProximas);
+        listDataChildNotificaciones.put(listDataHeaderNotificaciones.get(0), notificacionesVencidas);// Header, Child data
+        listDataChildNotificaciones.put(listDataHeaderNotificaciones.get(1), notificacionesHoy);
+        listDataChildNotificaciones.put(listDataHeaderNotificaciones.get(2), notificacionesProximas);
+        listDataChildNotificaciones.put(listDataHeaderNotificaciones.get(3), notificacionesProximas);
+
+        listDataHeaderTickets = new ArrayList<String>();
+        listDataHeaderTickets =  Arrays.asList(getResources().getStringArray(R.array.title_tickets));
+
+        listDataChildTickets = new HashMap<String, List<Ticket>>();
+        listDataChildTickets.put(listDataHeaderTickets.get(0),ticketsAbiertos);
+        listDataChildTickets.put(listDataHeaderTickets.get(1),ticketsCerrados);
+        listDataChildTickets.put(listDataHeaderTickets.get(2),ticketsHistorial);
+
     }
 
 
@@ -299,9 +322,27 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         }
     }
 
+    public List<Ticket> filtrarTickets(String estado ){
+        List<Ticket> ticketsConFiltro = new ArrayList<Ticket>();
+        if(tickets!=null){
+            for (int index = 0; index <tickets.size();index++ ) {
+                if(tickets.get(index).estado.equals(estado))
+                    ticketsConFiltro.add(tickets.get(index));
+            }
+
+        }
+        return ticketsConFiltro;
+
+    }
+
     private void consumoWSNotificaciones(){
             ClienteUnico clienteUnico = new ClienteUnico(Preferences.getIdClient(this),Constantes.BUSCAR_CLIENTE_UNICO);
             repository.createRequets(this,clienteUnico,Constantes.BUSCAR_CLIENTE_UNICO);
+    }
+
+    private void consumoWSTickets(){
+        BuscarTicket buscarTicket = new BuscarTicket("0",Preferences.getIdClient(this),"0",Constantes.BUSCAR_TICKET);
+        repository.createRequets(this,buscarTicket,Constantes.BUSCAR_TICKET);
     }
 
     @Override
@@ -317,44 +358,107 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             repository.createRequets(this, fechaCliente, Constantes.CONSULTA_FECHASCLIENTE);
         }
         else if (succes.substring(0,18).equals("Fechas encontradas")){
-
-         notificaciones = new ArrayList<Notificacion>();
         JsonArray jsonArray = jsonElement.getAsJsonArray();
-        if (jsonArray != null) {
-            for (int i = 0; i < jsonArray.size(); i++) {
-                String id = ((JsonObject)jsonArray.get(i)).get("id").getAsString();
-                String idFecha = ((JsonObject)jsonArray.get(i)).get("id_fecha").getAsString();
-                String idEmpresa = ((JsonObject)jsonArray.get(i)).get("id_empresa").getAsString();
-                String nombreEmpresa = ((JsonObject)jsonArray.get(i)).get("nombreempresa").getAsString();
-                String idCalendario = ((JsonObject)jsonArray.get(i)).get("id_calendario").getAsString();
-                String fecha = ((JsonObject)jsonArray.get(i)).get("fecha").getAsString();
-                String hora = ((JsonObject)jsonArray.get(i)).get("hora").getAsString();
-                String antesDias = ((JsonObject)jsonArray.get(i)).get("antesdias").getAsString();
-                String antesHora = ((JsonObject)jsonArray.get(i)).get("anteshora").getAsString();
-                String antesFecha = ((JsonObject)jsonArray.get(i)).get("antesfecha").getAsString();
-                String nombre = ((JsonObject)jsonArray.get(i)).get("nombre").getAsString();
-                String nombreCorto = ((JsonObject)jsonArray.get(i)).get("nombrecorto").getAsString();
-                String periodo = ((JsonObject)jsonArray.get(i)).get("periodo").getAsString();
-                String cumplido = ((JsonObject)jsonArray.get(i)).get("cumplido").getAsString();
-                String fechaCumplido = (((JsonObject)jsonArray.get(i)).get("fechacumplido"))==null?((JsonObject)jsonArray.get(i)).get("fechacumplido").getAsString():"";
-                Notificacion notificacion = new Notificacion(id,idFecha,idEmpresa,nombreEmpresa,idCalendario,fecha,hora,antesDias,antesHora,antesFecha,nombre,nombreCorto,periodo,cumplido,fechaCumplido,"");
-                notificaciones.add(i, notificacion);
-            }
+            setNotificaciones(jsonArray);
 
-            Preferences.setNotificaciones(this,notificaciones);
 
             notificacionesVencidas();
             notificacionesHoy();
             notificacionesProximas();
             notificacionesArchivadas();
+
+            consumoWSTickets();
+
+        }else if(succes.substring(0,19).equals("Tickets encontrados")){
+
+            JsonArray jsonArray = jsonElement.getAsJsonArray();
+            setTickets(jsonArray);
+            //Obtener Tickets Abiertos
+            ticketsAbiertos = new ArrayList<Ticket>();
+            ticketsAbiertos= filtrarTickets("Abierto");
+
+            //Obtener Tickets Respondidos
+            ticketsRespondidos = new ArrayList<Ticket>();
+            ticketsRespondidos= filtrarTickets("Respondido");
+
+            //Obtener Tickets Cerrados
+            ticketsCerrados = new ArrayList<Ticket>();
+            ticketsCerrados= filtrarTickets("Cerrado");
+
+            //Obtener Tickets Historial
+            ticketsHistorial = new ArrayList<Ticket>();
+            ticketsHistorial= filtrarTickets("Calificado");
+
             prepareListData();
+             explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
+            explvlist.setAdapter(new LevelMenuPrincipal(this, listDataChildNotificaciones, listDataHeaderNotificaciones,listDataChildTickets,listDataHeaderTickets));
+              initalarm();
+        }
 
-            explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
-            explvlist.setAdapter(new LevelMenuPrincipal(this, listDataChild, listDataHeaderNotificaciones));
-            initalarm();
-        }}
 
+    }
 
+    public void setNotificaciones(JsonArray jsonArray) {
+        notificaciones = new ArrayList<Notificacion>();
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.size(); i++) {
+                String id = ((JsonObject) jsonArray.get(i)).get("id").getAsString();
+                String idFecha = ((JsonObject) jsonArray.get(i)).get("id_fecha").getAsString();
+                String idEmpresa = ((JsonObject) jsonArray.get(i)).get("id_empresa").getAsString();
+                String nombreEmpresa = ((JsonObject) jsonArray.get(i)).get("nombreempresa").getAsString();
+                String idCalendario = ((JsonObject) jsonArray.get(i)).get("id_calendario").getAsString();
+                String fecha = ((JsonObject) jsonArray.get(i)).get("fecha").getAsString();
+                String hora = ((JsonObject) jsonArray.get(i)).get("hora").getAsString();
+                String antesDias = ((JsonObject) jsonArray.get(i)).get("antesdias").getAsString();
+                String antesHora = ((JsonObject) jsonArray.get(i)).get("anteshora").getAsString();
+                String antesFecha = ((JsonObject) jsonArray.get(i)).get("antesfecha").getAsString();
+                String nombre = ((JsonObject) jsonArray.get(i)).get("nombre").getAsString();
+                String nombreCorto = ((JsonObject) jsonArray.get(i)).get("nombrecorto").getAsString();
+                String periodo = ((JsonObject) jsonArray.get(i)).get("periodo").getAsString();
+                String cumplido = ((JsonObject) jsonArray.get(i)).get("cumplido").getAsString();
+                String fechaCumplido = (((JsonObject) jsonArray.get(i)).get("fechacumplido")) == null ? ((JsonObject) jsonArray.get(i)).get("fechacumplido").getAsString() : "";
+                Notificacion notificacion = new Notificacion(id, idFecha, idEmpresa, nombreEmpresa, idCalendario, fecha, hora, antesDias, antesHora, antesFecha, nombre, nombreCorto, periodo, cumplido, fechaCumplido, "");
+                notificaciones.add(i, notificacion);
+            }
+
+            Preferences.setNotificaciones(this, notificaciones);
+        }
+    }
+
+    private void setTickets(JsonArray jsonArray) {
+        tickets = new ArrayList<Ticket>();
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.size(); i++) {
+
+                String id_ticket = ((JsonObject) jsonArray.get(i)).get("id_ticket").getAsString();
+                String id_cliente = ((JsonObject) jsonArray.get(i)).get("id_cliente").getAsString();
+                String titulo = ((JsonObject) jsonArray.get(i)).get("titulo").getAsString();
+                String asunto = ((JsonObject) jsonArray.get(i)).get("asunto").getAsString();
+
+                String archivo = "";
+                if(!((JsonObject) jsonArray.get(i)).get("archivo").isJsonNull())
+                archivo = ((JsonObject) jsonArray.get(i)).get("archivo").getAsString();
+
+                String rutaarchivo = "";
+                if(!((JsonObject) jsonArray.get(i)).get("rutaarchivo").isJsonNull())
+                rutaarchivo = ((JsonObject) jsonArray.get(i)).get("rutaarchivo").getAsString();
+
+                String responsable = ((JsonObject) jsonArray.get(i)).get("responsable").getAsString();
+                String id_estado = ((JsonObject) jsonArray.get(i)).get("id_estado").getAsString();
+                String estado = ((JsonObject) jsonArray.get(i)).get("estado").getAsString();
+                String empresa = ((JsonObject) jsonArray.get(i)).get("empresa").getAsString();
+                String fecha = ((JsonObject) jsonArray.get(i)).get("fecha").getAsString();
+
+                String fechacerrado = "";
+                if(!((JsonObject) jsonArray.get(i)).get("fechacerrado").isJsonNull())
+                fechacerrado = ((JsonObject) jsonArray.get(i)).get("fechacerrado").getAsString();
+
+                String calificacion = ((JsonObject) jsonArray.get(i)).get("calificacion").getAsString();
+                Ticket ticket = new Ticket(id_ticket, id_cliente, titulo, asunto, archivo,rutaarchivo, responsable, id_estado, estado, empresa, fecha, fechacerrado, calificacion, "");
+                tickets.add(i, ticket);
+            }
+            Preferences.setTickets(this, tickets);
+        }
     }
 
     @Override
@@ -362,5 +466,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         makeText(MenuPrincipalActivity.this, error, LENGTH_LONG).show();
     }
 }
+
+
 
 

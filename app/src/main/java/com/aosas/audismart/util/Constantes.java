@@ -23,7 +23,9 @@ public  class Constantes {
     public static final String BUSCAR_CLIENTE_UNICO="BUSCAR CLIENTE UNICO";
     public static final String ACTUALIZA_EMPRESA="ACTUALIZA EMPRESA";
     public static final String ACTUALIZA_CLIENTE="ACTUALIZA CLIENTE";
-
+    public static final String ELIMINAR_EMPRESA="ELIMINA EMPRESA";
+    public static final String BUSCAR_TICKET="BUSCAR TICKET";
+    public static final String BUSCAR_TICKET_RESPUESTA="BUSCAR TICKET RESPUESTA";
 
     /*
     Preferencias
@@ -35,6 +37,7 @@ public  class Constantes {
     public static final String CALENDARIOS_PREFERENCES="Calendarios";
     public static final String EMPRESAS="Empresas";
     public static final String USUSARIO="Usuario";
+    public static final String TICKETS="Tickets";
 
     /***
      * GCM preferences
@@ -62,4 +65,6 @@ public  class Constantes {
     Response
      */
     public static final String ACTUALIZA_EMPRESA_RESPONSE="Se actualizo con exito";
+    public static final String ELIMINAR_EMPRESA_RESPONSE="Se elimino con exito";
+    public static final String BUSCAR_TICKET_RESPUESTA_RESPONSE="Respuestas encontrados";
 }

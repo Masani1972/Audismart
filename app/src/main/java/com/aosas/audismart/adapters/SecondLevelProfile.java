@@ -202,6 +202,8 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
 
             }
         });
+
+
      return convertView;
     }
 
@@ -334,5 +336,6 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
             }
         }else{Toast.makeText(context, R.string.campoTerminos,Toast.LENGTH_LONG).show();}
     }
+
 
 }

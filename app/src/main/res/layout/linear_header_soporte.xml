@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/linear_header_persona"
+    android:paddingTop="20dp"
+    android:paddingBottom="5dp"
+   >
+
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/icon_soporte"
+        android:src="@drawable/soporte_icon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/soporte"
+        android:layout_marginLeft="5dp"
+        android:text="@string/yo"/>
+
+</LinearLayout>

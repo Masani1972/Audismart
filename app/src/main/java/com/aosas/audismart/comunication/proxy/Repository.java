@@ -8,6 +8,7 @@ import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
 import com.aosas.audismart.activitys.Registro_EmpresaActivity;
 import com.aosas.audismart.activitys.Registro_UsuarioActivity;
+import com.aosas.audismart.activitys.TicketActivity;
 import com.aosas.audismart.util.Constantes;
 import com.google.gson.*;
 
@@ -112,6 +113,25 @@ public class Repository implements IRepository {
                     ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
                 else
                     ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.ELIMINAR_EMPRESA:
+
+                if(errorCodigo.equals("0"))
+                    ((Registro_EmpresaActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
+                else
+                    ((Registro_EmpresaActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.BUSCAR_TICKET:
+                if(errorCodigo.equals("0"))
+                    ((MenuPrincipalActivity) activity).succes((jsonObject.get("message")).getAsString(),(jsonObject.get("datos")).getAsJsonArray());
+                else
+                    ((MenuPrincipalActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.BUSCAR_TICKET_RESPUESTA:
+                if(errorCodigo.equals("0"))
+                    ((TicketActivity) activity).succes((jsonObject.get("message")).getAsString(),(jsonObject.get("datos")).getAsJsonArray());
+                else
+                    ((TicketActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
         }
     }

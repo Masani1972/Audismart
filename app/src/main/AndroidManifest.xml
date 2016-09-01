@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aosas.audismart">
+    package="com.aosas.audismart"
+    android:versionName="1.0.1"
+    android:versionCode="2">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -30,17 +32,17 @@
         </receiver>
 
         <service
-            android:name="com.aosas.audismart.gcm.NotificationsListenerService"
+            android:name=".gcm.NotificationsListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
-            android:name="com.aosas.audismart.gcm.RegistrationIntentService"
+            android:name=".gcm.RegistrationIntentService"
             android:exported="false" />
         <service
-            android:name="com.aosas.audismart.gcm.TokenRefreshListenerService"
+            android:name=".gcm.TokenRefreshListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -95,11 +97,13 @@
 
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name=".activitys.CalendarioActivity" />
+        <activity android:name=".activitys.CalendarioActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activitys.PerfilActivity"
-            android:label="@string/title_activity_perfil"
-            ></activity>
+            android:label="@string/title_activity_perfil" />
+        <activity android:name=".activitys.CrearTicketActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activitys.TicketActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
