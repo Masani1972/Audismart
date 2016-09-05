@@ -55,7 +55,6 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
         ButterKnife.inject(this);
-
         ticket = (Ticket) getIntent().getSerializableExtra("ticket");
         cargarDatos(ticket);
     }
@@ -69,8 +68,6 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
         BuscarTicket buscarTicket = new BuscarTicket(ticket.id_ticket,"","",Constantes.BUSCAR_TICKET_RESPUESTA);
         repository.createRequets(this,buscarTicket, Constantes.BUSCAR_TICKET_RESPUESTA);
     }
-
-
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
@@ -127,7 +124,6 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
             fecha.setText(((JsonObject) jsonArray.get(index)).get("fecha").getAsString());
             layout_Respuestas.addView(view);
             layout_Respuestas.addView(layoutRespuesta);
-            Log.i("index par",""+index);
         }else{
             LayoutInflater factory = LayoutInflater.from(this);
             View view = factory.inflate(R.layout.linear_header_persona, null);
@@ -135,7 +131,6 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
             fecha.setText(((JsonObject) jsonArray.get(index)).get("fecha").getAsString());
             layout_Respuestas.addView(view);
             layout_Respuestas.addView(layoutRespuesta);
-            Log.i("index impar",""+index);
         }
     }
 

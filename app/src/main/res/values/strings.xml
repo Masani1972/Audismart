@@ -113,6 +113,7 @@
     <!--Edicion Tickets-->
     <string name="yo">Yo</string>
     <string name="soporte">Soporte</string>
-
+    <string name="asunto">Asunto</string>
+    <string name="boton_subirArchivo">Subir un archivo</string>
 
 </resources>

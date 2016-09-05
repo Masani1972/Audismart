@@ -115,6 +115,34 @@
                     android:inputType="textMultiLine" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_below="@+id/layout_Respuestas">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/asunto"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textMultiLine"/>
+
+                <Button
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/blanco"
+                    android:text="@string/boton_subirArchivo"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
         </RelativeLayout>
+
+
     </ScrollView>
 </RelativeLayout>
