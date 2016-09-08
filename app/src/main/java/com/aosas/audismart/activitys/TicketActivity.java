@@ -1,15 +1,19 @@
 package com.aosas.audismart.activitys;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.comunication.proxy.IRepository;
@@ -17,12 +21,16 @@ import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.BuscarTicket;
 import com.aosas.audismart.model.Ticket;
 import com.aosas.audismart.util.Constantes;
+import com.aosas.audismart.util.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.net.URISyntaxException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -30,6 +38,7 @@ import static android.widget.Toast.makeText;
 public class TicketActivity extends AppCompatActivity implements BaseActivity{
     private Ticket ticket;
     private IRepository repository = new Repository();
+    private static final String TAG ="TicketActivity";
 
     @InjectView(R.id.text_empresa)
     TextView text_empresa;
@@ -49,6 +58,9 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
     @InjectView(R.id.fecha_respuesta)
     TextView fecha_respuesta;
 
+    @InjectView(R.id.button_CargarArchivo)
+    Button button_CargarArchivo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +79,31 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
         fecha_respuesta.setText(ticket.fecha);
         BuscarTicket buscarTicket = new BuscarTicket(ticket.id_ticket,"","",Constantes.BUSCAR_TICKET_RESPUESTA);
         repository.createRequets(this,buscarTicket, Constantes.BUSCAR_TICKET_RESPUESTA);
+    }
+
+    @OnClick(R.id.button_CargarArchivo)
+    public void button_CargarArchivo(View view) {
+        cargarArchivo();
+    }
+
+
+    /*******************
+     Presentador¡¡ Logica de la  vista
+     *******************/
+
+    private void cargarArchivo() { Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        try {
+            startActivityForResult(
+                    Intent.createChooser(intent, "Select a File to Upload"),
+                    Constantes.FILE_SELECT_CODE);
+        } catch (android.content.ActivityNotFoundException ex) {
+            // Potentially direct the user to the Market with a Dialog
+            Toast.makeText(this, "Please install a File Manager.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -137,5 +174,29 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
     @Override
     public void error(String error) {
         makeText(TicketActivity.this, error, LENGTH_LONG).show();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Constantes.FILE_SELECT_CODE:
+                if (resultCode == RESULT_OK) {
+                    // Get the Uri of the selected file
+                    Uri uri = data.getData();
+                    Log.d(TAG, "File Uri: " + uri.toString());
+                    // Get the path
+                    String path = null;
+                    try {
+                        path = Util.getPath(this, uri);
+                        Log.d(TAG, "File Path: " + path);
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

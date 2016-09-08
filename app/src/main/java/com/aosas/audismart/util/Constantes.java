@@ -67,4 +67,11 @@ public  class Constantes {
     public static final String ACTUALIZA_EMPRESA_RESPONSE="Se actualizo con exito";
     public static final String ELIMINAR_EMPRESA_RESPONSE="Se elimino con exito";
     public static final String BUSCAR_TICKET_RESPUESTA_RESPONSE="Respuestas encontrados";
+
+
+    /*
+    Activity Result
+     */
+    public static final int FILE_SELECT_CODE = 0;
+
 }

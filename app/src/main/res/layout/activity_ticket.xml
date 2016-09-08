@@ -133,7 +133,8 @@
 
                 <Button
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/button_CargarArchivo"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/colorPrimary"
                     android:textColor="@color/blanco"
