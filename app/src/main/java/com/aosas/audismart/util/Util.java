@@ -1,7 +1,11 @@
 package com.aosas.audismart.util;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.net.URISyntaxException;
 import java.security.MessageDigest;
 import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Ciudad;
@@ -241,4 +246,24 @@ public class Util {
         return "";
     }
 
+
+    public static String getPath(Context context, Uri uri) throws URISyntaxException {
+        String wholeID = DocumentsContract.getDocumentId(uri);
+        String id = wholeID.split(":")[1];
+
+        String[] column = { MediaStore.Images.Media.DATA };
+        String sel = MediaStore.Images.Media._ID + "=?";
+
+        Cursor cursor = context.getContentResolver().
+                query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        column, sel, new String[]{ id }, null);
+        String filePath = "";
+        int columnIndex = cursor.getColumnIndex(column[0]);
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return(filePath);
+    }
 }

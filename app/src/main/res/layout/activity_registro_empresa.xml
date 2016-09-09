@@ -306,8 +306,9 @@
                 android:text="@string/buton_eliminar"
                 android:background="@color/colorPrimary"
                 android:textColor="@color/textbotones"
-                android:layout_below="@+id/button_Actualizar"
-                />
+
+                android:visibility="invisible"/>
+
 
         </RelativeLayout>
     </ScrollView>

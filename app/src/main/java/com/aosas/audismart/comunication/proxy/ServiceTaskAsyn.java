@@ -18,6 +18,8 @@ import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Login;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.model.NotificacionCumplio;
+import com.aosas.audismart.model.RespuestaTicket;
+import com.aosas.audismart.model.Ticket;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.util.Constantes;
 import com.squareup.okhttp.ResponseBody;
@@ -120,6 +122,16 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 BuscarTicket buscarTicketRespuesta = (BuscarTicket) object;
                 call = taskService.searchResponseTicket(buscarTicketRespuesta.id_ticket, buscarTicketRespuesta.ACCION);
                 break;
+            case Constantes.CERRAR_TICKET:
+                Ticket ticketCerrar = (Ticket) object;
+                call = taskService.closeTicket(ticketCerrar.id_ticket, ticketCerrar.ACCION);
+                break;
+
+            case Constantes.RESPONDER_TICKET:
+                RespuestaTicket respuestaTicket = (RespuestaTicket) object;
+                call = taskService.respondTicket(respuestaTicket.id_ticket,respuestaTicket.asunto,respuestaTicket.archivo, respuestaTicket.ACCION);
+                break;
+
             case "":
                call = null;
                 break;

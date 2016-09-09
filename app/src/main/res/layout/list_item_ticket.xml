@@ -43,11 +43,6 @@
             android:textAlignment="center"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
-
-
-
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="180dp"

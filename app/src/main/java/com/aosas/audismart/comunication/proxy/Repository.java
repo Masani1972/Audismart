@@ -133,6 +133,18 @@ public class Repository implements IRepository {
                 else
                     ((TicketActivity) activity).error((jsonObject.get("message")).getAsString());
                 break;
+            case Constantes.CERRAR_TICKET:
+                if(errorCodigo.equals("0"))
+                    ((TicketActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
+                else
+                    ((TicketActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
+            case Constantes.RESPONDER_TICKET:
+                if(errorCodigo.equals("0"))
+                    ((TicketActivity) activity).succes((jsonObject.get("message")).getAsString(),null);
+                else
+                    ((TicketActivity) activity).error((jsonObject.get("message")).getAsString());
+                break;
         }
     }
 }

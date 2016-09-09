@@ -26,6 +26,8 @@ public  class Constantes {
     public static final String ELIMINAR_EMPRESA="ELIMINA EMPRESA";
     public static final String BUSCAR_TICKET="BUSCAR TICKET";
     public static final String BUSCAR_TICKET_RESPUESTA="BUSCAR TICKET RESPUESTA";
+    public static final String CERRAR_TICKET="CERRAR TICKET";
+    public static final String RESPONDER_TICKET="RESPONDER TICKET";
 
     /*
     Preferencias
@@ -67,4 +69,12 @@ public  class Constantes {
     public static final String ACTUALIZA_EMPRESA_RESPONSE="Se actualizo con exito";
     public static final String ELIMINAR_EMPRESA_RESPONSE="Se elimino con exito";
     public static final String BUSCAR_TICKET_RESPUESTA_RESPONSE="Respuestas encontrados";
+    public static final String CERRAR_TICKET_RESPONSE = "Se actualizo con exito";
+
+
+    /*
+    Activity Result
+     */
+    public static final int FILE_SELECT_CODE = 0;
+
 }

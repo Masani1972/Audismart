@@ -1,12 +1,15 @@
 package com.aosas.audismart.comunication.proxy;
 
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.ResponseBody;
 
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.Headers;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.Part;
 
 
 /**
@@ -68,7 +71,7 @@ public interface APIService {
 
     @FormUrlEncoded
     @POST("WS.php")
-    Call<ResponseBody> deleteCompany(@Field("id_empresa") String id_empresa,@Field("ACCION") String ACCION);
+    Call<ResponseBody> deleteCompany(@Field("id_empresa") String id_empresa, @Field("ACCION") String ACCION);
 
     @FormUrlEncoded
     @POST("WS.php")
@@ -77,4 +80,18 @@ public interface APIService {
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> searchResponseTicket(@Field("id_ticket") String id_ticket,@Field("ACCION") String ACCION);
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> closeTicket(@Field("id_ticket") String id_ticket,@Field("ACCION") String ACCION);
+
+    @Multipart
+    @POST("WS.php")
+    Call<ResponseBody> respondTicket(@Part("id_ticket") String id_ticket,
+                                     @Part("asunto") String asunto,
+                                     @Part("file") RequestBody file,
+                                     @Part("ACCION") String ACCION);
+
+
+
 }

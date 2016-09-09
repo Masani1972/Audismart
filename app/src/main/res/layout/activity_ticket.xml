@@ -4,85 +4,176 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.aosas.audismart.activitys.TicketActivity">
+
     <RelativeLayout
+        android:id="@+id/header_home"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:id="@+id/header_home"
         android:background="@color/texttickets">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_tickets"
             android:layout_centerVertical="true"
-            android:textSize="15dp"
-            android:textColor="@color/blanco"
             android:layout_marginLeft="10dp"
-            />
+            android:text="@string/title_tickets"
+            android:textColor="@color/blanco"
+            android:textSize="15dp" />
     </RelativeLayout>
-    
-    <RelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header_home"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_below="@+id/header_home">
 
-    <TextView
-        android:id="@+id/text_empresa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_below="@+id/text_empresa"
-        android:background="@android:color/background_dark"
-        android:id="@+id/view"/>
-
-    <TextView
-        android:id="@+id/text_area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/view"/>
-
-    <TextView
-        android:id="@+id/text_estado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentRight="true"/>
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/layout_Respuestas"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical"
-            android:layout_below="@+id/text_area">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/text_empresa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_below="@+id/text_empresa"
+                android:background="@android:color/background_dark" />
 
 
+            <TextView
+                android:id="@+id/text_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view"
+                android:layout_marginTop="10dp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:id="@+id/editText_asunto"
-            android:layout_below="@+id/icon_user"
-            android:layout_marginTop="10dp"
-            android:enabled="false"
-            android:background="@drawable/round_corner"
-             />
+            <TextView
+                android:id="@+id/text_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/linear_header_persona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_area">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:id="@+id/linear_header"
+                    android:paddingTop="20dp">
 
 
+                    <ImageView
+                        android:id="@+id/icon_soporte"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_account_circle_black_24dp" />
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/soporte"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/yo" />
+                </LinearLayout>
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/fecha_respuesta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBottom="@+id/linear_header"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_Respuestas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear_header_persona"
+                android:orientation="vertical">
 
 
+                <EditText
+                    android:id="@+id/editText_asunto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/icon_user"
+                    android:background="@drawable/round_corner"
+                    android:enabled="false"
+                    android:inputType="textMultiLine" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_below="@+id/layout_Respuestas">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/asunto"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/edit_AsuntoRespuesta"
+                    android:inputType="textMultiLine"/>
+
+                <Button
+                    android:layout_width="250dp"
+                    android:id="@+id/button_CargarArchivo"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/blanco"
+                    android:text="@string/boton_subirArchivo"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_NombreArchivo"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <Button
+                    android:layout_width="250dp"
+                    android:id="@+id/button_AgregarRespuesta"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/blanco"
+                    android:text="@string/boton_agregarRespuesta"
+                    android:layout_gravity="center_horizontal"/>
+
+                <Button
+                    android:layout_width="250dp"
+                    android:id="@+id/button_CerraTicket"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/texttickets"
+                    android:textColor="@color/blanco"
+                    android:text="@string/boton_cerrarRespuesta"
+                    android:layout_gravity="center_horizontal"/>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </ScrollView>
 </RelativeLayout>

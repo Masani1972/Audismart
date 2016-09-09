@@ -1,46 +1,51 @@
 package com.aosas.audismart.activitys;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
-import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
-import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
-import com.aosas.audismart.adapters.AutocompleteDocumentoAdapter;
-import com.aosas.audismart.R;
-import com.aosas.audismart.adapters.AutocompletePeriodicidadAdapter;
-import com.aosas.audismart.comunication.proxy.IRepository;
-import com.aosas.audismart.comunication.proxy.Repository;
-import com.aosas.audismart.model.Categoria;
-import com.aosas.audismart.model.Ciudad;
-import com.aosas.audismart.model.Departamento;
-import com.aosas.audismart.model.DocumentoIdentidad;
-import com.aosas.audismart.model.Empresa;
-import com.aosas.audismart.model.Periodicidad;
-import com.aosas.audismart.repository.FileAsserts;
-import com.aosas.audismart.repository.Preferences;
+import com.aosas.audismart.activitys.BaseActivity;
+import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.util.Constantes;
-import com.aosas.audismart.util.Util;
-import com.google.gson.JsonElement;
 
-import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.support.v7.app.ActionBar;
+        import android.support.v7.app.AppCompatActivity;
+        import android.view.MotionEvent;
+        import android.view.View;
+        import android.widget.AdapterView;
+        import android.widget.AutoCompleteTextView;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.RadioButton;
+        import android.widget.RelativeLayout;
+        import android.widget.TextView;
 
-import static android.widget.Toast.*;
+        import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
+        import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
+        import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
+        import com.aosas.audismart.adapters.AutocompleteDocumentoAdapter;
+        import com.aosas.audismart.R;
+        import com.aosas.audismart.adapters.AutocompletePeriodicidadAdapter;
+        import com.aosas.audismart.comunication.proxy.IRepository;
+        import com.aosas.audismart.comunication.proxy.Repository;
+        import com.aosas.audismart.model.Categoria;
+        import com.aosas.audismart.model.Ciudad;
+        import com.aosas.audismart.model.Departamento;
+        import com.aosas.audismart.model.DocumentoIdentidad;
+        import com.aosas.audismart.model.Empresa;
+        import com.aosas.audismart.model.Periodicidad;
+        import com.aosas.audismart.repository.FileAsserts;
+        import com.aosas.audismart.repository.Preferences;
+        import com.aosas.audismart.util.Constantes;
+        import com.aosas.audismart.util.Util;
+        import com.google.gson.JsonElement;
+
+        import java.util.ArrayList;
+
+        import butterknife.ButterKnife;
+        import butterknife.InjectView;
+        import butterknife.OnClick;
+
+        import static android.widget.Toast.*;
 
 
 public class Registro_EmpresaActivity extends AppCompatActivity implements BaseActivity {
@@ -248,11 +253,11 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
             case R.id.radioButton_Si:
                 if (checked)
                     impuestoConsumo = "1";
-                    break;
+                break;
             case R.id.radioButton_No:
                 if (checked)
                     impuestoConsumo = "0";
-                    break;
+                break;
         }
 
     }
@@ -361,17 +366,17 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
    mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
     */
     private void validar_formulario_registro() {
-         if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
-             if (Preferences.getIdClient(this).length() > 0) {
-                 empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, editText_Departamento.getText().toString(), idCiudad,editText_Ciudad.getText().toString(), idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo,editText_FechaMercantil.getText().toString(), periodicidad,impuestoRiqueza,Constantes.REGISTRO_EMPRESA,"");
-                 repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
+        if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
+            if (Preferences.getIdClient(this).length() > 0) {
+                empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, editText_Departamento.getText().toString(), idCiudad,editText_Ciudad.getText().toString(), idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo,editText_FechaMercantil.getText().toString(), periodicidad,impuestoRiqueza,Constantes.REGISTRO_EMPRESA,"");
+                repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
 
-             } else {
-                 makeText(this, R.string.errorPreferencias, LENGTH_LONG).show();
-             }
-         } else {
-             makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
-         }
+            } else {
+                makeText(this, R.string.errorPreferencias, LENGTH_LONG).show();
+            }
+        } else {
+            makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
+        }
     }
 
     /*
