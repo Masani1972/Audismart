@@ -3,6 +3,7 @@
     <string name="action_inicio">Inicio</string>
     <string name="action_notificaciones">Mis Notificaciones</string>
     <string name="action_noticias">Noticias</string>
+    <string name="action_crearticket">Crear Ticket</string>
     <string name="action_perfil">Mi Perfil</string>
 
     <!--Excepciones y mensajes generales-->
@@ -108,7 +109,11 @@
 
     <!--Creacion de Tickets-->
     <string name="title_tickets">Mis tickets</string>
+    <string name="titulo_activity">Agregar nuevo Ticket</string>
     <string name="titulo_ticket">Titulo</string>
+    <string name="empresas_ticket">Empresa(s)A asociadas(s)</string>
+    <string name="asunto_ticket">Asunto</string>
+    <string name="crear_ticket">crear ticket</string>
 
     <!--Edicion Tickets-->
     <string name="yo">Yo</string>
@@ -117,6 +122,10 @@
     <string name="boton_subirArchivo">Subir un archivo</string>
     <string name="boton_agregarRespuesta">Agregar respuesta</string>
     <string name="boton_cerrarRespuesta">Cerrar ticket</string>
+
+
+    <!--Calificar Tickets-->
+    <string name="boton_calificar">Calificar</string>
 
 
 </resources>

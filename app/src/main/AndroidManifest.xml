@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aosas.audismart"
-    android:versionName="1.0.1"
-    android:versionCode="2">
+    android:versionCode="2"
+    android:versionName="1.0.1">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <permission
         android:name="com.aosas.audismart.permission.C2D_MESSAGE"
@@ -98,13 +98,19 @@
 
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name=".activitys.CalendarioActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activitys.CalendarioActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.PerfilActivity"
             android:label="@string/title_activity_perfil" />
-        <activity android:name=".activitys.CrearTicketActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activitys.TicketActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activitys.CrearTicketActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitys.TicketActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activitys.CalificarTicketActivity"></activity>
     </application>
 
 </manifest>

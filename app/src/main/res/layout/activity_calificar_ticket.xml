@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.aosas.audismart.activitys.CalificarTicketActivity">
+
+    <RelativeLayout
+        android:id="@+id/header_home"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/texttickets">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/title_tickets"
+            android:textColor="@color/blanco"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_home"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/text_empresaCal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/text_empresaCal"
+            android:background="@android:color/background_dark" />
+
+
+        <TextView
+            android:id="@+id/text_areaCal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/text_estadoCal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:layout_below="@+id/text_areaCal"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="250dp"
+            android:id="@+id/button_Calificar"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/texttickets"
+            android:textColor="@color/blanco"
+            android:text="@string/boton_calificar"
+            android:layout_below="@+id/ratingBar"
+            android:layout_centerHorizontal="true"/>
+
+
+    </RelativeLayout>
+
+    </RelativeLayout>

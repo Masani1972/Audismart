@@ -6,24 +6,91 @@
     tools:context="com.aosas.audismart.activitys.CrearTicketActivity">
 
     <RelativeLayout
+        android:id="@+id/header_home"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="35dp"
         android:background="@color/texttickets">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_tickets"
             android:layout_centerVertical="true"
-            android:textSize="30dp"
-            android:textColor="@color/blanco"
             android:layout_marginLeft="10dp"
-            />
+            android:text="@string/title_tickets"
+            android:textColor="@color/blanco"
+            android:textSize="15dp" />
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_body"
+        android:padding="16dp"
+        android:orientation="vertical"
+        >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/titulo_ticket"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_Titulo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/empresas_ticket"/>
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_Empresas"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/asunto_ticket"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:id="@+id/editText_Asunto"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:id="@+id/button_CargarArchivo"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/blanco"
+            android:text="@string/boton_subirArchivo"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_NombreArchivo"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            />
+
+        <Button
+            android:layout_width="250dp"
+            android:id="@+id/button_crearTicket"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="@color/blanco"
+            android:text="@string/crear_ticket"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

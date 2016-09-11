@@ -84,10 +84,10 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
         setContentView(R.layout.activity_ticket);
         ButterKnife.inject(this);
         ticket = (Ticket) getIntent().getSerializableExtra("ticket");
-        cargarDatos(ticket);
+        cargarDatos();
     }
 
-    private void cargarDatos(Ticket ticket) {
+    private void cargarDatos() {
         text_empresa.setText("Empresa: "+ticket.empresa);
         text_area.setText("Area: "+ticket.empresa);
         text_estado.setText("Estado: "+ticket.estado);
@@ -160,6 +160,9 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
 
             }
         }else if (succes.equals(Constantes.CERRAR_TICKET_RESPONSE)){
+           Intent intentCalificar = new Intent(this,CalificarTicketActivity.class);
+            intentCalificar.putExtra("ticket",ticket);
+            startActivity(intentCalificar);
             finish();
         }
     }

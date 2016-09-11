@@ -131,6 +131,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 RespuestaTicket respuestaTicket = (RespuestaTicket) object;
                 call = taskService.respondTicket(respuestaTicket.id_ticket,respuestaTicket.asunto,respuestaTicket.archivo, respuestaTicket.ACCION);
                 break;
+            case Constantes.CALIFICAR_TICKET:
+                Ticket calificarTicket = (Ticket) object;
+                call = taskService.valueTicket(calificarTicket.id_ticket,calificarTicket.calificacion, calificarTicket.ACCION);
+                break;
 
             case "":
                call = null;

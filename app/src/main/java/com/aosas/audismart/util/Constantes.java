@@ -28,6 +28,7 @@ public  class Constantes {
     public static final String BUSCAR_TICKET_RESPUESTA="BUSCAR TICKET RESPUESTA";
     public static final String CERRAR_TICKET="CERRAR TICKET";
     public static final String RESPONDER_TICKET="RESPONDER TICKET";
+    public static final String CALIFICAR_TICKET="CALIFICAR TICKET";
 
     /*
     Preferencias

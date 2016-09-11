@@ -141,6 +141,10 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             case R.id.action_notificaciones:
                 consumoWSNotificaciones();
                 return true;
+            case R.id.action_crearticket:
+                Intent intentcrearTicket = new Intent(this,CrearTicketActivity.class);
+                startActivity(intentcrearTicket);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -161,6 +165,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     protected void onResume (){
 
         super.onResume();
+        consumoWSNotificaciones();
     }
 
     /*******************

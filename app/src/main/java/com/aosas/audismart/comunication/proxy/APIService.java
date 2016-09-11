@@ -92,6 +92,8 @@ public interface APIService {
                                      @Part("file") RequestBody file,
                                      @Part("ACCION") String ACCION);
 
-
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> valueTicket(@Field("id_ticket") String id_ticket,@Field("calificacion") String calificacion,@Field("ACCION") String ACCION);
 
 }
