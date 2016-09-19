@@ -141,6 +141,9 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             case R.id.action_notificaciones:
                 consumoWSNotificaciones();
                 return true;
+            case R.id.action_noticias:
+                startActivity(new Intent(this,NoticiasActivity.class));
+                return true;
             case R.id.action_crearticket:
                 Intent intentcrearTicket = new Intent(this,CrearTicketActivity.class);
                 startActivity(intentcrearTicket);

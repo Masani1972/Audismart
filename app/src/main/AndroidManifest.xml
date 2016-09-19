@@ -110,7 +110,8 @@
         <activity
             android:name=".activitys.TicketActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activitys.CalificarTicketActivity"></activity>
+        <activity android:name=".activitys.CalificarTicketActivity" />
+        <activity android:name=".activitys.NoticiasActivity"></activity>
     </application>
 
 </manifest>
