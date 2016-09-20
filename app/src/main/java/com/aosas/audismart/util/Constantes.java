@@ -29,6 +29,7 @@ public  class Constantes {
     public static final String CERRAR_TICKET="CERRAR TICKET";
     public static final String RESPONDER_TICKET="RESPONDER TICKET";
     public static final String CALIFICAR_TICKET="CALIFICAR TICKET";
+    public static final String BUSCAR_NOTICIA="BUSCAR NOTICIA";
 
     /*
     Preferencias
@@ -41,6 +42,7 @@ public  class Constantes {
     public static final String EMPRESAS="Empresas";
     public static final String USUSARIO="Usuario";
     public static final String TICKETS="Tickets";
+    public static final String NOTICIAS="Noticias";
 
     /***
      * GCM preferences
@@ -71,6 +73,7 @@ public  class Constantes {
     public static final String ELIMINAR_EMPRESA_RESPONSE="Se elimino con exito";
     public static final String BUSCAR_TICKET_RESPUESTA_RESPONSE="Respuestas encontrados";
     public static final String CERRAR_TICKET_RESPONSE = "Se actualizo con exito";
+    public static final String BUSCAR_NOTICIA_RESPONSE = "Noticias encontradas";
 
 
     /*

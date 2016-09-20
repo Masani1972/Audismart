@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.aosas.audismart.model.Calendario;
 import com.aosas.audismart.model.Empresa;
+import com.aosas.audismart.model.Noticia;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.model.Ticket;
 import com.aosas.audismart.model.User;
@@ -220,5 +221,20 @@ public class Preferences {
         Type type = new TypeToken<List<Ticket>>() {}.getType();
         ArrayList<Ticket> tickets = gson.fromJson(json, type);
         return tickets;
+    }
+
+
+    /*
+    Almacenamiento noticias
+    */
+    public static void setNoticias(Context context, ArrayList<Noticia> noticias ) {
+        SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
+        if(noticias != null){
+            Gson gson = new Gson();
+            String json = gson.toJson(noticias);
+            editor.putString(Constantes.NOTICIAS, json);}
+        else
+            editor.remove(Constantes.NOTICIAS);
+        editor.commit();
     }
 }

@@ -89,11 +89,15 @@ public interface APIService {
     @POST("WS.php")
     Call<ResponseBody> respondTicket(@Part("id_ticket") String id_ticket,
                                      @Part("asunto") String asunto,
-                                     @Part("file") RequestBody file,
+                                     @Part("archivo") RequestBody file,
                                      @Part("ACCION") String ACCION);
 
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> valueTicket(@Field("id_ticket") String id_ticket,@Field("calificacion") String calificacion,@Field("ACCION") String ACCION);
+
+    @FormUrlEncoded
+    @POST("WS.php")
+    Call<ResponseBody> searchNew(@Field("id_noticia") String id_noticia,@Field("id_cliente") String id_cliente,@Field("ACCION") String ACCION);
 
 }

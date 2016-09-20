@@ -6,6 +6,7 @@ import android.content.Context;
 import com.aosas.audismart.activitys.CalificarTicketActivity;
 import com.aosas.audismart.activitys.IngresoActivity;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
+import com.aosas.audismart.activitys.NoticiasActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
 import com.aosas.audismart.activitys.Registro_EmpresaActivity;
 import com.aosas.audismart.activitys.Registro_UsuarioActivity;
@@ -151,6 +152,12 @@ public class Repository implements IRepository {
                         ((CalificarTicketActivity) activity).succes((jsonObject.get("message")).getAsString(), null);
                     else
                         ((CalificarTicketActivity) activity).error((jsonObject.get("message")).getAsString());
+                    break;
+                case Constantes.BUSCAR_NOTICIA:
+                    if (errorCodigo.equals("0"))
+                        ((NoticiasActivity) activity).succes((jsonObject.get("message")).getAsString(), (jsonObject.get("datos")).getAsJsonArray());
+                    else
+                        ((NoticiasActivity) activity).error((jsonObject.get("message")).getAsString());
                     break;
             }
 
