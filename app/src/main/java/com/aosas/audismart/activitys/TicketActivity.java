@@ -137,7 +137,7 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
 
         try {
             startActivityForResult(
-                    Intent.createChooser(intent, "Select a File to Upload"),
+                   Intent.createChooser(intent, "Select a File to Upload"),
                     Constantes.FILE_SELECT_CODE);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "Please install a File Manager.",
