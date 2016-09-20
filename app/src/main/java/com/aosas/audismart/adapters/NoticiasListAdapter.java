@@ -1,0 +1,56 @@
+package com.aosas.audismart.adapters;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.aosas.audismart.R;
+import com.aosas.audismart.model.Noticia;
+import com.aosas.audismart.model.Notificacion;
+
+import java.util.ArrayList;
+
+/**
+ * Created by dayanamartinez on 19-09-16.
+ */
+public class NoticiasListAdapter extends ArrayAdapter {
+    private final Context context;
+    ArrayList<Noticia> noticias;
+    private TextView fechaDia,fechaMes,fechaYear, descripcion ,nombreEmpresa,lblListId;
+
+
+
+    public NoticiasListAdapter(Context context, ArrayList<Noticia> noticias ) {
+        super(context,R.layout.list_item_noticias,noticias);
+        this.context = context;
+        this.noticias = noticias;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View item = inflater.inflate(R.layout.list_item_noticias,null);
+
+        Noticia noticia = noticias.get(position);
+        fechaDia = (TextView) convertView.findViewById(R.id.lblListItemFechaDia);
+        fechaMes = (TextView) convertView.findViewById(R.id.lblListItemFechaMes);
+        fechaYear = (TextView) convertView.findViewById(R.id.lblListItemFechaYear);
+        descripcion = (TextView) convertView.findViewById(R.id.lblListItemDescripcion);
+        nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
+        lblListId = (TextView) convertView.findViewById(R.id.lblListId);
+
+        fechaDia.setText(noticia.fecha.substring(8, 10));
+        fechaMes.setText(noticia.fecha.substring(5, 7));
+        fechaYear.setText(noticia.fecha.substring(0, 4));
+        descripcion.setText(noticia.titulo);
+        nombreEmpresa.setText(noticia.empresa);
+        lblListId.setText(noticia.id_noticia);
+
+        return item;
+    }
+}
+

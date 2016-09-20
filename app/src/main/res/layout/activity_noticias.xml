@@ -30,15 +30,14 @@
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>
-    <ExpandableListView
+
+    <ListView
+        android:id="@+id/lvItems"
         android:layout_width="match_parent"
-        android:id="@+id/ParentLevel"
-        android:layout_below="@+id/header_home"
-        android:groupIndicator="@android:color/transparent"
-        android:divider="@android:color/transparent"
-        android:scrollbars="vertical"
-        android:transcriptMode="alwaysScroll"
-        android:layout_height="match_parent">
-    </ExpandableListView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/header_home" >
+    </ListView>
+
 
 </RelativeLayout>

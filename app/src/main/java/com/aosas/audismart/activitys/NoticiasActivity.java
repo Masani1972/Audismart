@@ -7,9 +7,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
+import com.aosas.audismart.adapters.NoticiasListAdapter;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.BuscarNoticia;
@@ -35,6 +37,9 @@ public class NoticiasActivity extends AppCompatActivity implements BaseActivity 
 
     @InjectView(R.id.editText_Empresas)
     AutoCompleteTextView editText_Empresas;
+
+    @InjectView(R.id.lvItems)
+    ListView lvItems;
 
 
 
@@ -113,7 +118,13 @@ public class NoticiasActivity extends AppCompatActivity implements BaseActivity 
                 noticias.add(i, noticia);
             }
             Preferences.setTickets(this, noticias);
+            cargarNoticias(noticias);
         }
+    }
+
+    private void cargarNoticias(ArrayList<Noticia> noticias) {
+        NoticiasListAdapter adapter = new NoticiasListAdapter(this, noticias);
+        lvItems.setAdapter(adapter);
     }
 
     @Override
