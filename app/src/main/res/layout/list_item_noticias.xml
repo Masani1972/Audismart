@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
+    android:id="@+id/layout_noticias"
     android:background="@color/blanco">
 
     <TextView

@@ -117,7 +117,7 @@ public class NoticiasActivity extends AppCompatActivity implements BaseActivity 
                 Noticia noticia = new Noticia(id_noticia, titulo, contenido, archivo,rutaarchivo, fecha, hora,  empresa, id_empresa, "");
                 noticias.add(i, noticia);
             }
-            Preferences.setTickets(this, noticias);
+            Preferences.setNoticias(this, noticias);
             cargarNoticias(noticias);
         }
     }

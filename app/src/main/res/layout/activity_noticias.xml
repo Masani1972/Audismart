@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:text="@string/title_noticias"
+            android:text="@string/subtitle_noticias"
             android:textColor="@color/blanco"
             android:textSize="15dp" />
 

@@ -111,7 +111,11 @@
             android:name=".activitys.TicketActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activitys.CalificarTicketActivity" />
-        <activity android:name=".activitys.NoticiasActivity"></activity>
+        <activity android:name=".activitys.NoticiasActivity"
+            android:label="@string/title_noticias"/>
+        <activity android:name=".activitys.NoticiasDetalleActivity"
+            android:label="@string/title_noticias"
+            ></activity>
     </application>
 
 </manifest>

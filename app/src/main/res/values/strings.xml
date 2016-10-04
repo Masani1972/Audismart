@@ -128,7 +128,8 @@
     <string name="boton_calificar">Calificar</string>
 
     <!-- Noticias-->
-    <string name="title_noticias">Todos</string>
+    <string name="title_noticias">Noticias</string>
+    <string name="subtitle_noticias">Todos</string>
 
 
 </resources>
