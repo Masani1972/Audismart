@@ -237,4 +237,13 @@ public class Preferences {
             editor.remove(Constantes.NOTICIAS);
         editor.commit();
     }
+
+    public static ArrayList<Noticia> getNoticias(Context context) {
+        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Constantes.NOTICIAS, "0");
+        Type type = new TypeToken<List<Noticia>>() {}.getType();
+        ArrayList<Noticia> noticias = gson.fromJson(json, type);
+        return noticias;
+    }
 }

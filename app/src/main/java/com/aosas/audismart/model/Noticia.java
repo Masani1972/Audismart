@@ -1,9 +1,11 @@
 package com.aosas.audismart.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Lmartinez on 19/09/2016.
  */
-public class Noticia {
+public class Noticia implements Serializable {
     public String id_noticia ="";
     public String titulo = "";
     public String contenido ="";

@@ -13,8 +13,10 @@ import android.widget.TextView;
 import com.aosas.audismart.R;
 import com.aosas.audismart.activitys.NoticiasActivity;
 import com.aosas.audismart.activitys.NoticiasDetalleActivity;
+import com.aosas.audismart.activitys.NotificacionesActivity;
 import com.aosas.audismart.model.Noticia;
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.repository.Preferences;
 
 import java.util.ArrayList;
 
@@ -57,12 +59,17 @@ public class NoticiasListAdapter extends ArrayAdapter {
         layout_noticias.setOnClickListener(new View.OnClickListener() {
 
          public void onClick(View v) {
-             View parent = (View)v.getParent();
-             if(parent!=null){
-                 TextView txtView = (TextView) parent.findViewById(R.id.lblListId);
-                 Intent i = new Intent(context, NoticiasDetalleActivity.class);
-                    context.startActivity(new Intent(context, NoticiasActivity.class));
-             }
+                   TextView txtView = (TextView) v.findViewById(R.id.lblListId);
+                 ArrayList<Noticia> noticias = Preferences.getNoticias(context);
+                 for(int index =0;index<noticias.size();index++) {
+
+                     if (noticias.get(index).id_noticia.equals(txtView.getText().toString())) {
+                         Intent intentNoticias = new Intent(context, NoticiasDetalleActivity.class);
+                         intentNoticias.putExtra("noticia", noticias.get(index));
+                         context.startActivity(intentNoticias);
+                     }
+                 }
+
          }
            }
         );

@@ -12,6 +12,8 @@ import android.util.Log;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
+import com.aosas.audismart.activitys.NoticiasDetalleActivity;
+import com.aosas.audismart.model.Noticia;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
@@ -29,18 +31,12 @@ public class NotificationsListenerService  extends GcmListenerService {
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
-       /* if (from.startsWith("/topics/")) {
-            // message received from some topic.
-        } else {
-            // normal downstream message.
-        }
-        */
-
         sendNotification(message);
     }
 
     private void sendNotification(String message) {
-        Intent intent = new Intent(this, MenuPrincipalActivity.class);
+        Intent intent = new Intent(this, NoticiasDetalleActivity.class);
+        intent.putExtra("noticia",new Noticia("",message,"","","","","","","",""));
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
                 PendingIntent.FLAG_ONE_SHOT);

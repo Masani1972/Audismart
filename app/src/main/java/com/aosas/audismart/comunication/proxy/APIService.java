@@ -6,6 +6,7 @@ import com.squareup.okhttp.ResponseBody;
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
@@ -99,5 +100,8 @@ public interface APIService {
     @FormUrlEncoded
     @POST("WS.php")
     Call<ResponseBody> searchNew(@Field("id_noticia") String id_noticia,@Field("id_cliente") String id_cliente,@Field("ACCION") String ACCION);
+
+
+
 
 }
