@@ -152,10 +152,13 @@ public class Util {
         int childcount = layout_Form.getChildCount();
         for (int i = 1; i < childcount; i=i+2) {
             View v = layout_Form.getChildAt(i);
+            if (i==17)
+                editTextOk++;
+            else{
             EditText tv = (EditText) v;
             if ((tv != null && tv.getText().toString().length() > 0))
                 editTextOk++;
-            continue;
+            continue;}
         }
 
         if (editTextOk == childcount/2)

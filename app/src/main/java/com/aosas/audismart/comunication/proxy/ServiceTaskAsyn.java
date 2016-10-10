@@ -79,6 +79,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 GCM gcm = (GCM) object;
                 call = taskService.registerDevice(gcm.id_cliente, gcm.so, gcm.dispositivo, gcm.identificador, gcm.ACCION);
                 break;
+            case Constantes.REGISTRO_DISPOSITIVO_REGISTRO:
+                GCM gcm_registro = (GCM) object;
+                call = taskService.registerDevice(gcm_registro.id_cliente, gcm_registro.so, gcm_registro.dispositivo, gcm_registro.identificador, gcm_registro.ACCION);
+                break;
             case Constantes.CONSULTA_FECHASCLIENTE:
                 FechaCliente fechaCliente = (FechaCliente) object;
                 call = taskService.consultDateClient(fechaCliente.idCliente, fechaCliente.idCalendario, fechaCliente.idEmpresa,fechaCliente.ACCION);
@@ -127,11 +131,6 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
                 Ticket ticketCerrar = (Ticket) object;
                 call = taskService.closeTicket(ticketCerrar.id_ticket, ticketCerrar.ACCION);
                 break;
-
-            case Constantes.RESPONDER_TICKET:
-                RespuestaTicket respuestaTicket = (RespuestaTicket) object;
-                call = taskService.respondTicket(respuestaTicket.id_ticket,respuestaTicket.asunto,respuestaTicket.archivo, respuestaTicket.ACCION);
-                break;
             case Constantes.CALIFICAR_TICKET:
                 Ticket calificarTicket = (Ticket) object;
                 call = taskService.valueTicket(calificarTicket.id_ticket,calificarTicket.calificacion, calificarTicket.ACCION);
@@ -139,6 +138,10 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
             case Constantes.BUSCAR_NOTICIA:
                 BuscarNoticia buscarNoticia = (BuscarNoticia) object;
                 call = taskService.searchNew(buscarNoticia.id_noticia,buscarNoticia.id_cliente, buscarNoticia.ACCION);
+                break;
+            case Constantes.RECUPERAR_CONTRASENA:
+                String email = (String) object;
+                call = taskService.forgotPassword(email, Constantes.RECUPERAR_CONTRASENA);
                 break;
 
             case "":
@@ -179,6 +182,9 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     }
     else{
         IRepository presenter = new Repository();
-        presenter.createResponse(Resources.getSystem().getString(R.string.errorServiciosWEb),metodo,activity);}
+        presenter.createResponse("{\"error\":\"4\",\"message\":\"Error en la comunicación\"}",metodo,activity);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }}
     }
 }

@@ -166,8 +166,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView_Fecha_Mercantil"
-                    android:inputType="date"
+
                     />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/boton_FechaMercantil"
+                    android:layout_below="@+id/textView_Fecha_Mercantil"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"/>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -312,4 +321,6 @@
 
         </RelativeLayout>
     </ScrollView>
+
+
 </RelativeLayout>

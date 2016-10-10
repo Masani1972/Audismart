@@ -16,6 +16,10 @@
     <string name="errorServiciosWEb">Error en la comunicación</string>
     <string name="errorPreferencias">Error en la aplicación</string>
 
+    <!--Recuperar contraseña-->
+    <string name="textRecuperarPass">Ingrese sus datos para recuperar su contraseña</string>
+    <string name="boton_recuperar">Enviar Contraseña</string>
+
 
     <!-- Activity Home-->
     <string name="boton_registro">Registrarme</string>

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.aosas.audismart.activitys.CalificarTicketActivity;
+import com.aosas.audismart.activitys.CrearTicketActivity;
 import com.aosas.audismart.activitys.IngresoActivity;
 import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NoticiasActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
+import com.aosas.audismart.activitys.PasswordActivity;
 import com.aosas.audismart.activitys.Registro_EmpresaActivity;
 import com.aosas.audismart.activitys.Registro_UsuarioActivity;
 import com.aosas.audismart.activitys.TicketActivity;
@@ -159,6 +161,19 @@ public class Repository implements IRepository {
                     else
                         ((NoticiasActivity) activity).error((jsonObject.get("message")).getAsString());
                     break;
+                case Constantes.RECUPERAR_CONTRASENA:
+                    if (errorCodigo.equals("0"))
+                        ((PasswordActivity) activity).succes((jsonObject.get("message")).getAsString(), null);
+                    else
+                        ((PasswordActivity) activity).error((jsonObject.get("message")).getAsString());
+                    break;
+                case Constantes.REGISTRO_TICKET:
+                    if (errorCodigo.equals("0"))
+                        ((CrearTicketActivity) activity).succes((jsonObject.get("message")).getAsString(), null);
+                    else
+                        ((CrearTicketActivity) activity).error((jsonObject.get("message")).getAsString());
+                    break;
+
             }
 
     }

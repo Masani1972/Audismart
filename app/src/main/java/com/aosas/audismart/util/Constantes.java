@@ -8,12 +8,14 @@ public  class Constantes {
     //URL WebServices
     public static final String URLSERVICES="https://aosmart.aosas.com/movil/";
     public static final String URLIMAGENES="https://aosmart.aosas.com/";
+    public static final String SERVICES="WS.php";
 
     /*Metodos Servicios Web
     */
     public static final String REGISTRO_USUARIO = "REGISTRO CLIENTE";
     public static final String LOGIN = "LOGIN";
     public static final String REGISTRO_EMPRESA="REGISTRO EMPRESA";
+    public static final String RECUPERAR_CONTRASENA="RECUPERAR CONTRASENA";
     public static final String REGISTRO_DISPOSITIVO="REGISTRO DISPOSITIVO";
     public static final String REGISTRO_DISPOSITIVO_REGISTRO="REGISTRO DISPOSITIVO REGISTRO";
     public static final String CONSULTA_FECHASCLIENTE="FECHAS CLIENTE";
@@ -29,6 +31,7 @@ public  class Constantes {
     public static final String BUSCAR_TICKET_RESPUESTA="BUSCAR TICKET RESPUESTA";
     public static final String CERRAR_TICKET="CERRAR TICKET";
     public static final String RESPONDER_TICKET="RESPONDER TICKET";
+    public static final String REGISTRO_TICKET="REGISTRO TICKET";
     public static final String CALIFICAR_TICKET="CALIFICAR TICKET";
     public static final String BUSCAR_NOTICIA="BUSCAR NOTICIA";
 
@@ -66,6 +69,7 @@ public  class Constantes {
     Activitys result
      */
     public static final int UPDATECOMPANY=1;
+    public static final int FILE_SELECT_CODE = 0;
 
     /*
     Response
@@ -76,10 +80,5 @@ public  class Constantes {
     public static final String CERRAR_TICKET_RESPONSE = "Se actualizo con exito";
     public static final String BUSCAR_NOTICIA_RESPONSE = "Noticias encontradas";
 
-
-    /*
-    Activity Result
-     */
-    public static final int FILE_SELECT_CODE = 0;
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aosas.audismart"
     android:versionCode="2"
     android:versionName="1.0.1">
@@ -79,6 +80,7 @@
         <activity
             android:name=".activitys.MenuPrincipalActivity"
             android:label="@string/title_activity_menu"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.NotificacionesActivity"
@@ -111,11 +113,16 @@
             android:name=".activitys.TicketActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activitys.CalificarTicketActivity" />
-        <activity android:name=".activitys.NoticiasActivity"
-            android:label="@string/title_noticias"/>
-        <activity android:name=".activitys.NoticiasDetalleActivity"
+        <activity
+            android:name=".activitys.NoticiasActivity"
             android:label="@string/title_noticias"
-            ></activity>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activitys.NoticiasDetalleActivity"
+            android:label="@string/title_noticias"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activitys.PasswordActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

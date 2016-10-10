@@ -15,11 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.comunication.proxy.AsyntaskFile;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.BuscarTicket;
 import com.aosas.audismart.model.RespuestaTicket;
 import com.aosas.audismart.model.Ticket;
+import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
 import com.google.gson.JsonArray;
@@ -29,6 +31,8 @@ import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -42,6 +46,7 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
     private IRepository repository = new Repository();
     private static final String TAG ="TicketActivity";
     private String path = null;
+    private String nombreArchivo ="";
 
     @InjectView(R.id.text_empresa)
     TextView text_empresa;
@@ -119,11 +124,15 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
 
         if(edit_AsuntoRespuesta.getText().toString().length()>0){
             asuntoRespuesta = edit_AsuntoRespuesta.getText().toString();
-            if(path!=null)
-                requestBody = RequestBody
-                        .create(MediaType.parse("application/octet-stream"), path);
-            RespuestaTicket respuestaTicket = new RespuestaTicket(ticket.id_ticket,asuntoRespuesta,requestBody,Constantes.RESPONDER_TICKET);
-            repository.createRequets(this, respuestaTicket, Constantes.RESPONDER_TICKET);
+            if(path!=null) {
+                Map<String, String> params = new HashMap<String, String>(3);
+                params.put("id_ticket", ticket.id_ticket);
+                params.put("asunto", asuntoRespuesta);
+                params.put("ACCION", Constantes.RESPONDER_TICKET);
+
+                new AsyntaskFile(path,nombreArchivo,params,this,Constantes.RESPONDER_TICKET).execute();
+            }
+
         }
         else
             makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
@@ -163,6 +172,9 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
            Intent intentCalificar = new Intent(this,CalificarTicketActivity.class);
             intentCalificar.putExtra("ticket",ticket);
             startActivity(intentCalificar);
+            finish();
+        }else{
+            makeText(this, succes, LENGTH_LONG).show();
             finish();
         }
     }
@@ -238,7 +250,8 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
                         path = Util.getPath(this, uri);
                         Log.d(TAG, "File Path: " + path);
                         String[] parametrosPath = path.split("/");
-                        text_NombreArchivo.setText(parametrosPath[parametrosPath.length-1]);
+                        nombreArchivo = parametrosPath[parametrosPath.length-1];
+                        text_NombreArchivo.setText(nombreArchivo);
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
                     }

@@ -2,6 +2,7 @@ package com.aosas.audismart.activitys;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,14 +17,20 @@ import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
+import com.aosas.audismart.comunication.proxy.AsyntaskFile;
+import com.aosas.audismart.comunication.proxy.HttpFileUpload;
 import com.aosas.audismart.model.Empresa;
 import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
 import com.google.gson.JsonElement;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -34,6 +41,7 @@ import static android.widget.Toast.makeText;
 
 public class CrearTicketActivity extends AppCompatActivity implements BaseActivity{
     private String path = null;
+    private String nombreArchivo ="";
     private String idEmpresa = "";
 
     @InjectView(R.id.button_CargarArchivo)
@@ -47,6 +55,12 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
 
     @InjectView(R.id.button_crearTicket)
     Button button_crearTicket;
+
+    @InjectView(R.id.editText_Titulo)
+    EditText editText_Titulo;
+
+    @InjectView(R.id.editText_Asunto)
+    EditText editText_Asunto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +96,17 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
      *******************/
 
     private void crearTicket() {
+
+                Map<String, String> params = new HashMap<String, String>(4);
+                params.put("id_cliente", Preferences.getIdClient(this));
+                params.put("id_empresa", idEmpresa);
+                params.put("titulo", editText_Titulo.getText().toString());
+                params.put("asunto", editText_Asunto.getText().toString());
+                params.put("ACCION", Constantes.REGISTRO_TICKET);
+
+        new AsyntaskFile(path,nombreArchivo,params,this,Constantes.REGISTRO_TICKET).execute();
+
+
     }
 
 
@@ -123,7 +148,8 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
                     try {
                         path = Util.getPath(this, uri);
                         String[] parametrosPath = path.split("/");
-                        text_NombreArchivo.setText(parametrosPath[parametrosPath.length-1]);
+                        nombreArchivo =parametrosPath[parametrosPath.length-1];
+                        text_NombreArchivo.setText(nombreArchivo);
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
                     }
@@ -135,7 +161,8 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
-
+        makeText(this, succes, LENGTH_LONG).show();
+        finish();
     }
 
     @Override

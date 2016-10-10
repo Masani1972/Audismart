@@ -1,25 +1,29 @@
 package com.aosas.audismart.activitys;
 
-import com.aosas.audismart.activitys.BaseActivity;
-import com.aosas.audismart.activitys.MenuPrincipalActivity;
+
 import com.aosas.audismart.util.Constantes;
 
-
-        import android.content.Intent;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Intent;
         import android.os.Bundle;
-        import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
         import android.support.v7.app.AppCompatActivity;
-        import android.view.MotionEvent;
+import android.util.Log;
+import android.view.MotionEvent;
         import android.view.View;
         import android.widget.AdapterView;
         import android.widget.AutoCompleteTextView;
         import android.widget.Button;
-        import android.widget.EditText;
+import android.widget.DatePicker;
+import android.widget.EditText;
         import android.widget.RadioButton;
         import android.widget.RelativeLayout;
         import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
+import com.aosas.audismart.adapters.AutocompleteCategoriaAdapter;
         import com.aosas.audismart.adapters.AutocompleteCiudadAdapter;
         import com.aosas.audismart.adapters.AutocompleteDepartamentoAdapter;
         import com.aosas.audismart.adapters.AutocompleteDocumentoAdapter;
@@ -35,13 +39,18 @@ import com.aosas.audismart.util.Constantes;
         import com.aosas.audismart.model.Periodicidad;
         import com.aosas.audismart.repository.FileAsserts;
         import com.aosas.audismart.repository.Preferences;
-        import com.aosas.audismart.util.Constantes;
+
         import com.aosas.audismart.util.Util;
-        import com.google.gson.JsonElement;
 
-        import java.util.ArrayList;
+import com.google.gson.JsonElement;
 
-        import butterknife.ButterKnife;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import butterknife.ButterKnife;
         import butterknife.InjectView;
         import butterknife.OnClick;
 
@@ -59,6 +68,8 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     private IRepository repository = new Repository();
     private Empresa empresa;
     private Empresa empresaEdit;
+    private int year_x, month_x,day_x;
+     static final int DIALOG_ID=0;
 
     @InjectView(R.id.layout_Form)
     RelativeLayout layout_Form;
@@ -102,12 +113,20 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     @InjectView(R.id.button_Eliminar)
     Button button_Eliminar;
 
+    @InjectView(R.id.boton_FechaMercantil)
+    Button boton_FechaMercantil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_empresa);
         ButterKnife.inject(this);
 
+
+        initViews();
+    }
+
+    private void initViews() {
          /*
         Permite adicionar un icono al action bar
          */
@@ -183,6 +202,14 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
                 return false;
             }
         });
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat(Constantes.FORMATOFECHANOTIDICACIONJSON);
+        String formattedDate = df.format(c.getTime());
+        year_x= c.get(Calendar.YEAR);
+        month_x = c.get(Calendar.MONTH);
+        day_x = c.get(Calendar.DAY_OF_MONTH);
+        editText_FechaMercantil.setText(formattedDate);
     }
 
     @OnClick(R.id.button_Eliminar)
@@ -199,6 +226,13 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     @OnClick(R.id.button_Actualizar)
     public void button_Actualizar(View view) {
         validar_formulario_actualizacion();
+    }
+
+
+    @OnClick(R.id.boton_FechaMercantil)
+    public void showCalendar()
+    {
+        cargarCalendario();
     }
 
     @Override
@@ -360,6 +394,27 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
         }
 
     }
+
+    private void cargarCalendario() {
+        Log.i("","calendario");
+         showDialog(DIALOG_ID);
+    }
+
+    protected Dialog onCreateDialog(int id){
+        if (id == DIALOG_ID)
+            return new DatePickerDialog(this,dpickerListener,year_x,month_x,day_x);
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener dpickerListener = new DatePickerDialog.OnDateSetListener(
+
+
+    ) {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            editText_FechaMercantil.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+        }
+    };
 
     /*
    Validar los campos EditText del formulario

@@ -116,8 +116,7 @@ Permite solicitar de nuevo la contraseña,
 olvidada por el usuario
  */
     private void recuperar_Contraseña() {
-        AlertDialogCustom alertDialog = new AlertDialogCustom(this);
-        alertDialog.initAlert("Email", "Ingrese Email");
+        startActivity(new Intent(this,PasswordActivity.class));
     }
 
     @Override

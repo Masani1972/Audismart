@@ -185,7 +185,7 @@
                 android:id="@+id/checkBox_envio_inf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_Form"
+                android:layout_below="@+id/checkBox_terminos"
                 android:layout_marginTop="10dp"
                 android:text="@string/envio_inf" />
 
@@ -193,7 +193,7 @@
                 android:id="@+id/button_Continuar"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checkBox_terminos"
+                android:layout_below="@+id/checkBox_envio_inf"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:text="@string/boton_Paso2"

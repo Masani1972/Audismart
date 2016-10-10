@@ -88,6 +88,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         scheduleClient = new ScheduleClient(this);
         scheduleClient.doBindService();
 
+        consumoWSNotificaciones();
+
         /*listener  autocomplete no soportado por ButterKnife*/
         editText_Empresas.setThreshold(1);
         editText_Empresas.setOnTouchListener(new View.OnTouchListener() {
@@ -120,7 +122,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             }
         });
 
-        consumoWSNotificaciones();
+
     }
 
     @Override
@@ -197,6 +199,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
 
     private void cargarListaEmpresas() {
+        if(Preferences.getEmpresas(this)!=null){
         ArrayList arrayListEmpresas = Preferences.getEmpresas(this);
         AutocompleteEmpresaAdapter itemadapter = new AutocompleteEmpresaAdapter(this, R.layout.adapter_autotext,arrayListEmpresas);
         editText_Empresas.setAdapter(itemadapter);
@@ -208,10 +211,13 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
                 consumoWSNotificaciones();
             }
-        });
+        });}
+        else
+            editText_Empresas.setEnabled(false);
     }
 
     private void cargarListaImpuestos() {
+        if(Preferences.getCalendarios(this)!=null){
         ArrayList arrayListImpuestos = Preferences.getCalendarios(this);
         AutocompleteCalendarioAdapter itemadapter = new AutocompleteCalendarioAdapter(this, R.layout.adapter_autotext,arrayListImpuestos);
         editText_Impuestos.setAdapter(itemadapter);
@@ -224,6 +230,9 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 consumoWSNotificaciones();
             }
         });
+        }
+        else
+            editText_Impuestos.setEnabled(false);
     }
 
     /*

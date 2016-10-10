@@ -93,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements BaseActivity{
      */
     private void solicitar_Contrasena() {
 
-
+        startActivity(new Intent(this,PasswordActivity.class));
     }
 
     public void registrar_gcm(){

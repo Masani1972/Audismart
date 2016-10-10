@@ -78,7 +78,8 @@ public class Preferences {
     public static ArrayList<Empresa> getEmpresas(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
-        String json = sharedPref.getString(Constantes.EMPRESAS, "0");
+        String json = sharedPref.getString(Constantes.EMPRESAS, null);
+
         Type type = new TypeToken<List<Empresa>>() {}.getType();
         ArrayList<Empresa> empresas = gson.fromJson(json, type);
         return empresas;
@@ -142,7 +143,7 @@ public class Preferences {
     public static ArrayList<Notificacion> getNotificaciones(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
-        String json = sharedPref.getString(Constantes.NOTIFICACIONES, "0");
+        String json = sharedPref.getString(Constantes.NOTIFICACIONES, null);
         Type type = new TypeToken<List<Notificacion>>() {}.getType();
         ArrayList<Notificacion> notificaciones = gson.fromJson(json, type);
         return notificaciones;
@@ -165,7 +166,7 @@ public class Preferences {
     public static ArrayList<Calendario> getCalendarios(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
-        String json = sharedPref.getString(Constantes.CALENDARIOS_PREFERENCES, "0");
+        String json = sharedPref.getString(Constantes.CALENDARIOS_PREFERENCES, null);
         Type type = new TypeToken<List<Calendario>>() {}.getType();
         ArrayList<Calendario> calendarios = gson.fromJson(json, type);
         return calendarios;
@@ -217,7 +218,7 @@ public class Preferences {
     public static ArrayList<Ticket> getTickets(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
-        String json = sharedPref.getString(Constantes.TICKETS, "0");
+        String json = sharedPref.getString(Constantes.TICKETS, null);
         Type type = new TypeToken<List<Ticket>>() {}.getType();
         ArrayList<Ticket> tickets = gson.fromJson(json, type);
         return tickets;
@@ -241,7 +242,7 @@ public class Preferences {
     public static ArrayList<Noticia> getNoticias(Context context) {
         SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
-        String json = sharedPref.getString(Constantes.NOTICIAS, "0");
+        String json = sharedPref.getString(Constantes.NOTICIAS, null);
         Type type = new TypeToken<List<Noticia>>() {}.getType();
         ArrayList<Noticia> noticias = gson.fromJson(json, type);
         return noticias;
