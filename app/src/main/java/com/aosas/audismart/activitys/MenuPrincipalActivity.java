@@ -177,23 +177,24 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
      Presentador¡¡ Logica de la  vista
      *******************/
 
-    public void initalarm(){
-        ArrayList<Notificacion> notificacions = Preferences.getNotificaciones(this);
-       // notificacions.get(0).antesFecha = "2016-04-23 14:43:00";
+    public void initalarm() {
+        if (Preferences.getNotificaciones(this) !=null) {
+            ArrayList<Notificacion> notificacions = Preferences.getNotificaciones(this);
 
-        ArrayList<Calendar> calendars = new ArrayList<Calendar>();
-        for (int i =0;i<notificacions.size();i++) {
-            String fecha = notificacions.get(i).antesFecha;
+            ArrayList<Calendar> calendars = new ArrayList<Calendar>();
+            for (int i = 0; i < notificacions.size(); i++) {
+                String fecha = notificacions.get(i).antesFecha;
 
-            Calendar cal = Calendar.getInstance();
-            Date date = Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSONNOTIFICACION, fecha);
-            cal.setTime(date);
+                Calendar cal = Calendar.getInstance();
+                Date date = Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSONNOTIFICACION, fecha);
+                cal.setTime(date);
 
 
-            calendars.add(i,cal);
+                calendars.add(i, cal);
+            }
+            scheduleClient.setAlarmForNotification(calendars);
         }
-        scheduleClient.setAlarmForNotification(calendars);
-        }
+    }
 
 
 
@@ -212,8 +213,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 consumoWSNotificaciones();
             }
         });}
-        else
-            editText_Empresas.setEnabled(false);
+
     }
 
     private void cargarListaImpuestos() {
@@ -231,8 +231,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             }
         });
         }
-        else
-            editText_Impuestos.setEnabled(false);
+
     }
 
     /*
@@ -377,15 +376,11 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         else if (succes.substring(0,18).equals("Fechas encontradas")){
         JsonArray jsonArray = jsonElement.getAsJsonArray();
             setNotificaciones(jsonArray);
-
-
             notificacionesVencidas();
             notificacionesHoy();
             notificacionesProximas();
             notificacionesArchivadas();
-
             consumoWSTickets();
-
         }else if(succes.substring(0,19).equals("Tickets encontrados")){
 
             JsonArray jsonArray = jsonElement.getAsJsonArray();
@@ -480,6 +475,15 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
     @Override
     public void error(String error) {
+        if(error.equals(Constantes.CONSULTA_FECHASCLIENTE_RESPONSE_ERROR)){
+            consumoWSTickets();
+        }else if (error.equals(Constantes.BUSCAR_TICKET_RESPONSE_ERROR)){
+            prepareListData();
+            explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
+            explvlist.setAdapter(new LevelMenuPrincipal(this, listDataChildNotificaciones, listDataHeaderNotificaciones,listDataChildTickets,listDataHeaderTickets));
+
+            initalarm();
+        }
         makeText(MenuPrincipalActivity.this, error, LENGTH_LONG).show();
     }
 }

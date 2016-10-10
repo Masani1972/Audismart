@@ -51,7 +51,7 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
     private LinearLayout layout_Form;
     private CheckBox chTerminos,chEnvioInfo;
     private AutoCompleteTextView departamento,ciudad;
-    private ArrayList<Empresa> empresas;
+    private ArrayList<Empresa> empresas = null;
     private TextView nombreEmpresa,lblListId;
     private boolean _isChild = false;
     private final static String TAG ="SecondLevelProfile";
@@ -63,6 +63,7 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
     public SecondLevelProfile(Context context, List<String> listDataHeader,boolean isChild){
         this.context = context;
         this._listDataHeader = listDataHeader;
+        if(Preferences.getEmpresas(context)!=null)
         empresas = Preferences.getEmpresas(context);
         this._isChild =isChild;
     }
@@ -250,7 +251,10 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
         if(groupPosition ==0)
             return 1;
         else if (groupPosition ==1)
-            return empresas.size();
+            if(empresas!=null)
+                return empresas.size();
+            else
+                return 0;
         else
             return 0;
     }

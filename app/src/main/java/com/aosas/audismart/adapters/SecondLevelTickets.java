@@ -114,8 +114,11 @@ public class SecondLevelTickets extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition)
     {
+        if(this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition))!=null)
         return   this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition))
                 .size();
+        else
+            return 0;
     }
 
     @Override

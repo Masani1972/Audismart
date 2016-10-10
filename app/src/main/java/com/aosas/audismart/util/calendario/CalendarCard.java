@@ -52,11 +52,11 @@ public class CalendarCard extends RelativeLayout {
     }
 
     private void getDatesFromNotificaciones() {
-        if (Preferences.getNotificaciones(context)!=null)
+        if (Preferences.getNotificaciones(context)!=null){
         notificacions= Preferences.getNotificaciones(context);
         for(int i =0;i<notificacions.size();i++){
             dates.add(Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSONNOTIFICACION,notificacions.get(i).fecha));
-        }
+        }}
 
     }
 

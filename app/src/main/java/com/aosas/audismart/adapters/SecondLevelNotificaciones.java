@@ -135,8 +135,10 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter
     @Override
     public int getChildrenCount(int groupPosition)
     {
-        return   this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition))
-            .size();
+        if(this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition))!=null)
+            return this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition)).size();
+        else
+            return 0;
     }
 
     @Override

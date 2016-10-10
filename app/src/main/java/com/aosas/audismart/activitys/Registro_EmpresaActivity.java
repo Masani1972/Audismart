@@ -412,6 +412,7 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     ) {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            monthOfYear++;
             editText_FechaMercantil.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
         }
     };

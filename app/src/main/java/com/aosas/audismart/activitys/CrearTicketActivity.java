@@ -78,7 +78,6 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
                 return false;
             }
         });
-        cargarListaEmpresas();
 
     }
 
@@ -111,16 +110,23 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
 
 
     private void cargarListaEmpresas() {
-        ArrayList arrayListEmpresas = Preferences.getEmpresas(this);
-        AutocompleteEmpresaAdapter itemadapter = new AutocompleteEmpresaAdapter(this, R.layout.adapter_autotext,arrayListEmpresas);
-        editText_Empresas.setAdapter(itemadapter);
-        editText_Empresas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
-                Empresa empresa = (Empresa) listView.getItemAtPosition(position);
-                idEmpresa = empresa.id_empresa.replaceAll("\"", "");
-                Log.i("",idEmpresa);
-            }
-        });
+        if(Preferences.getEmpresas(this)!=null) {
+            editText_Empresas.setEnabled(true);
+            ArrayList arrayListEmpresas = Preferences.getEmpresas(this);
+            AutocompleteEmpresaAdapter itemadapter = new AutocompleteEmpresaAdapter(this, R.layout.adapter_autotext, arrayListEmpresas);
+            editText_Empresas.setAdapter(itemadapter);
+            editText_Empresas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                    Empresa empresa = (Empresa) listView.getItemAtPosition(position);
+                    idEmpresa = empresa.id_empresa.replaceAll("\"", "");
+                    Log.i("", idEmpresa);
+                }
+            });
+        }
+        else{
+            editText_Empresas.setEnabled(false);
+        }
+
     }
 
 

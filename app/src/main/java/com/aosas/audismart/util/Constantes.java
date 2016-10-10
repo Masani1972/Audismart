@@ -72,13 +72,19 @@ public  class Constantes {
     public static final int FILE_SELECT_CODE = 0;
 
     /*
-    Response
+    Response Succes
      */
     public static final String ACTUALIZA_EMPRESA_RESPONSE="Se actualizo con exito";
     public static final String ELIMINAR_EMPRESA_RESPONSE="Se elimino con exito";
     public static final String BUSCAR_TICKET_RESPUESTA_RESPONSE="Respuestas encontrados";
     public static final String CERRAR_TICKET_RESPONSE = "Se actualizo con exito";
     public static final String BUSCAR_NOTICIA_RESPONSE = "Noticias encontradas";
+
+    /*
+    Response Error
+   */
+    public static final String CONSULTA_FECHASCLIENTE_RESPONSE_ERROR="No se han encontrado fechas";
+    public static final String BUSCAR_TICKET_RESPONSE_ERROR="No se han encontrado tickets";
 
 
 }

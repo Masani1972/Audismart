@@ -65,6 +65,7 @@ public class NoticiasActivity extends AppCompatActivity implements BaseActivity 
 
 
     private void cargarListaEmpresas() {
+        if (Preferences.getEmpresas(this)!=null){
         ArrayList arrayListEmpresas = Preferences.getEmpresas(this);
         AutocompleteEmpresaAdapter itemadapter = new AutocompleteEmpresaAdapter(this, R.layout.adapter_autotext,arrayListEmpresas);
         editText_Empresas.setAdapter(itemadapter);
@@ -76,7 +77,7 @@ public class NoticiasActivity extends AppCompatActivity implements BaseActivity 
 
                 consumoWSNoticias();
             }
-        });
+        });}
     }
 
 
