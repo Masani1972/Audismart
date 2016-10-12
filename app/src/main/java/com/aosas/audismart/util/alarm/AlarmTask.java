@@ -5,6 +5,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.util.Constantes;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -19,14 +22,14 @@ public class AlarmTask implements Runnable{
     // Your context to retrieve the alarm manager from
     private final Context context;
 
-    ArrayList<Calendar> calendars;
+    ArrayList<Notificacion> notificaciones;
 
-    public AlarmTask(Context context, ArrayList<Calendar> calendars) {
+    public AlarmTask(Context context, ArrayList<Notificacion> notificaciones) {
         this.context = context;
         this.am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         //this.date = date;
 
-        this.calendars =calendars;
+        this.notificaciones =notificaciones;
     }
 
     @Override
@@ -36,11 +39,12 @@ public class AlarmTask implements Runnable{
 
 
         // Sets an alarm - note this alarm will be lost if the phone is turned off and on again
-        for (int i =0;i<calendars.size();i++) {
+        for (int i =0;i<notificaciones.size();i++) {
             Intent intent = new Intent(context, NotifyService.class);
             intent.putExtra(NotifyService.INTENT_NOTIFY, true);
+            intent.putExtra(Constantes.EXTRA_NOTIFICACIONES, notificaciones.get(i));
             PendingIntent pendingIntent = PendingIntent.getService(context, i, intent, 0);
-            am.set(AlarmManager.RTC, calendars.get(i).getTimeInMillis(), pendingIntent);
+            am.set(AlarmManager.RTC, notificaciones.get(i).calendar.getTimeInMillis(), pendingIntent);
         }
     }
 }

@@ -10,6 +10,11 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.activitys.NoticiasDetalleActivity;
+import com.aosas.audismart.activitys.NotificacionesActivity;
+import com.aosas.audismart.model.Noticia;
+import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.util.Constantes;
 
 /**
  * Created by Lmartinez on 21/04/2016.
@@ -32,9 +37,12 @@ public class NotifyService extends Service {
     // The system notification manager
     private NotificationManager mNM;
 
+   private Notificacion notificacion ;
+
     @Override
     public void onCreate() {
         Log.i("NotifyService", "onCreate()");
+
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
@@ -43,8 +51,10 @@ public class NotifyService extends Service {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
 
         // If this service was started by out AlarmTask intent then we want to show our notification
-        if(intent.getBooleanExtra(INTENT_NOTIFY, false))
+        if(intent.getBooleanExtra(INTENT_NOTIFY, false)){
+            notificacion = (Notificacion) intent.getSerializableExtra(Constantes.EXTRA_NOTIFICACIONES);
             showNotification();
+       }
 
         // We don't care if this service is stopped as we have already delivered our notification
         return START_NOT_STICKY;
@@ -67,22 +77,19 @@ public class NotifyService extends Service {
         // This is the icon to use on the notification
         int icon = R.drawable.ic_launcher;
         // This is the scrolling text of the notification
-        CharSequence text = "Tienes una notificacion pendiente";
+        CharSequence text = notificacion.nombre+"\n"+notificacion.nombreEmpresa;
         // What time to show on the notification
         long time = System.currentTimeMillis();
 
 
        // Notification notification = new Notification(icon, text, time);
 
+        Intent intent = new Intent(this, NotificacionesActivity.class);
+        intent.putExtra(Constantes.EXTRA_NOTIFICACIONES,notificacion);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         // The PendingIntent to launch our activity if the user selects this notification
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, SecondActivity.class), 0);
-
-        // Set the info for the views that show in the notification panel.
-        //notification.setLatestEventInfo(this, title, text, contentIntent);
-
-        // Clear the notification when it is pressed
-       // notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Notification notification = new Notification.Builder(this)
                 .setContentTitle(title)

@@ -6,8 +6,11 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.aosas.audismart.model.Notificacion;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
 /**
  * Created by Lmartinez on 21/04/2016.
@@ -43,9 +46,9 @@ public class ScheduleService extends Service {
     /**
      * Show an alarm for a certain date when the alarm is called it will pop up a notification
      */
-    public void setAlarm(ArrayList<Calendar> calendars) {
+    public void setAlarm(ArrayList<Notificacion> notificaciones) {
         // This starts a new thread to set the alarm
         // You want to push off your tasks onto a new thread to free up the UI to carry on responding
-        new AlarmTask(this, calendars).run();
+        new AlarmTask(this, notificaciones).run();
     }
 }

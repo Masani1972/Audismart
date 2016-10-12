@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -179,20 +180,20 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
     public void initalarm() {
         if (Preferences.getNotificaciones(this) !=null) {
-            ArrayList<Notificacion> notificacions = Preferences.getNotificaciones(this);
+            ArrayList<Notificacion> notificaciones = Preferences.getNotificaciones(this);
 
-            ArrayList<Calendar> calendars = new ArrayList<Calendar>();
-            for (int i = 0; i < notificacions.size(); i++) {
-                String fecha = notificacions.get(i).antesFecha;
 
+            for (int i = 0; i < notificaciones.size(); i++) {
+                Log.i("notificacion", notificaciones.get(i).id+"hora "+notificaciones.get(i).antesHora);
+
+                String fecha = notificaciones.get(i).antesFecha;
                 Calendar cal = Calendar.getInstance();
                 Date date = Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSONNOTIFICACION, fecha);
                 cal.setTime(date);
-
-
-                calendars.add(i, cal);
+                notificaciones.get(i).calendar = cal;
             }
-            scheduleClient.setAlarmForNotification(calendars);
+            Preferences.setNotificaciones(this,notificaciones);
+            scheduleClient.setAlarmForNotification(notificaciones);
         }
     }
 
@@ -209,8 +210,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 Empresa empresa = (Empresa) listView.getItemAtPosition(position);
                 idEmpresa = empresa.id_empresa.replaceAll("\"", "");
                 Log.i("",idEmpresa);
-
-                consumoWSNotificaciones();
             }
         });}
 
@@ -226,8 +225,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 Calendario calendario = (Calendario) listView.getItemAtPosition(position);
                 idCalendario = calendario.id_calendario.replaceAll("\"", "");
                 Log.i("",idCalendario);
-
-                consumoWSNotificaciones();
             }
         });
         }
@@ -429,7 +426,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 String periodo = ((JsonObject) jsonArray.get(i)).get("periodo").getAsString();
                 String cumplido = ((JsonObject) jsonArray.get(i)).get("cumplido").getAsString();
                 String fechaCumplido = (((JsonObject) jsonArray.get(i)).get("fechacumplido")) == null ? ((JsonObject) jsonArray.get(i)).get("fechacumplido").getAsString() : "";
-                Notificacion notificacion = new Notificacion(id, idFecha, idEmpresa, nombreEmpresa, idCalendario, fecha, hora, antesDias, antesHora, antesFecha, nombre, nombreCorto, periodo, cumplido, fechaCumplido, "");
+                Notificacion notificacion = new Notificacion(id, idFecha, idEmpresa, nombreEmpresa, idCalendario, fecha, hora, antesDias, antesHora, antesFecha, nombre, nombreCorto, periodo, cumplido, fechaCumplido, null,"");
                 notificaciones.add(i, notificacion);
             }
 

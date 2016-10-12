@@ -60,7 +60,7 @@ public class NotificacionesActivity extends AppCompatActivity implements BaseAct
         setContentView(R.layout.activity_notificaciones);
         ButterKnife.inject(this);
 
-        notificacion = (Notificacion) getIntent().getSerializableExtra("notificacion");
+        notificacion = (Notificacion) getIntent().getSerializableExtra(Constantes.EXTRA_NOTIFICACIONES);
         cargarDatos(notificacion);
     }
 

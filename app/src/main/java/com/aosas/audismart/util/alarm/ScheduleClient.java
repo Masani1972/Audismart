@@ -7,8 +7,11 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.aosas.audismart.model.Notificacion;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
 /**
  * Created by Lmartinez on 21/04/2016.
@@ -60,10 +63,10 @@ public class ScheduleClient  {
      * Tell our service to set an alarm for the given date
      * @param c a date to set the notification for
      */
-    public void setAlarmForNotification(ArrayList<Calendar> calendars){
+    public void setAlarmForNotification(ArrayList<Notificacion> notificaciones){
         if(mIsBound)
             if(mBoundService !=null)
-        mBoundService.setAlarm(calendars);
+        mBoundService.setAlarm(notificaciones);
     }
 
     /**

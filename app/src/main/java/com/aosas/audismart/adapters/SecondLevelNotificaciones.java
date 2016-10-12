@@ -164,7 +164,6 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter
                              View convertView, ViewGroup parent)
     {
         String headerTitle = (String) getGroup(groupPosition);
-
         if (convertView == null) {
 
             LayoutInflater infalInflater = (LayoutInflater) this.context

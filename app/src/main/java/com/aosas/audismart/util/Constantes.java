@@ -87,4 +87,9 @@ public  class Constantes {
     public static final String BUSCAR_TICKET_RESPONSE_ERROR="No se han encontrado tickets";
 
 
+    /*
+    Extras Intent
+     */
+    public static final String EXTRA_NOTIFICACIONES = "notificacion";
+
 }
