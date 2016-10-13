@@ -19,6 +19,7 @@
     <!--Recuperar contraseña-->
     <string name="textRecuperarPass">Ingrese sus datos para recuperar su contraseña</string>
     <string name="boton_recuperar">Enviar Contraseña</string>
+    <string name="title_activity_password">Contraseña</string>
 
 
     <!-- Activity Home-->
@@ -64,16 +65,15 @@
     <string name="boton_eliminar">Eliminar</string>
     <string name="fecha_Mercantil">Fecha de Registro Mercantil</string>
     <string name="periodicidad">Periodicidad</string>
-
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="title_activity_menu">Bienvenido</string>
     <string name="title_activity_another">AnotherActivity</string>
-    <string name="title_activity_notificaciones">Notificaciones</string>
+
 
     <!--Notificacion Activity-->
+    <string name="title_activity_notificaciones">Notificaciones</string>
     <string name="impuestoNotificacion">Impuesto</string>
     <string name="empresNotificacion">Empresa</string>
-    <string name="fechaNotificacion">Notificación</string>
+    <string name="fechaNotificacion">Fecha</string>
     <string name="horaNotificacion">Hora</string>
     <string name="díasNotificacion">Días antes</string>
     <string name="horaAntesNotificacion">Hora Antes</string>
@@ -81,6 +81,7 @@
     <string name="botonEliminar">Eliminar notificación</string>
 
     <!--MenuPrincipal Activity-->
+    <string name="title_activity_menu">  Bienvenido</string>
     <string name="impuestos">Impuestos</string>
     <string name="empresas">Empresas</string>
     <string name="title_activity_borrar">borrar</string>
@@ -107,7 +108,7 @@
     <string name="buton_eliminar">Eliminar mi cuenta</string>
 
 
-    <!--Lstado empresa-->
+    <!--Listado empresa-->
     <string name="nombre_empresa_list">Nombre de la empresa</string>
     <string name="button_Agregar">Agregar Empresa</string>
 
@@ -118,6 +119,7 @@
     <string name="empresas_ticket">Empresa(s)A asociadas(s)</string>
     <string name="asunto_ticket">Asunto</string>
     <string name="crear_ticket">crear ticket</string>
+    <string name="title_activity_ticket">Tickets</string>
 
     <!--Edicion Tickets-->
     <string name="yo">Yo</string>
@@ -134,6 +136,9 @@
     <!-- Noticias-->
     <string name="title_noticias">Noticias</string>
     <string name="subtitle_noticias">Todos</string>
+
+    <!--Calendario -->
+    <string name="title_calendario">Calendario</string>
 
 
 </resources>

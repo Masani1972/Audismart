@@ -2,6 +2,7 @@ package com.aosas.audismart.activitys;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -88,6 +89,11 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
         ButterKnife.inject(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.logoapp);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
         ticket = (Ticket) getIntent().getSerializableExtra("ticket");
         cargarDatos();
     }

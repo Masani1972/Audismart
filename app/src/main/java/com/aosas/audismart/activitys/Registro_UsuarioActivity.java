@@ -182,7 +182,7 @@ public class Registro_UsuarioActivity extends AppCompatActivity implements BaseA
      */
     private void validar_formulario() {
         if(aceptaTerminos & envioInfo) {
-            if (Util.validateFormularioRelative(layout_Form)) {
+            if (Util.validateFormularioRelative(layout_Form,7)) {
                 if(Util.textToMD5(editText_Contrasena.getText().toString()).length()>0)
                     contrasenaMD5 = Util.textToMD5(editText_Contrasena.getText().toString());
                 User user = new User(editText_Nombres.getText().toString(), editText_Apellidos.getText().toString(), editText_Email.getText().toString(), idDepartamento, idCiudad, editText_Telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.REGISTRO_USUARIO);

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:id="@+id/layout_Form"
         android:layout_width="match_parent"
@@ -25,74 +25,97 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/impuestoNotificacion"
+            android:id="@+id/textView_impuesto"
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_impuestoNotificacion"
+            android:layout_below="@+id/textView_impuesto"
             />
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empresNotificacion"
+            android:id="@+id/textView_empresa"
+            android:layout_below="@+id/editText_impuestoNotificacion"
         />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_empresaNotificacion"
+            android:layout_below="@+id/textView_empresa"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fechaNotificacion"
+            android:id="@+id/textView_fecha"
+            android:layout_below="@+id/editText_empresaNotificacion"
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_fechaNotificacion"
+            android:layout_below="@+id/textView_fecha"
             />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/boton_FechaNotificacion"
+            android:layout_below="@+id/textView_fecha"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/horaNotificacion"
+            android:layout_below="@+id/editText_fechaNotificacion"
+            android:id="@+id/textView_hora"
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_horaNotificacion"
+            android:layout_below="@+id/textView_hora"
             />
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/díasNotificacion"
+            android:id="@+id/textView_diasAntes"
+            android:layout_below="@+id/editText_horaNotificacion"
         />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_diasNotificacion"
+            android:layout_below="@+id/textView_diasAntes"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/horaAntesNotificacion"
+            android:id="@+id/textView_horaAntes"
+            android:layout_below="@+id/editText_diasNotificacion"
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_horaAntesNotificacion"
+            android:layout_below="@+id/textView_horaAntes"
             />
 
 
-    </LinearLayout>
-
-
-
+    </RelativeLayout>
 
     </ScrollView>
     <Button

@@ -43,62 +43,58 @@ import java.util.List;
 /**
  * Created by Lmartinez on 08/06/2016.
  */
-public class SecondLevelProfile extends BaseExpandableListAdapter
-{
+public class SecondLevelProfile extends BaseExpandableListAdapter {
     private Context context;
     private List<String> _listDataHeader;
-    private EditText nombres,apellidos,email, telefono,contrasena;
+    private EditText nombres, apellidos, email, telefono, contrasena;
     private LinearLayout layout_Form;
-    private CheckBox chTerminos,chEnvioInfo;
-    private AutoCompleteTextView departamento,ciudad;
+    private CheckBox chTerminos, chEnvioInfo;
+    private AutoCompleteTextView departamento, ciudad;
     private ArrayList<Empresa> empresas = null;
-    private TextView nombreEmpresa,lblListId;
+    private TextView nombreEmpresa, lblListId;
     private boolean _isChild = false;
-    private final static String TAG ="SecondLevelProfile";
-    private String idDepartamento,idCiudad;
+    private final static String TAG = "SecondLevelProfile";
+    private String idDepartamento, idCiudad;
     private boolean aceptaTerminos = false;
     private boolean envioInfo = false;
 
 
-    public SecondLevelProfile(Context context, List<String> listDataHeader,boolean isChild){
+    public SecondLevelProfile(Context context, List<String> listDataHeader, boolean isChild) {
         this.context = context;
         this._listDataHeader = listDataHeader;
-        if(Preferences.getEmpresas(context)!=null)
-        empresas = Preferences.getEmpresas(context);
-        this._isChild =isChild;
+        if (Preferences.getEmpresas(context) != null)
+            empresas = Preferences.getEmpresas(context);
+        this._isChild = isChild;
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosititon)
-    {
-         return this.empresas.get(childPosititon);
+    public Object getChild(int groupPosition, int childPosititon) {
+        return this.empresas.get(childPosititon);
     }
 
     @Override
-    public long getChildId(int groupPosition, int childPosition)
-    {
+    public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent)
-    {
-        Log.i(TAG,"childPosition " +childPosition+" groupPosition "+groupPosition);
-        if(groupPosition == 0) {
+                             boolean isLastChild, View convertView, ViewGroup parent) {
+        Log.i(TAG, "childPosition " + childPosition + " groupPosition " + groupPosition);
+        if (groupPosition == 0) {
 
-                LayoutInflater infalInflater = (LayoutInflater) this.context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.datos_personales_perfil, null);
+            LayoutInflater infalInflater = (LayoutInflater) this.context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.datos_personales_perfil, null);
             return cargarDatosPersonales(convertView);
-        } else if(groupPosition == 1) {
+        } else if (groupPosition == 1) {
 
-                LayoutInflater infalInflater = (LayoutInflater) this.context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.list_item_empresa, null);
-            return listarEmpresas(convertView,childPosition,isLastChild);
+            LayoutInflater infalInflater = (LayoutInflater) this.context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_item_empresa, null);
+            return listarEmpresas(convertView, childPosition, isLastChild);
 
-        }else{
+        } else {
             return null;
         }
     }
@@ -112,17 +108,19 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
         email = (EditText) convertView.findViewById(R.id.editText_email);
         email.setText(user.email);
         departamento = (AutoCompleteTextView) convertView.findViewById(R.id.editText_Departamento);
-        idDepartamento = user.id_departamento.replaceAll(" ","");
-        departamento.setText(Util.buscarDepartamento(context,user.id_departamento.replaceAll(" ","")));
+        idDepartamento = user.id_departamento.replaceAll(" ", "");
+        departamento.setText(Util.buscarDepartamento(context, user.id_departamento.replaceAll(" ", "")));
         ciudad = (AutoCompleteTextView) convertView.findViewById(R.id.editText_Ciudad);
-        ciudad.setText(Util.buscarCiudad(context,user.id_departamento.replaceAll(" ",""),user.id_ciudad.replaceAll(" ","")));
+        ciudad.setText(Util.buscarCiudad(context, user.id_departamento.replaceAll(" ", ""), user.id_ciudad.replaceAll(" ", "")));
         telefono = (EditText) convertView.findViewById(R.id.editText_Telefono);
         telefono.setText(user.telefono);
-        contrasena = (EditText) convertView.findViewById(R.id.editText_Contrasena);
-        layout_Form = (LinearLayout)convertView.findViewById(R.id.layout_Form);
-        chTerminos = (CheckBox) convertView.findViewById(R.id.checkBox_terminos);
+        layout_Form = (LinearLayout) convertView.findViewById(R.id.layout_Form);
 
-        /*listener checkbox*/
+
+        /*Listener Checkbox*/
+        chTerminos = (CheckBox) convertView.findViewById(R.id.checkBox_terminos);
+        if(user.acepto_terminos =="1")
+            chTerminos.setChecked(true);
         chTerminos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -137,8 +135,10 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
             }
         });
 
+        /*Listener checkbox*/
         chEnvioInfo = (CheckBox) convertView.findViewById(R.id.checkBox_envio_inf);
-         /*listener checkbox*/
+        if(user.acepto_envio =="1")
+            chEnvioInfo.setChecked(true);
         chEnvioInfo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -159,8 +159,8 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
         departamento.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                ArrayList arrayListDepartamentos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"departamentos"), new Departamento());
-                AutocompleteDepartamentoAdapter itemadapter = new AutocompleteDepartamentoAdapter(context, R.layout.adapter_autotext,arrayListDepartamentos);
+                ArrayList arrayListDepartamentos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context, "departamentos"), new Departamento());
+                AutocompleteDepartamentoAdapter itemadapter = new AutocompleteDepartamentoAdapter(context, R.layout.adapter_autotext, arrayListDepartamentos);
                 departamento.setAdapter(itemadapter);
                 departamento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
@@ -178,9 +178,9 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
         ciudad.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(idDepartamento.length()>0) {
+                if (idDepartamento.length() > 0) {
                     ArrayList arrayListCiudades = Util.jsontoArrayList(FileAsserts.readJsonDescripcion(context, idDepartamento), new Ciudad());
-                    AutocompleteCiudadAdapter itemadapter = new AutocompleteCiudadAdapter(context, R.layout.adapter_autotext,arrayListCiudades);
+                    AutocompleteCiudadAdapter itemadapter = new AutocompleteCiudadAdapter(context, R.layout.adapter_autotext, arrayListCiudades);
                     ciudad.setAdapter(itemadapter);
                     ciudad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
@@ -188,8 +188,8 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
                             idCiudad = ciudad.Id_ciudad;
                         }
                     });
-                }else{
-                    Toast.makeText(context, R.string.campoDepartamentoIvalido,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, R.string.campoDepartamentoIvalido, Toast.LENGTH_LONG).show();
                 }
                 ciudad.showDropDown();
                 return false;
@@ -204,54 +204,49 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
 
             }
         });
-
-
-     return convertView;
+        return convertView;
     }
 
-    private View listarEmpresas(View convertView, int childPosition,boolean isLastChild) {
-                nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
-                nombreEmpresa.setText(empresas.get(childPosition).nombre);
+    private View listarEmpresas(View convertView, int childPosition, boolean isLastChild) {
+        nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
+        nombreEmpresa.setText(empresas.get(childPosition).nombre);
 
-                Button botonAgregar = (Button) convertView.findViewById(R.id.button_Agregar);
+        Button botonAgregar = (Button) convertView.findViewById(R.id.button_Agregar);
+        lblListId = (TextView) convertView.findViewById(R.id.lblListId);
+        lblListId.setText(empresas.get(childPosition).id_empresa);
 
-                lblListId = (TextView) convertView.findViewById(R.id.lblListId);
-                lblListId.setText(empresas.get(childPosition).id_empresa);
-
-                ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
-                editar.setOnClickListener(new View.OnClickListener() {
-
-                    public void onClick(View v) {
-                        Intent intentEmpresa = new Intent(context, Registro_EmpresaActivity.class);
-                        for(int i =0;i<empresas.size();i++){
-                            if(empresas.get(i).id_empresa == lblListId.getText().toString()){
-                               intentEmpresa.putExtra("empresa", empresas.get(i));
-                                context.startActivity(intentEmpresa);
-                            }
-                        }
+        ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
+        editar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentEmpresa = new Intent(context, Registro_EmpresaActivity.class);
+                for (int i = 0; i < empresas.size(); i++) {
+                    if (empresas.get(i).id_empresa == lblListId.getText().toString()) {
+                        intentEmpresa.putExtra("empresa", empresas.get(i));
+                        context.startActivity(intentEmpresa);
                     }
-                });
-                if (isLastChild){
-                    botonAgregar.setVisibility(View.VISIBLE);
-                    botonAgregar.setOnClickListener(new View.OnClickListener() {
-
-                        public void onClick(View v) {
-                            Intent intentEmpresa = new Intent(context, Registro_EmpresaActivity.class);
-                            context.startActivity(intentEmpresa);
-                        }
-                    });
-
                 }
+            }
+        });
+        if (isLastChild) {
+            botonAgregar.setVisibility(View.VISIBLE);
+            botonAgregar.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    Intent intentEmpresa = new Intent(context, Registro_EmpresaActivity.class);
+                    context.startActivity(intentEmpresa);
+                }
+            });
+
+        }
         return convertView;
     }
 
     @Override
-    public int getChildrenCount(int groupPosition)
-    {
-        if(groupPosition ==0)
+    public int getChildrenCount(int groupPosition) {
+        if (groupPosition == 0)
             return 1;
-        else if (groupPosition ==1)
-            if(empresas!=null)
+        else if (groupPosition == 1)
+            if (empresas != null)
                 return empresas.size();
             else
                 return 0;
@@ -260,63 +255,58 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
     }
 
     @Override
-    public Object getGroup(int groupPosition)
-    {
+    public Object getGroup(int groupPosition) {
         return this._listDataHeader.get(groupPosition);
     }
 
     @Override
-    public int getGroupCount()
-    {
+    public int getGroupCount() {
         return this._listDataHeader.size();
     }
 
     @Override
-    public long getGroupId(int groupPosition)
-    {
+    public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent)
-    {
+                             View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        LayoutInflater infalInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (_isChild) {
+            convertView = infalInflater.inflate(R.layout.list_group_secondlevel, null);
+            TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
+            lblListHeader.setText(headerTitle);
+        } else {
             convertView = infalInflater.inflate(R.layout.list_group, null);
             TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
-            lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
-            if(_isChild)
-            lblListHeader.setBackgroundColor(context.getResources().getColor(R.color.textbotones));
-            else
-                lblListHeader.setBackgroundColor(getColor(groupPosition));
+            lblListHeader.setBackgroundColor(getColor(groupPosition));
         }
+
         return convertView;
 
     }
 
     @Override
-    public boolean hasStableIds()
-    {
+    public boolean hasStableIds() {
         return true;
     }
 
     @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition)
-    {
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
 
-    public int getColor(int position){
-        switch (position){
+    public int getColor(int position) {
+        switch (position) {
             case 0:
-                return  context.getResources().getColor(R.color.colorAccent);
+                return context.getResources().getColor(R.color.colorAccent);
             case 1:
-                return  context.getResources().getColor(R.color.texttickets);
-
+                return context.getResources().getColor(R.color.texttickets);
             default:
                 return 0;
         }
@@ -328,18 +318,18 @@ public class SecondLevelProfile extends BaseExpandableListAdapter
    mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
     */
     private void validar_formulario() {
-        if(aceptaTerminos & envioInfo) {
+        if (aceptaTerminos & envioInfo) {
             if (Util.validateFormularioLinear(layout_Form)) {
-                if(Util.textToMD5(contrasena.getText().toString()).length()>0) {
-                    String contrasenaMD5 = Util.textToMD5(contrasena.getText().toString());
-                    User user = new User(nombres.getText().toString(), apellidos.getText().toString(), email.getText().toString(), idDepartamento, idCiudad, telefono.getText().toString(), contrasenaMD5, "1", "1", Constantes.ACTUALIZA_CLIENTE);
+                    User user = new User(nombres.getText().toString(), apellidos.getText().toString(), email.getText().toString(), idDepartamento, idCiudad, telefono.getText().toString(), "", "1", "1", Constantes.ACTUALIZA_CLIENTE);
                     IRepository repository = new Repository();
                     repository.createRequets(context, user, Constantes.ACTUALIZA_CLIENTE);
-                }
+
             } else {
                 Toast.makeText(context, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();
             }
-        }else{Toast.makeText(context, R.string.campoTerminos,Toast.LENGTH_LONG).show();}
+        } else {
+            Toast.makeText(context, R.string.campoTerminos, Toast.LENGTH_LONG).show();
+        }
     }
 
 

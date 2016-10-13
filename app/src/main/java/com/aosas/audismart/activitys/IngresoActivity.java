@@ -121,14 +121,13 @@ olvidada por el usuario
 
     @Override
     public void succes(String succes, JsonElement jsonElement) {
-        Log.i(TAG,succes);
         if(succes.equals("Login exitoso")){
             JsonObject jsonObject = (JsonObject)jsonElement;
             if(sesion)
                 Preferences.setSession(IngresoActivity.this, sesion);
                 String idClient = jsonObject.get("id_cliente").toString().replaceAll("\"", "");
                 Preferences.setIdClient(this, idClient);
-                User user = new User(jsonObject.get("nombres").toString(),jsonObject.get("apellidos").toString(),jsonObject.get("email").toString(),jsonObject.get("id_departamento").toString(),jsonObject.get("id_ciudad").toString(),jsonObject.get("telefono").toString(),"","","","");
+                User user = new User(jsonObject.get("nombres").toString(),jsonObject.get("apellidos").toString(),jsonObject.get("email").toString(),jsonObject.get("id_departamento").toString(),jsonObject.get("id_ciudad").toString(),jsonObject.get("telefono").toString(),"",jsonObject.get("acepto_terminos").toString(),jsonObject.get("acepto_envio").toString(),"");
                 Preferences.setUsuario(this,user);
                 EmpresasUsuarios empresasUsuarios = new EmpresasUsuarios(idClient,"0",Constantes.EMPRESAS_RELACIONADA);
                 repository.createRequets(this, empresasUsuarios, Constantes.EMPRESAS_RELACIONADA);

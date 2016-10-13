@@ -3,6 +3,7 @@ package com.aosas.audismart.activitys;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,6 +68,11 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_ticket);
         ButterKnife.inject(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.logoapp);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
          /*listener  autocomplete no soportado por ButterKnife*/
         editText_Empresas.setThreshold(1);

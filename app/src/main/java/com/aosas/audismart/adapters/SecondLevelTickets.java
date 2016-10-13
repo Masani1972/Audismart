@@ -145,16 +145,12 @@ public class SecondLevelTickets extends BaseExpandableListAdapter {
     {
         String headerTitle = (String) getGroup(groupPosition);
 
-        if (convertView == null) {
-
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_group, null);
+            convertView = infalInflater.inflate(R.layout.list_group_secondlevel, null);
             TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
-            lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
-            lblListHeader.setBackgroundColor(context.getResources().getColor(R.color.textbotones));
-        }
+
         return convertView;
     }
 

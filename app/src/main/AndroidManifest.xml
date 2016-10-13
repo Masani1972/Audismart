@@ -92,7 +92,17 @@
             android:enabled="true" />
         <service
             android:name=".util.alarm.ScheduleService"
-            android:enabled="true" />
+            android:enabled="true" >
+        </service>
+
+        <receiver android:name=".util.alarm.AlarmTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".util.alarm.ScheduleClient" >
+        </receiver>
+
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -102,17 +112,21 @@
 
         <activity
             android:name=".activitys.CalendarioActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="@string/title_calendario"/>
         <activity
             android:name=".activitys.PerfilActivity"
             android:label="@string/title_activity_perfil" />
         <activity
             android:name=".activitys.CrearTicketActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_ticket"/>
         <activity
             android:name=".activitys.TicketActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activitys.CalificarTicketActivity" />
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_ticket"/>
+        <activity android:name=".activitys.CalificarTicketActivity"
+            android:label="@string/title_activity_ticket"></activity>
         <activity
             android:name=".activitys.NoticiasActivity"
             android:label="@string/title_noticias"
@@ -122,7 +136,8 @@
             android:label="@string/title_noticias"
             android:screenOrientation="portrait"/>
         <activity android:name=".activitys.PasswordActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_password"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.aosas.audismart.R;
 import com.aosas.audismart.adapters.AutocompleteEmpresaAdapter;
@@ -130,6 +131,6 @@ public class NoticiasActivity extends AppCompatActivity implements BaseActivity 
 
     @Override
     public void error(String error) {
-
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 }

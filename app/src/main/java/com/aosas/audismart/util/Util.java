@@ -6,16 +6,21 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
+
+import com.aosas.audismart.R;
 import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
@@ -147,21 +152,19 @@ public class Util {
         }
     }
 
-    public static boolean validateFormularioRelative(RelativeLayout layout_Form){
+    public static boolean validateFormularioRelative(RelativeLayout layout_Form,int camposValidos ){
         int editTextOk = 0;
         int childcount = layout_Form.getChildCount();
-        for (int i = 1; i < childcount; i=i+2) {
+        for (int i = 0; i < childcount; i++) {
             View v = layout_Form.getChildAt(i);
-            if (i==17)
+            if (v instanceof  EditText )
+            { EditText tv = (EditText) v;
+                if ((tv != null && tv.getText().toString().length() > 0))
                 editTextOk++;
-            else{
-            EditText tv = (EditText) v;
-            if ((tv != null && tv.getText().toString().length() > 0))
-                editTextOk++;
-            continue;}
+                continue;}
         }
 
-        if (editTextOk == childcount/2)
+        if (editTextOk == camposValidos)
             return true;
         else
             return false;
@@ -269,4 +272,6 @@ public class Util {
         cursor.close();
         return(filePath);
     }
+
+
 }

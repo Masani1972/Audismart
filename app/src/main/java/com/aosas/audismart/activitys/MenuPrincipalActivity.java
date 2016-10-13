@@ -3,6 +3,7 @@ package com.aosas.audismart.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -86,8 +87,13 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
         ButterKnife.inject(this);
-        scheduleClient = new ScheduleClient(this);
-        scheduleClient.doBindService();
+       /* scheduleClient = new ScheduleClient(this);
+        scheduleClient.doBindService();*/
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.logoapp);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         consumoWSNotificaciones();
 
@@ -184,7 +190,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
 
             for (int i = 0; i < notificaciones.size(); i++) {
-                Log.i("notificacion", notificaciones.get(i).id+"hora "+notificaciones.get(i).antesHora);
+                Log.i("notificacion", notificaciones.get(i).id+" fecha "+notificaciones.get(i).fecha);
 
                 String fecha = notificaciones.get(i).antesFecha;
                 Calendar cal = Calendar.getInstance();
@@ -193,7 +199,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 notificaciones.get(i).calendar = cal;
             }
             Preferences.setNotificaciones(this,notificaciones);
-            scheduleClient.setAlarmForNotification(notificaciones);
         }
     }
 
@@ -236,7 +241,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     */
 
     private void prepareListData() {
-
         listDataHeaderNotificaciones = new ArrayList<String>();
         listDataChildNotificaciones = new HashMap<String, List<Notificacion>>();
 
@@ -365,7 +369,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             consumoWSNotificaciones();
         }else if (succes.equals("Cliente encontrado")){
             JsonObject jsonObject = jsonElement.getAsJsonObject();
-            User user = new User(jsonObject.get("nombres").toString().replace('\"',' '),jsonObject.get("apellidos").toString().replace('\"',' '),jsonObject.get("email").toString().replace('\"',' '),jsonObject.get("id_departamento").toString().replace('\"',' '),jsonObject.get("id_ciudad").toString().replace('\"',' '),jsonObject.get("telefono").toString().replace('\"',' '),"","","","");
+            User user = new User(jsonObject.get("nombres").toString().replace('\"',' '),jsonObject.get("apellidos").toString().replace('\"',' '),jsonObject.get("email").toString().replace('\"',' '),jsonObject.get("id_departamento").toString().replace('\"',' '),jsonObject.get("id_ciudad").toString().replace('\"',' '),jsonObject.get("telefono").toString().replace('\"',' '),"",jsonObject.get("acepto_terminos").toString().replace('\"',' '),jsonObject.get("acepto_envio").toString().replace('\"',' '),"");
             Preferences.setUsuario(this,user);
             FechaCliente fechaCliente = new FechaCliente(Preferences.getIdClient(this), idCalendario, idEmpresa, Constantes.CONSULTA_FECHASCLIENTE);
             repository.createRequets(this, fechaCliente, Constantes.CONSULTA_FECHASCLIENTE);

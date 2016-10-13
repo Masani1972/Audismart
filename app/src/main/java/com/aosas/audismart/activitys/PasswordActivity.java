@@ -1,5 +1,6 @@
 package com.aosas.audismart.activitys;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,11 @@ public class PasswordActivity extends AppCompatActivity implements BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
         ButterKnife.inject(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.logoapp);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     @OnClick(R.id.button_Recuperar)

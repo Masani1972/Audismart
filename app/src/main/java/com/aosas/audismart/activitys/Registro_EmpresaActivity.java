@@ -19,7 +19,8 @@ import android.view.MotionEvent;
 import android.widget.DatePicker;
 import android.widget.EditText;
         import android.widget.RadioButton;
-        import android.widget.RelativeLayout;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
         import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +70,7 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     private Empresa empresa;
     private Empresa empresaEdit;
     private int year_x, month_x,day_x;
-     static final int DIALOG_ID=0;
+    static final int DIALOG_ID=0;
 
     @InjectView(R.id.layout_Form)
     RelativeLayout layout_Form;
@@ -116,12 +117,23 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     @InjectView(R.id.boton_FechaMercantil)
     Button boton_FechaMercantil;
 
+    @InjectView(R.id.radioButton_Si)
+    RadioButton radioButton_Si;
+
+    @InjectView(R.id.radioButton_No)
+    RadioButton radioButton_No;
+
+    @InjectView(R.id.radioButton_SiContribuyente)
+    RadioButton radioButton_SiContribuyente;
+
+    @InjectView(R.id.radioButton_NoContribuyente)
+    RadioButton radioButton_NoContribuyente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_empresa);
         ButterKnife.inject(this);
-
 
         initViews();
     }
@@ -271,6 +283,16 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
         editText_FechaMercantil.setText(empresaEdit.fecharegistromercantil);
         editText_Periodicidad.setText(empresaEdit.id_periodo);
 
+        if(empresaEdit.impuesto_consumo.equals("1"))
+            radioButton_Si.setChecked(true);
+        else
+            radioButton_No.setChecked(true);
+
+        if(empresaEdit.impuesto_riqueza.equals("1"))
+            radioButton_SiContribuyente.setChecked(true);
+        else
+            radioButton_NoContribuyente.setChecked(true);
+
         textView_Tip.setVisibility(View.INVISIBLE);
         button_Finalizar.setVisibility(View.INVISIBLE);
         button_Actualizar.setVisibility(View.VISIBLE);
@@ -396,7 +418,6 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
     }
 
     private void cargarCalendario() {
-        Log.i("","calendario");
          showDialog(DIALOG_ID);
     }
 
@@ -422,7 +443,7 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
    mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
     */
     private void validar_formulario_registro() {
-        if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
+        if (Util.validateFormularioRelative(layout_Form,9) & impuestoConsumo!=null & impuestoRiqueza!=null) {
             if (Preferences.getIdClient(this).length() > 0) {
                 empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, editText_Departamento.getText().toString(), idCiudad,editText_Ciudad.getText().toString(), idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo,editText_FechaMercantil.getText().toString(), periodicidad,impuestoRiqueza,Constantes.REGISTRO_EMPRESA,"");
                 repository.createRequets(this, empresa, Constantes.REGISTRO_EMPRESA);
@@ -440,7 +461,7 @@ public class Registro_EmpresaActivity extends AppCompatActivity implements BaseA
   mediante el ciclo onteniendo cada una de las vista y validando la longitud del texto
    */
     private void validar_formulario_actualizacion() {
-        if (Util.validateFormularioRelative(layout_Form) & impuestoConsumo!=null & impuestoRiqueza!=null) {
+        if (Util.validateFormularioRelative(layout_Form,9) & impuestoConsumo!=null & impuestoRiqueza!=null) {
             if (Preferences.getIdClient(this).length() > 0) {
                 empresa = new Empresa(Preferences.getIdClient(this), editText_Nombre_Empresa.getText().toString(), idDepartamento, editText_Departamento.getText().toString(), idCiudad,editText_Ciudad.getText().toString(), idDocumento, editText_NumDocumento.getText().toString(), editText_Ingresos.getText().toString(), idCategoria, impuestoConsumo,editText_FechaMercantil.getText().toString(), periodicidad,impuestoRiqueza,Constantes.ACTUALIZA_EMPRESA,"");
                 repository.createRequets(this, empresa, Constantes.ACTUALIZA_EMPRESA);

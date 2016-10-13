@@ -1,5 +1,6 @@
 package com.aosas.audismart.activitys;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,11 @@ public class CalificarTicketActivity extends AppCompatActivity implements BaseAc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calificar_ticket);
         ButterKnife.inject(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.logoapp);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         cargarDatos((Ticket) getIntent().getSerializableExtra("ticket"));
 

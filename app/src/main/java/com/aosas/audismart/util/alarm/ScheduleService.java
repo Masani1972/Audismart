@@ -7,15 +7,21 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.aosas.audismart.model.Notificacion;
+import com.aosas.audismart.repository.Preferences;
+import com.aosas.audismart.util.Constantes;
+import com.aosas.audismart.util.Util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 /**
  * Created by Lmartinez on 21/04/2016.
  */
 public class ScheduleService extends Service {
+    // This is the object that receives interactions from clients. See
+    private final IBinder mBinder = new ServiceBinder();
 
     /**
      * Class for clients to access
@@ -28,10 +34,23 @@ public class ScheduleService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("ScheduleService", "Received start id " + startId + ": " + intent);
+        if (Preferences.getNotificaciones(this) !=null) {
+            ArrayList<Notificacion> notificaciones = Preferences.getNotificaciones(this);
 
-        // We want this service to continue running until it is explicitly stopped, so return sticky.
-        return START_STICKY;
+
+            for (int i = 0; i < notificaciones.size(); i++) {
+                Log.i("notificacion", notificaciones.get(i).id+"hora "+notificaciones.get(i).antesHora);
+
+                String fecha = notificaciones.get(i).antesFecha;
+                Calendar cal = Calendar.getInstance();
+                Date date = Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSONNOTIFICACION, fecha);
+                cal.setTime(date);
+                notificaciones.get(i).calendar = cal;
+            }
+            Preferences.setNotificaciones(this,notificaciones);
+            // scheduleClient.setAlarmForNotification(notificaciones);
+        }
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -40,15 +59,7 @@ public class ScheduleService extends Service {
         return mBinder;
     }
 
-    // This is the object that receives interactions from clients. See
-    private final IBinder mBinder = new ServiceBinder();
 
-    /**
-     * Show an alarm for a certain date when the alarm is called it will pop up a notification
-     */
-    public void setAlarm(ArrayList<Notificacion> notificaciones) {
-        // This starts a new thread to set the alarm
-        // You want to push off your tasks onto a new thread to free up the UI to carry on responding
-        new AlarmTask(this, notificaciones).run();
-    }
+
+
 }
