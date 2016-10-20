@@ -84,7 +84,6 @@
     <string name="title_activity_menu">  Bienvenido</string>
     <string name="impuestos">Impuestos</string>
     <string name="empresas">Empresas</string>
-    <string name="title_activity_borrar">borrar</string>
     <string name="title_activity_perfil">Perfil</string>
     <string-array name="title_menuprincipal">
         <item name="tittle1">Mis notificaciones</item>
@@ -99,6 +98,7 @@
         <item name="tittle1">Pendientes</item>
         <item name="tittle2">Respondidos</item>
         <item name="tittle3">Por Calificar</item>
+        <item name="tittle4">Calificados</item>
     </string-array>
 
 
@@ -120,6 +120,7 @@
     <string name="asunto_ticket">Asunto</string>
     <string name="crear_ticket">crear ticket</string>
     <string name="title_activity_ticket">Tickets</string>
+    <string name="add_ticket">Agregar nuevo Ticket</string>
 
     <!--Edicion Tickets-->
     <string name="yo">Yo</string>

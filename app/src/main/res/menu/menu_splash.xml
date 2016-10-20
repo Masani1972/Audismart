@@ -8,19 +8,9 @@
     android:title="@string/action_inicio"
     app:showAsAction="never" />
     <item
-        android:id="@+id/action_notificaciones"
-        android:orderInCategory="100"
-        android:title="@string/action_notificaciones"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_noticias"
         android:orderInCategory="100"
         android:title="@string/action_noticias"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_crearticket"
-        android:orderInCategory="100"
-        android:title="@string/action_crearticket"
         app:showAsAction="never" />
 
     <item

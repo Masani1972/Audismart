@@ -3,9 +3,16 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="55dip"
-    android:orientation="horizontal"
+    android:layout_height="55dp"
+    android:orientation="vertical"
+    android:id="@+id/linear_header"
     android:background="@color/textbotones">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/textbotones">
 
     <ImageView
         android:layout_width="30dp"
@@ -24,6 +31,8 @@
         android:paddingBottom="5dp"
         android:textColor="@color/textnegro"
          />
+
+    </LinearLayout>
 
 
 

@@ -119,15 +119,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             }
         });
 
-        ImageButton calendario = (ImageButton) findViewById(R.id.botoncalendario);
-        calendario.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                Intent intentCalendario = new Intent(MenuPrincipalActivity.this, CalendarioActivity.class);
-                startActivity(intentCalendario);
-
-            }
-        });
 
 
     }
@@ -147,15 +139,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
                 Intent intentProfile = new Intent(this,PerfilActivity.class);
                 startActivity(intentProfile);
                 return true;
-            case R.id.action_notificaciones:
-                consumoWSNotificaciones();
-                return true;
             case R.id.action_noticias:
                 startActivity(new Intent(this,NoticiasActivity.class));
-                return true;
-            case R.id.action_crearticket:
-                Intent intentcrearTicket = new Intent(this,CrearTicketActivity.class);
-                startActivity(intentcrearTicket);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -260,7 +245,8 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         listDataChildTickets = new HashMap<String, List<Ticket>>();
         listDataChildTickets.put(listDataHeaderTickets.get(0),ticketsAbiertos);
         listDataChildTickets.put(listDataHeaderTickets.get(1),ticketsCerrados);
-        listDataChildTickets.put(listDataHeaderTickets.get(2),ticketsHistorial);
+        listDataChildTickets.put(listDataHeaderTickets.get(2),ticketsCerrados);
+        listDataChildTickets.put(listDataHeaderTickets.get(3),ticketsHistorial);
 
     }
 

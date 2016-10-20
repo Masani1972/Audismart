@@ -69,7 +69,6 @@ public class NoticiasListAdapter extends ArrayAdapter {
                          context.startActivity(intentNoticias);
                      }
                  }
-
          }
            }
         );

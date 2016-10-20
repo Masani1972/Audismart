@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.activitys.CalendarioActivity;
 import com.aosas.audismart.activitys.NotificacionesActivity;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
@@ -29,38 +30,34 @@ import java.util.List;
 /**
  * Created by Lmartinez on 28/03/2016.
  */
-public class SecondLevelNotificaciones extends BaseExpandableListAdapter
-{
+public class SecondLevelNotificaciones extends BaseExpandableListAdapter {
     Context context;
     private List<String> _listDataHeaderSecondLevel;
     private HashMap<String, List<Notificacion>> _listDataChild;
-    private TextView fechaDia,fechaMes,fechaYear, descripcion ,nombreEmpresa,lblListId;
+    private TextView fechaDia, fechaMes, fechaYear, descripcion, nombreEmpresa, lblListId;
     private Notificacion notificacion;
     private IRepository repository = new Repository();
 
-    public SecondLevelNotificaciones(Context context, List<String> listDataHeaderSecondLevel, HashMap<String, List<Notificacion>> listChildData){
+    public SecondLevelNotificaciones(Context context, List<String> listDataHeaderSecondLevel, HashMap<String, List<Notificacion>> listChildData) {
         this.context = context;
         this._listDataChild = listChildData;
         this._listDataHeaderSecondLevel = listDataHeaderSecondLevel;
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosititon)
-    {
+    public Object getChild(int groupPosition, int childPosititon) {
         return this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition))
                 .get(childPosititon);
     }
 
     @Override
-    public long getChildId(int groupPosition, int childPosition)
-    {
+    public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent)
-    {
+                             boolean isLastChild, View convertView, ViewGroup parent) {
 
 
         if (convertView == null) {
@@ -68,41 +65,41 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item_notificacioes, null);
         }
-            notificacion = (Notificacion)getChild(groupPosition, childPosition);
-            fechaDia = (TextView) convertView.findViewById(R.id.lblListItemFechaDia);
-            fechaMes = (TextView) convertView.findViewById(R.id.lblListItemFechaMes);
-            fechaYear = (TextView) convertView.findViewById(R.id.lblListItemFechaYear);
-            descripcion = (TextView) convertView.findViewById(R.id.lblListItemDescripcion);
-            nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
-            lblListId = (TextView) convertView.findViewById(R.id.lblListId);
+        notificacion = (Notificacion) getChild(groupPosition, childPosition);
+        fechaDia = (TextView) convertView.findViewById(R.id.lblListItemFechaDia);
+        fechaMes = (TextView) convertView.findViewById(R.id.lblListItemFechaMes);
+        fechaYear = (TextView) convertView.findViewById(R.id.lblListItemFechaYear);
+        descripcion = (TextView) convertView.findViewById(R.id.lblListItemDescripcion);
+        nombreEmpresa = (TextView) convertView.findViewById(R.id.lblListItemEmpresa);
+        lblListId = (TextView) convertView.findViewById(R.id.lblListId);
 
-            fechaDia.setText(notificacion.fecha.substring(8, 10));
-            fechaMes.setText(notificacion.fecha.substring(5, 7));
-            fechaYear.setText(notificacion.fecha.substring(0, 4));
-            descripcion.setText(notificacion.nombre);
-            nombreEmpresa.setText(notificacion.nombreEmpresa);
-            lblListId.setText(notificacion.id);
+        fechaDia.setText(notificacion.fecha.substring(8, 10));
+        fechaMes.setText(notificacion.fecha.substring(5, 7));
+        fechaYear.setText(notificacion.fecha.substring(0, 4));
+        descripcion.setText(notificacion.nombre);
+        nombreEmpresa.setText(notificacion.nombreEmpresa);
+        lblListId.setText(notificacion.id);
 
-            ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
-            editar.setOnClickListener(new View.OnClickListener() {
+        ImageButton editar = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
+        editar.setOnClickListener(new View.OnClickListener() {
 
-                public void onClick(View v) {
+            public void onClick(View v) {
 
-                    View parent = (View)v.getParent();
-                    if(parent!=null){
-                        TextView txtView = (TextView) parent.findViewById(R.id.lblListId);
-                        ArrayList<Notificacion> notificaciones = Preferences.getNotificaciones(context);
-                        for(int index =0;index<notificaciones.size();index++) {
+                View parent = (View) v.getParent();
+                if (parent != null) {
+                    TextView txtView = (TextView) parent.findViewById(R.id.lblListId);
+                    ArrayList<Notificacion> notificaciones = Preferences.getNotificaciones(context);
+                    for (int index = 0; index < notificaciones.size(); index++) {
 
-                            if (notificaciones.get(index).id.equals(txtView.getText().toString())) {
-                                Intent intentNotificaciones = new Intent(context, NotificacionesActivity.class);
-                                intentNotificaciones.putExtra("notificacion", notificaciones.get(index));
-                                context.startActivity(intentNotificaciones);
-                            }
+                        if (notificaciones.get(index).id.equals(txtView.getText().toString())) {
+                            Intent intentNotificaciones = new Intent(context, NotificacionesActivity.class);
+                            intentNotificaciones.putExtra("notificacion", notificaciones.get(index));
+                            context.startActivity(intentNotificaciones);
                         }
                     }
                 }
-            });
+            }
+        });
 
         CheckBox cumplido = (CheckBox) convertView.findViewById(R.id.checkBoxCumplio);
         cumplido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -127,49 +124,55 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter
         });
 
 
-
-
         return convertView;
     }
 
     @Override
-    public int getChildrenCount(int groupPosition)
-    {
-        if(this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition))!=null)
+    public int getChildrenCount(int groupPosition) {
+        if (this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition)) != null)
             return this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition)).size();
         else
             return 0;
     }
 
     @Override
-    public Object getGroup(int groupPosition)
-    {
+    public Object getGroup(int groupPosition) {
         return this._listDataHeaderSecondLevel.get(groupPosition);
     }
 
     @Override
-    public int getGroupCount()
-    {
-        return this._listDataHeaderSecondLevel.size();
+    public int getGroupCount() {
+        return this._listDataHeaderSecondLevel.size() + 1;
     }
 
     @Override
-    public long getGroupId(int groupPosition)
-    {
+    public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent)
-    {
-        String headerTitle = (String) getGroup(groupPosition);
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                             View convertView, ViewGroup parent) {
+        LayoutInflater infalInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (groupPosition == 4) {
+            convertView = infalInflater.inflate(R.layout.list_group_calendario, null);
+            ImageButton button = (ImageButton) convertView.findViewById(R.id.button_Calendario);
+            button.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    Intent intentCalendario = new Intent(context, CalendarioActivity.class);
+                    context.startActivity(intentCalendario);
+
+                }
+            });
+        } else {
+            String headerTitle = (String) getGroup(groupPosition);
             convertView = infalInflater.inflate(R.layout.list_group_secondlevel, null);
             TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
             lblListHeader.setText(headerTitle);
 
+        }
         return convertView;
     }
 

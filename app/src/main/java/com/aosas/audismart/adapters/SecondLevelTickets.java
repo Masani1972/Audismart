@@ -3,14 +3,18 @@ package com.aosas.audismart.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aosas.audismart.R;
+import com.aosas.audismart.activitys.CalendarioActivity;
+import com.aosas.audismart.activitys.CrearTicketActivity;
 import com.aosas.audismart.activitys.TicketActivity;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
@@ -102,12 +106,6 @@ public class SecondLevelTickets extends BaseExpandableListAdapter {
                 }
             }
         });
-
-
-
-
-
-
         return convertView;
     }
 
@@ -130,7 +128,7 @@ public class SecondLevelTickets extends BaseExpandableListAdapter {
     @Override
     public int getGroupCount()
     {
-        return this._listDataHeaderSecondLevel.size();
+        return this._listDataHeaderSecondLevel.size()+1;
     }
 
     @Override
@@ -143,15 +141,28 @@ public class SecondLevelTickets extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent)
     {
-        String headerTitle = (String) getGroup(groupPosition);
+        LayoutInflater infalInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (groupPosition == 4) {
+            convertView = infalInflater.inflate(R.layout.list_group_newticket, null);
+            LinearLayout layout_NewTicket = (LinearLayout)convertView.findViewById(R.id.layout_NewTicket);
+            layout_NewTicket.setOnClickListener(new View.OnClickListener() {
 
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                public void onClick(View v) {
+                    Intent intentCalendario = new Intent(context, CrearTicketActivity.class);
+                    context.startActivity(intentCalendario);
+
+                }
+            });
+            return convertView;
+        }
+        else{
+            String headerTitle = (String) getGroup(groupPosition);
             convertView = infalInflater.inflate(R.layout.list_group_secondlevel, null);
             TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
             lblListHeader.setText(headerTitle);
-
-        return convertView;
+            return convertView;
+        }
     }
 
     @Override
