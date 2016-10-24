@@ -3,11 +3,8 @@ package com.aosas.audismart.comunication.proxy;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.aosas.audismart.R;
 import com.aosas.audismart.model.BuscarNoticia;
 import com.aosas.audismart.model.BuscarTicket;
 import com.aosas.audismart.model.CalendariosCliente;
@@ -19,7 +16,6 @@ import com.aosas.audismart.model.GCM;
 import com.aosas.audismart.model.Login;
 import com.aosas.audismart.model.Notificacion;
 import com.aosas.audismart.model.NotificacionCumplio;
-import com.aosas.audismart.model.RespuestaTicket;
 import com.aosas.audismart.model.Ticket;
 import com.aosas.audismart.model.User;
 import com.aosas.audismart.util.Constantes;
@@ -34,15 +30,25 @@ import retrofit.Response;
 
 
 /**
- * Created by Lmartinez on 08/01/2016.
+ * The type Service task asyn.
  */
 public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     private ProgressDialog dialog;
     private Object object;
     private String metodo;
+    /**
+     * The Activity.
+     */
     Activity activity;
     private static final String TAG = "ServiceTaskAsyn";
 
+    /**
+     * Instantiates a new Service task asyn.
+     *
+     * @param context the context
+     * @param metodo  the metodo
+     * @param object  the object
+     */
     public ServiceTaskAsyn (Context context,String metodo,Object object){
          activity= (Activity)context;
         dialog = new ProgressDialog(context);
@@ -50,6 +56,9 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
         this.object = object;
     }
 
+    /**
+     * On pre execute.
+     */
     @Override
     protected void onPreExecute() {
         dialog.setMessage("Consultando información..");
@@ -57,6 +66,12 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
 
     }
 
+    /**
+     * Do in background response.
+     *
+     * @param unused the unused
+     * @return the response
+     */
     @Override
     protected Response doInBackground(Void... unused) {
         Response reponseBody = null;
@@ -159,6 +174,11 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     }
 
 
+    /**
+     * On post execute.
+     *
+     * @param resultado the resultado
+     */
     protected void onPostExecute(Response resultado) {
         if(resultado!=null){
         BufferedReader bf = null;

@@ -40,35 +40,63 @@ import butterknife.OnClick;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
-public class CrearTicketActivity extends AppCompatActivity implements BaseActivity{
+/**
+ * The type Crear ticket activity.
+ * Contiene el focumlario para la creacion de un ticket nuevo
+ */
+public class CrearTicketActivity extends AppCompatActivity implements BaseActivity {
     private String path = null;
-    private String nombreArchivo ="";
+    private String nombreArchivo = "";
     private String idEmpresa = "";
 
+    /**
+     * The Button cargar archivo.
+     */
     @InjectView(R.id.button_CargarArchivo)
     Button button_CargarArchivo;
 
+    /**
+     * The Text nombre archivo.
+     */
     @InjectView(R.id.text_NombreArchivo)
     TextView text_NombreArchivo;
 
+    /**
+     * The Edit text empresas.
+     */
     @InjectView(R.id.editText_Empresas)
     AutoCompleteTextView editText_Empresas;
 
+    /**
+     * The Button crear ticket.
+     */
     @InjectView(R.id.button_crearTicket)
     Button button_crearTicket;
 
+    /**
+     * The Edit text titulo.
+     */
     @InjectView(R.id.editText_Titulo)
     EditText editText_Titulo;
 
+    /**
+     * The Edit text asunto.
+     */
     @InjectView(R.id.editText_Asunto)
     EditText editText_Asunto;
 
+    /**
+     * On create.
+     *
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_ticket);
         ButterKnife.inject(this);
 
+        //Se adiciona el icono a la barra de la actividad
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.logoapp);
         actionBar.setDisplayUseLogoEnabled(true);
@@ -87,36 +115,48 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
 
     }
 
+    /**
+     * Button cargar archivo.
+     *
+     * @param view the view
+     */
     @OnClick(R.id.button_CargarArchivo)
     public void button_CargarArchivo(View view) {
         cargarArchivo();
     }
 
+    /**
+     * Button crear ticket.
+     *
+     * @param view the view
+     */
     @OnClick(R.id.button_crearTicket)
-    public void button_crearTicket(View view){crearTicket();}
+    public void button_crearTicket(View view) {
+        crearTicket();
+    }
 
 
     /*******************
-     Presentador¡¡ Logica de la  vista
+     * Presentador¡¡ Logica de la  vista
      *******************/
 
     private void crearTicket() {
 
-                Map<String, String> params = new HashMap<String, String>(4);
-                params.put("id_cliente", Preferences.getIdClient(this));
-                params.put("id_empresa", idEmpresa);
-                params.put("titulo", editText_Titulo.getText().toString());
-                params.put("asunto", editText_Asunto.getText().toString());
-                params.put("ACCION", Constantes.REGISTRO_TICKET);
+        Map<String, String> params = new HashMap<String, String>(4);
+        params.put("id_cliente", Preferences.getIdClient(this));
+        params.put("id_empresa", idEmpresa);
+        params.put("titulo", editText_Titulo.getText().toString());
+        params.put("asunto", editText_Asunto.getText().toString());
+        params.put("ACCION", Constantes.REGISTRO_TICKET);
 
-        new AsyntaskFile(path,nombreArchivo,params,this,Constantes.REGISTRO_TICKET).execute();
+        new AsyntaskFile(path, nombreArchivo, params, this, Constantes.REGISTRO_TICKET).execute();
 
 
     }
 
 
     private void cargarListaEmpresas() {
-        if(Preferences.getEmpresas(this)!=null) {
+        if (Preferences.getEmpresas(this) != null) {
             editText_Empresas.setEnabled(true);
             ArrayList arrayListEmpresas = Preferences.getEmpresas(this);
             AutocompleteEmpresaAdapter itemadapter = new AutocompleteEmpresaAdapter(this, R.layout.adapter_autotext, arrayListEmpresas);
@@ -128,11 +168,9 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
                     Log.i("", idEmpresa);
                 }
             });
-        }
-        else{
+        } else {
             editText_Empresas.setEnabled(false);
         }
-
     }
 
 
@@ -151,6 +189,13 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
         }
     }
 
+    /**
+     * On activity result.
+     *
+     * @param requestCode the request code
+     * @param resultCode  the result code
+     * @param data        the data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -160,7 +205,7 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
                     try {
                         path = Util.getPath(this, uri);
                         String[] parametrosPath = path.split("/");
-                        nombreArchivo =parametrosPath[parametrosPath.length-1];
+                        nombreArchivo = parametrosPath[parametrosPath.length - 1];
                         text_NombreArchivo.setText(nombreArchivo);
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
@@ -171,12 +216,23 @@ public class CrearTicketActivity extends AppCompatActivity implements BaseActivi
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Succes.
+     *
+     * @param succes      the succes
+     * @param jsonElement the json element
+     */
     @Override
     public void succes(String succes, JsonElement jsonElement) {
         makeText(this, succes, LENGTH_LONG).show();
         finish();
     }
 
+    /**
+     * Error.
+     *
+     * @param error the error
+     */
     @Override
     public void error(String error) {
         makeText(this, error, LENGTH_LONG).show();

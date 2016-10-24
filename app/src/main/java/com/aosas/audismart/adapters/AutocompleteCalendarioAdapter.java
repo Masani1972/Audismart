@@ -16,8 +16,10 @@ import com.aosas.audismart.model.Calendario;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by lmartinez on 20/04/2016.
+ * The type Autocomplete calendario adapter.
+ * Adaptador para la lista de caledarios
  */
 public class AutocompleteCalendarioAdapter extends ArrayAdapter<Calendario> {
 
@@ -27,6 +29,13 @@ public class AutocompleteCalendarioAdapter extends ArrayAdapter<Calendario> {
     private final List<Calendario> mCalendario_Suggestion;
     private final int mLayoutResourceId;
 
+    /**
+     * Instantiates a new Autocomplete calendario adapter.
+     *
+     * @param context    the context
+     * @param resource   the resource
+     * @param calendario the calendario
+     */
     public AutocompleteCalendarioAdapter(Context context, int resource, List<Calendario> calendario) {
         super(context, resource, calendario);
         this.mContext = context;
@@ -36,18 +45,43 @@ public class AutocompleteCalendarioAdapter extends ArrayAdapter<Calendario> {
         this.mCalendario_Suggestion = new ArrayList<>();
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return mCalendario.size();
     }
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public Calendario getItem(int position) {
         return mCalendario.get(position);
     }
 
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Gets view.
+     *
+     * @param position    the position
+     * @param convertView the convert view
+     * @param parent      the parent
+     * @return the view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
@@ -65,6 +99,11 @@ public class AutocompleteCalendarioAdapter extends ArrayAdapter<Calendario> {
         return convertView;
     }
 
+    /**
+     * Gets filter.
+     *
+     * @return the filter
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {

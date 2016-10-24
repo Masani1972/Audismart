@@ -15,8 +15,10 @@ import com.aosas.audismart.model.Ciudad;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by Lmartinez on 21/01/2016.
+ * The type Autocomplete ciudad adapter.
+ *  Adaptador para la lista de ciudades
  */
 public class AutocompleteCiudadAdapter extends ArrayAdapter<Ciudad> {
 
@@ -26,6 +28,13 @@ public class AutocompleteCiudadAdapter extends ArrayAdapter<Ciudad> {
     private final List<Ciudad> mCiudad_Suggestion;
     private final int mLayoutResourceId;
 
+    /**
+     * Instantiates a new Autocomplete ciudad adapter.
+     *
+     * @param context  the context
+     * @param resource the resource
+     * @param ciudad   the ciudad
+     */
     public AutocompleteCiudadAdapter(Context context, int resource, List<Ciudad> ciudad) {
         super(context, resource, ciudad);
         this.mContext = context;
@@ -35,18 +44,43 @@ public class AutocompleteCiudadAdapter extends ArrayAdapter<Ciudad> {
         this.mCiudad_Suggestion = new ArrayList<>();
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return mCiudad.size();
     }
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public Ciudad getItem(int position) {
         return mCiudad.get(position);
     }
 
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Gets view.
+     *
+     * @param position    the position
+     * @param convertView the convert view
+     * @param parent      the parent
+     * @return the view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
@@ -64,6 +98,11 @@ public class AutocompleteCiudadAdapter extends ArrayAdapter<Ciudad> {
         return convertView;
     }
 
+    /**
+     * Gets filter.
+     *
+     * @return the filter
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {

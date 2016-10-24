@@ -1,10 +1,7 @@
 package com.aosas.audismart.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,13 +31,13 @@ import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+
 /**
- * Created by Lmartinez on 08/06/2016.
+ * The type Second level profile.
+ * Maneja la lista desplegable de  perfil
  */
 public class SecondLevelProfile extends BaseExpandableListAdapter {
     private Context context;
@@ -59,6 +55,13 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
     private boolean envioInfo = false;
 
 
+    /**
+     * Instantiates a new Second level profile.
+     *
+     * @param context        the context
+     * @param listDataHeader the list data header
+     * @param isChild        the is child
+     */
     public SecondLevelProfile(Context context, List<String> listDataHeader, boolean isChild) {
         this.context = context;
         this._listDataHeader = listDataHeader;
@@ -67,20 +70,43 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
         this._isChild = isChild;
     }
 
+    /**
+     * Gets child.
+     *
+     * @param groupPosition  the group position
+     * @param childPosititon the child posititon
+     * @return the child
+     */
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
         return this.empresas.get(childPosititon);
     }
 
+    /**
+     * Gets child id.
+     *
+     * @param groupPosition the group position
+     * @param childPosition the child position
+     * @return the child id
+     */
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
+    /**
+     * Gets child view.
+     *
+     * @param groupPosition the group position
+     * @param childPosition the child position
+     * @param isLastChild   the is last child
+     * @param convertView   the convert view
+     * @param parent        the parent
+     * @return the child view
+     */
     @Override
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        Log.i(TAG, "childPosition " + childPosition + " groupPosition " + groupPosition);
         if (groupPosition == 0) {
 
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -119,7 +145,7 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
 
         /*Listener Checkbox*/
         chTerminos = (CheckBox) convertView.findViewById(R.id.checkBox_terminos);
-        if(user.acepto_terminos =="1")
+        if (user.acepto_terminos == "1")
             chTerminos.setChecked(true);
         chTerminos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -137,7 +163,7 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
 
         /*Listener checkbox*/
         chEnvioInfo = (CheckBox) convertView.findViewById(R.id.checkBox_envio_inf);
-        if(user.acepto_envio =="1")
+        if (user.acepto_envio == "1")
             chEnvioInfo.setChecked(true);
         chEnvioInfo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -241,6 +267,12 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    /**
+     * Gets children count.
+     *
+     * @param groupPosition the group position
+     * @return the children count
+     */
     @Override
     public int getChildrenCount(int groupPosition) {
         if (groupPosition == 0)
@@ -254,21 +286,47 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
             return 0;
     }
 
+    /**
+     * Gets group.
+     *
+     * @param groupPosition the group position
+     * @return the group
+     */
     @Override
     public Object getGroup(int groupPosition) {
         return this._listDataHeader.get(groupPosition);
     }
 
+    /**
+     * Gets group count.
+     *
+     * @return the group count
+     */
     @Override
     public int getGroupCount() {
         return this._listDataHeader.size();
     }
 
+    /**
+     * Gets group id.
+     *
+     * @param groupPosition the group position
+     * @return the group id
+     */
     @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
+    /**
+     * Gets group view.
+     *
+     * @param groupPosition the group position
+     * @param isExpanded    the is expanded
+     * @param convertView   the convert view
+     * @param parent        the parent
+     * @return the group view
+     */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
@@ -291,16 +349,34 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
 
     }
 
+    /**
+     * Has stable ids boolean.
+     *
+     * @return the boolean
+     */
     @Override
     public boolean hasStableIds() {
         return true;
     }
 
+    /**
+     * Is child selectable boolean.
+     *
+     * @param groupPosition the group position
+     * @param childPosition the child position
+     * @return the boolean
+     */
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
 
+    /**
+     * Gets color.
+     *
+     * @param position the position
+     * @return the color
+     */
     public int getColor(int position) {
         switch (position) {
             case 0:
@@ -320,9 +396,9 @@ public class SecondLevelProfile extends BaseExpandableListAdapter {
     private void validar_formulario() {
         if (aceptaTerminos & envioInfo) {
             if (Util.validateFormularioLinear(layout_Form)) {
-                    User user = new User(nombres.getText().toString(), apellidos.getText().toString(), email.getText().toString(), idDepartamento, idCiudad, telefono.getText().toString(), "", "1", "1", Constantes.ACTUALIZA_CLIENTE);
-                    IRepository repository = new Repository();
-                    repository.createRequets(context, user, Constantes.ACTUALIZA_CLIENTE);
+                User user = new User(nombres.getText().toString(), apellidos.getText().toString(), email.getText().toString(), idDepartamento, idCiudad, telefono.getText().toString(), "", "1", "1", Constantes.ACTUALIZA_CLIENTE);
+                IRepository repository = new Repository();
+                repository.createRequets(context, user, Constantes.ACTUALIZA_CLIENTE);
 
             } else {
                 Toast.makeText(context, R.string.formularioIncompleto, Toast.LENGTH_LONG).show();

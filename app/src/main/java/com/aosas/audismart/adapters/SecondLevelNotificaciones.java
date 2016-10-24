@@ -27,34 +27,70 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 /**
- * Created by Lmartinez on 28/03/2016.
+ * The type Second level notificaciones.
+ * Maneja la lista desplegable de las notificaciones
  */
 public class SecondLevelNotificaciones extends BaseExpandableListAdapter {
-    Context context;
+    /**
+     * The Context.
+     */
+    private Context context;
     private List<String> _listDataHeaderSecondLevel;
     private HashMap<String, List<Notificacion>> _listDataChild;
     private TextView fechaDia, fechaMes, fechaYear, descripcion, nombreEmpresa, lblListId;
     private Notificacion notificacion;
     private IRepository repository = new Repository();
 
+    /**
+     * Instantiates a new Second level notificaciones.
+     *
+     * @param context                   the context
+     * @param listDataHeaderSecondLevel the list data header second level
+     * @param listChildData             the list child data
+     */
     public SecondLevelNotificaciones(Context context, List<String> listDataHeaderSecondLevel, HashMap<String, List<Notificacion>> listChildData) {
         this.context = context;
         this._listDataChild = listChildData;
         this._listDataHeaderSecondLevel = listDataHeaderSecondLevel;
     }
 
+    /**
+     * Gets child.
+     *
+     * @param groupPosition  the group position
+     * @param childPosititon the child posititon
+     * @return the child
+     */
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
         return this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition))
                 .get(childPosititon);
     }
 
+    /**
+     * Gets child id.
+     *
+     * @param groupPosition the group position
+     * @param childPosition the child position
+     * @return the child id
+     */
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
+    /**
+     * Gets child view.
+     *
+     * @param groupPosition the group position
+     * @param childPosition the child position
+     * @param isLastChild   the is last child
+     * @param convertView   the convert view
+     * @param parent        the parent
+     * @return the child view
+     */
     @Override
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -127,6 +163,12 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    /**
+     * Gets children count.
+     *
+     * @param groupPosition the group position
+     * @return the children count
+     */
     @Override
     public int getChildrenCount(int groupPosition) {
         if (this._listDataChild.get(this._listDataHeaderSecondLevel.get(groupPosition)) != null)
@@ -135,21 +177,47 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter {
             return 0;
     }
 
+    /**
+     * Gets group.
+     *
+     * @param groupPosition the group position
+     * @return the group
+     */
     @Override
     public Object getGroup(int groupPosition) {
         return this._listDataHeaderSecondLevel.get(groupPosition);
     }
 
+    /**
+     * Gets group count.
+     *
+     * @return the group count
+     */
     @Override
     public int getGroupCount() {
         return this._listDataHeaderSecondLevel.size() + 1;
     }
 
+    /**
+     * Gets group id.
+     *
+     * @param groupPosition the group position
+     * @return the group id
+     */
     @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
+    /**
+     * Gets group view.
+     *
+     * @param groupPosition the group position
+     * @param isExpanded    the is expanded
+     * @param convertView   the convert view
+     * @param parent        the parent
+     * @return the group view
+     */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
@@ -176,11 +244,23 @@ public class SecondLevelNotificaciones extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    /**
+     * Has stable ids boolean.
+     *
+     * @return the boolean
+     */
     @Override
     public boolean hasStableIds() {
         return true;
     }
 
+    /**
+     * Is child selectable boolean.
+     *
+     * @param groupPosition the group position
+     * @param childPosition the child position
+     * @return the boolean
+     */
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
 

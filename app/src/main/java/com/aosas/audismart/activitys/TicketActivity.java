@@ -20,15 +20,12 @@ import com.aosas.audismart.comunication.proxy.AsyntaskFile;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.BuscarTicket;
-import com.aosas.audismart.model.RespuestaTicket;
 import com.aosas.audismart.model.Ticket;
-import com.aosas.audismart.repository.Preferences;
 import com.aosas.audismart.util.Constantes;
 import com.aosas.audismart.util.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
 import java.net.URISyntaxException;
@@ -42,53 +39,95 @@ import butterknife.OnClick;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
-public class TicketActivity extends AppCompatActivity implements BaseActivity{
+/**
+ * The type Ticket activity.
+ */
+public class TicketActivity extends AppCompatActivity implements BaseActivity {
     private Ticket ticket;
     private IRepository repository = new Repository();
-    private static final String TAG ="TicketActivity";
+    private static final String TAG = "TicketActivity";
     private String path = null;
-    private String nombreArchivo ="";
+    private String nombreArchivo = "";
 
+    /**
+     * The Text empresa.
+     */
     @InjectView(R.id.text_empresa)
     TextView text_empresa;
 
+    /**
+     * The Text area.
+     */
     @InjectView(R.id.text_area)
     TextView text_area;
 
+    /**
+     * The Text estado.
+     */
     @InjectView(R.id.text_estado)
     TextView text_estado;
 
+    /**
+     * The Edit text asunto.
+     */
     @InjectView(R.id.editText_asunto)
     EditText editText_asunto;
 
+    /**
+     * The Layout respuestas.
+     */
     @InjectView(R.id.layout_Respuestas)
     LinearLayout layout_Respuestas;
 
+    /**
+     * The Fecha respuesta.
+     */
     @InjectView(R.id.fecha_respuesta)
     TextView fecha_respuesta;
 
+    /**
+     * The Button cargar archivo.
+     */
     @InjectView(R.id.button_CargarArchivo)
     Button button_CargarArchivo;
 
+    /**
+     * The Text nombre archivo.
+     */
     @InjectView(R.id.text_NombreArchivo)
     TextView text_NombreArchivo;
 
+    /**
+     * The Button cerra ticket.
+     */
     @InjectView(R.id.button_CerraTicket)
     Button button_CerraTicket;
 
+    /**
+     * The Button agregar respuesta.
+     */
     @InjectView(R.id.button_AgregarRespuesta)
     Button button_AgregarRespuesta;
 
+    /**
+     * The Edit asunto respuesta.
+     */
     @InjectView(R.id.edit_AsuntoRespuesta)
     EditText edit_AsuntoRespuesta;
 
 
-
+    /**
+     * On create.
+     *
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
         ButterKnife.inject(this);
+
+        //Se adiciona el icono a la barra de la actividad
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.logoapp);
         actionBar.setDisplayUseLogoEnabled(true);
@@ -99,48 +138,66 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
     }
 
     private void cargarDatos() {
-        text_empresa.setText("Empresa: "+ticket.empresa);
-        text_area.setText("Area: "+ticket.empresa);
-        text_estado.setText("Estado: "+ticket.estado);
+        text_empresa.setText("Empresa: " + ticket.empresa);
+        text_area.setText("Area: " + ticket.empresa);
+        text_estado.setText("Estado: " + ticket.estado);
         editText_asunto.setText(ticket.asunto);
         fecha_respuesta.setText(ticket.fecha);
-        BuscarTicket buscarTicket = new BuscarTicket(ticket.id_ticket,"","",Constantes.BUSCAR_TICKET_RESPUESTA);
-        repository.createRequets(this,buscarTicket, Constantes.BUSCAR_TICKET_RESPUESTA);
+        BuscarTicket buscarTicket = new BuscarTicket(ticket.id_ticket, "", "", Constantes.BUSCAR_TICKET_RESPUESTA);
+        repository.createRequets(this, buscarTicket, Constantes.BUSCAR_TICKET_RESPUESTA);
     }
 
+    /**
+     * Button cargar archivo.
+     *
+     * @param view the view
+     */
     @OnClick(R.id.button_CargarArchivo)
     public void button_CargarArchivo(View view) {
         cargarArchivo();
     }
 
 
+    /**
+     * Button cerra ticket.
+     *
+     * @param view the view
+     */
     @OnClick(R.id.button_CerraTicket)
-    public void button_CerraTicket(View view){ cerraTicket();}
+    public void button_CerraTicket(View view) {
+        cerraTicket();
+    }
 
+    /**
+     * Button agregar respuesta.
+     *
+     * @param view the view
+     */
     @OnClick(R.id.button_AgregarRespuesta)
-    public void button_AgregarRespuesta(View view){ enviarRespuesta();}
+    public void button_AgregarRespuesta(View view) {
+        enviarRespuesta();
+    }
 
 
     /*******************
-     Presentador¡¡ Logica de la  vista
+     * Presentador¡¡ Logica de la  vista
      *******************/
     private void enviarRespuesta() {
         RequestBody requestBody = null;
         String asuntoRespuesta = "";
 
-        if(edit_AsuntoRespuesta.getText().toString().length()>0){
+        if (edit_AsuntoRespuesta.getText().toString().length() > 0) {
             asuntoRespuesta = edit_AsuntoRespuesta.getText().toString();
-            if(path!=null) {
+            if (path != null) {
                 Map<String, String> params = new HashMap<String, String>(3);
                 params.put("id_ticket", ticket.id_ticket);
                 params.put("asunto", asuntoRespuesta);
                 params.put("ACCION", Constantes.RESPONDER_TICKET);
 
-                new AsyntaskFile(path,nombreArchivo,params,this,Constantes.RESPONDER_TICKET).execute();
+                new AsyntaskFile(path, nombreArchivo, params, this, Constantes.RESPONDER_TICKET).execute();
             }
 
-        }
-        else
+        } else
             makeText(this, R.string.formularioIncompleto, LENGTH_LONG).show();
 
     }
@@ -152,7 +209,7 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
 
         try {
             startActivityForResult(
-                   Intent.createChooser(intent, "Select a File to Upload"),
+                    Intent.createChooser(intent, "Select a File to Upload"),
                     Constantes.FILE_SELECT_CODE);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "Please install a File Manager.",
@@ -160,32 +217,38 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
         }
     }
 
-    private void cerraTicket(){
+    private void cerraTicket() {
         ticket.ACCION = Constantes.CERRAR_TICKET;
-        repository.createRequets(this,ticket, Constantes.CERRAR_TICKET);
+        repository.createRequets(this, ticket, Constantes.CERRAR_TICKET);
     }
 
+    /**
+     * Succes.
+     *
+     * @param succes      the succes
+     * @param jsonElement the json element
+     */
     @Override
     public void succes(String succes, JsonElement jsonElement) {
-        if(succes.substring(0,22).equals(Constantes.BUSCAR_TICKET_RESPUESTA_RESPONSE)){
-            int numeroRespuestas = Integer.parseInt(succes.substring(25,26));
+        if (succes.substring(0, 22).equals(Constantes.BUSCAR_TICKET_RESPUESTA_RESPONSE)) {
+            int numeroRespuestas = Integer.parseInt(succes.substring(25, 26));
             JsonArray jsonArray = jsonElement.getAsJsonArray();
-            for (int index=0; index <numeroRespuestas;index++){
-                crearViewRespuestas(index,jsonArray);
+            for (int index = 0; index < numeroRespuestas; index++) {
+                crearViewRespuestas(index, jsonArray);
 
             }
-        }else if (succes.equals(Constantes.CERRAR_TICKET_RESPONSE)){
-           Intent intentCalificar = new Intent(this,CalificarTicketActivity.class);
-            intentCalificar.putExtra("ticket",ticket);
+        } else if (succes.equals(Constantes.CERRAR_TICKET_RESPONSE)) {
+            Intent intentCalificar = new Intent(this, CalificarTicketActivity.class);
+            intentCalificar.putExtra("ticket", ticket);
             startActivity(intentCalificar);
             finish();
-        }else{
+        } else {
             makeText(this, succes, LENGTH_LONG).show();
             finish();
         }
     }
 
-    private void crearViewRespuestas(int index,JsonArray jsonArray) {
+    private void crearViewRespuestas(int index, JsonArray jsonArray) {
         //Creacion Layout
         LinearLayout layoutRespuesta = new LinearLayout(this);
         layoutRespuesta.setOrientation(LinearLayout.VERTICAL);
@@ -196,7 +259,7 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
 
         //Creacion Texto respuesta
         TextView textView_Respuesta = new TextView(this);
-        textView_Respuesta.setText("  "+((JsonObject) jsonArray.get(index)).get("asunto").getAsString());
+        textView_Respuesta.setText("  " + ((JsonObject) jsonArray.get(index)).get("asunto").getAsString());
 
         //Creacion Relative, para el icono y nombre archivo
         LinearLayout layout_Archivo = new LinearLayout(this);
@@ -212,38 +275,50 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
         //Creacion EditText archivo, con icono
         TextView text_View_Archivo = new TextView(this);
         String archivo = "";
-        if(!((JsonObject) jsonArray.get(index)).get("archivo").isJsonNull())
-            archivo = "  "+((JsonObject) jsonArray.get(index)).get("archivo").getAsString();
-         text_View_Archivo.setText(archivo);
+        if (!((JsonObject) jsonArray.get(index)).get("archivo").isJsonNull())
+            archivo = "  " + ((JsonObject) jsonArray.get(index)).get("archivo").getAsString();
+        text_View_Archivo.setText(archivo);
 
         layout_Archivo.addView(imagen_Icon);
         layout_Archivo.addView(text_View_Archivo);
-        layoutRespuesta.addView(textView_Respuesta,0);
-        layoutRespuesta.addView(layout_Archivo,1);
+        layoutRespuesta.addView(textView_Respuesta, 0);
+        layoutRespuesta.addView(layout_Archivo, 1);
 
-        if(index%2==0){
+        if (index % 2 == 0) {
             LayoutInflater factory = LayoutInflater.from(this);
             View view = factory.inflate(R.layout.linear_header_soporte, null);
-            TextView fecha = (TextView)view.findViewById(R.id.fecha_respuesta);
+            TextView fecha = (TextView) view.findViewById(R.id.fecha_respuesta);
             fecha.setText(((JsonObject) jsonArray.get(index)).get("fecha").getAsString());
             layout_Respuestas.addView(view);
             layout_Respuestas.addView(layoutRespuesta);
-        }else{
+        } else {
             LayoutInflater factory = LayoutInflater.from(this);
             View view = factory.inflate(R.layout.linear_header_persona, null);
-            TextView fecha = (TextView)view.findViewById(R.id.fecha_respuesta);
+            TextView fecha = (TextView) view.findViewById(R.id.fecha_respuesta);
             fecha.setText(((JsonObject) jsonArray.get(index)).get("fecha").getAsString());
             layout_Respuestas.addView(view);
             layout_Respuestas.addView(layoutRespuesta);
         }
     }
 
+    /**
+     * Error.
+     *
+     * @param error the error
+     */
     @Override
     public void error(String error) {
         makeText(TicketActivity.this, error, LENGTH_LONG).show();
     }
 
 
+    /**
+     * On activity result.
+     *
+     * @param requestCode the request code
+     * @param resultCode  the result code
+     * @param data        the data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -256,7 +331,7 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity{
                         path = Util.getPath(this, uri);
                         Log.d(TAG, "File Path: " + path);
                         String[] parametrosPath = path.split("/");
-                        nombreArchivo = parametrosPath[parametrosPath.length-1];
+                        nombreArchivo = parametrosPath[parametrosPath.length - 1];
                         text_NombreArchivo.setText(nombreArchivo);
                     } catch (URISyntaxException e) {
                         e.printStackTrace();

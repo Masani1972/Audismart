@@ -16,8 +16,10 @@ import com.aosas.audismart.model.Categoria;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by Lmartinez on 23/01/2016.
+ * The type Autocomplete categoria adapter.
+ * Adaptador para la lista de categorias
  */
 public class AutocompleteCategoriaAdapter extends ArrayAdapter<Categoria> {
 
@@ -27,6 +29,13 @@ public class AutocompleteCategoriaAdapter extends ArrayAdapter<Categoria> {
     private final List<Categoria> mCategoria_Suggestion;
     private final int mLayoutResourceId;
 
+    /**
+     * Instantiates a new Autocomplete categoria adapter.
+     *
+     * @param context   the context
+     * @param resource  the resource
+     * @param categoria the categoria
+     */
     public AutocompleteCategoriaAdapter(Context context, int resource, List<Categoria> categoria) {
         super(context, resource, categoria);
         this.mContext = context;
@@ -36,18 +45,43 @@ public class AutocompleteCategoriaAdapter extends ArrayAdapter<Categoria> {
         this.mCategoria_Suggestion = new ArrayList<>();
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return mCategoria.size();
     }
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public Categoria getItem(int position) {
         return mCategoria.get(position);
     }
 
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Gets view.
+     *
+     * @param position    the position
+     * @param convertView the convert view
+     * @param parent      the parent
+     * @return the view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
@@ -65,6 +99,11 @@ public class AutocompleteCategoriaAdapter extends ArrayAdapter<Categoria> {
         return convertView;
     }
 
+    /**
+     * Gets filter.
+     *
+     * @return the filter
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {

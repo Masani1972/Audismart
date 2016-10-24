@@ -1,27 +1,33 @@
 package com.aosas.audismart.comunication.proxy;
 
-import android.os.Environment;
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by dayanamartinez on 06-10-16.
+ * The type Http file upload.
+ * Conexion para subir archivos en el servidor
  */
 public class HttpFileUpload {
 
+    /**
+     * Multipart request string.
+     *
+     * @param urlTo        the url to
+     * @param parmas       the parmas
+     * @param filepath     the filepath
+     * @param filefield    the filefield
+     * @param fileMimeType the file mime type
+     * @return the string
+     */
     public String multipartRequest(String urlTo, Map<String, String> parmas, String filepath, String filefield, String fileMimeType) {
         HttpURLConnection connection = null;
         DataOutputStream outputStream = null;
@@ -93,8 +99,6 @@ public class HttpFileUpload {
             }
 
             outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-
             if (200 != connection.getResponseCode()) {
 
             }

@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Lmartinez on 16/01/2016.
+ * The type Autocomplete departamento adapter.
+ *  Adaptador para la lista de departamentos
  */
 public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> {
 
@@ -26,6 +27,13 @@ public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> 
     private final List<Departamento> mDepartments_Suggestion;
     private final int mLayoutResourceId;
 
+    /**
+     * Instantiates a new Autocomplete departamento adapter.
+     *
+     * @param context     the context
+     * @param resource    the resource
+     * @param departments the departments
+     */
     public AutocompleteDepartamentoAdapter(Context context, int resource, List<Departamento> departments) {
         super(context, resource, departments);
         this.mContext = context;
@@ -35,18 +43,43 @@ public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> 
         this.mDepartments_Suggestion = new ArrayList<>();
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return mDepartments.size();
     }
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public Departamento getItem(int position) {
         return mDepartments.get(position);
     }
 
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Gets view.
+     *
+     * @param position    the position
+     * @param convertView the convert view
+     * @param parent      the parent
+     * @return the view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
@@ -64,6 +97,11 @@ public class AutocompleteDepartamentoAdapter extends ArrayAdapter<Departamento> 
         return convertView;
     }
 
+    /**
+     * Gets filter.
+     *
+     * @return the filter
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {

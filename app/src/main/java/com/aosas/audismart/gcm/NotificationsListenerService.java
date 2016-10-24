@@ -8,37 +8,41 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 
 import com.aosas.audismart.R;
-import com.aosas.audismart.activitys.MenuPrincipalActivity;
 import com.aosas.audismart.activitys.NoticiasDetalleActivity;
 import com.aosas.audismart.model.Noticia;
+import com.aosas.audismart.util.Constantes;
 import com.google.android.gms.gcm.GcmListenerService;
 
+
 /**
- * Created by lmartinez on 14/03/2016.
+ * The type Notifications listener service.
+ * Servicio que recibe las notificaciones push
  */
-public class NotificationsListenerService  extends GcmListenerService {
+public class NotificationsListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
     private static final int NOTIFICATION = 1;
 
 
+    /**
+     * On message received.
+     *
+     * @param from the from
+     * @param data the data
+     */
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "Message: " + message);
-
         sendNotification(message);
     }
 
     private void sendNotification(String message) {
         Intent intent = new Intent(this, NoticiasDetalleActivity.class);
-        intent.putExtra("noticia",new Noticia("",message,"","","","","","","",""));
+        intent.putExtra(Constantes.EXTRA_NOTICIA, new Noticia("", message, "", "", "", "", "", "", "", ""));
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

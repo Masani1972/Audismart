@@ -1,9 +1,8 @@
 package com.aosas.audismart.activitys;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
-import com.aosas.audismart.adapters.AlertDialogCustom;
 import com.aosas.audismart.comunication.proxy.IRepository;
 import com.aosas.audismart.comunication.proxy.Repository;
 import com.aosas.audismart.model.Calendario;
@@ -39,46 +37,84 @@ import butterknife.OnClick;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 
+/**
+ * The type Ingreso activity.
+ * En esta pantalla el usuario ingresa sus credenciales
+ * para autenticarse
+ */
 public class IngresoActivity extends AppCompatActivity implements BaseActivity{
     private Util util;
     private boolean sesion = false;
     private IRepository repository = new Repository();
     private static final String TAG ="IngresoActivity";
 
+    /**
+     * The Button ingresar.
+     */
     @InjectView(R.id.button_Ingresar)
     Button button_Ingresar;
 
+    /**
+     * The Button contrasena.
+     */
     @InjectView(R.id.button_Contrasena)
     Button button_Contrasena;
 
+    /**
+     * The Edit text usuario.
+     */
     @InjectView(R.id.editText_Usuario)
     EditText editText_Usuario;
 
+    /**
+     * The Edit text contrasena.
+     */
     @InjectView(R.id.editText_Contrasena)
     EditText editText_Contrasena;
 
+    /**
+     * The Check box sesion.
+     */
     @InjectView(R.id.checkBox_Sesion)
     CheckBox checkBox_Sesion;
 
+    /**
+     * On create.
+     *
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso);
         ButterKnife.inject(this);
-
-        //button_Contrasena.setPaintFlags(button_Contrasena.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
+    /**
+     * Ingresar.
+     *
+     * @param view the view
+     */
     @OnClick(R.id.button_Ingresar)
     public void ingresar(View view) {
         ingresar();
     }
 
+    /**
+     * Solicitar contrasena.
+     *
+     * @param view the view
+     */
     @OnClick(R.id.button_Contrasena)
-    public void solicitar_Contraseña(View view) {
-        recuperar_Contraseña();
+    public void solicitar_Contrasena(View view) {
+        recuperar_Contrasena();
     }
 
+    /**
+     * Check box sesion.
+     *
+     * @param value the value
+     */
     @OnCheckedChanged(R.id.checkBox_Sesion)
     public void checkBox_Sesion(boolean value){
         sesion = value;
@@ -112,13 +148,19 @@ public class IngresoActivity extends AppCompatActivity implements BaseActivity{
 
 
     /*
-Permite solicitar de nuevo la contraseña,
+Permite solicitar de nuevo la contrasena,
 olvidada por el usuario
  */
-    private void recuperar_Contraseña() {
+    private void recuperar_Contrasena() {
         startActivity(new Intent(this,PasswordActivity.class));
     }
 
+    /**
+     * Succes.
+     *
+     * @param succes      the succes
+     * @param jsonElement the json element
+     */
     @Override
     public void succes(String succes, JsonElement jsonElement) {
         if(succes.equals("Login exitoso")){
@@ -152,6 +194,11 @@ olvidada por el usuario
         }
     }
 
+    /**
+     * Almacenar calendarios.
+     *
+     * @param result the result
+     */
     public void almacenarCalendarios(JsonArray result){
         if (result != null) {
             ArrayList<Calendario>  calendarios = new ArrayList<Calendario>();
@@ -167,6 +214,11 @@ olvidada por el usuario
 
     }
 
+    /**
+     * Almacenar empresas.
+     *
+     * @param result the result
+     */
     public void almacenarEmpresas(JsonArray result){
         if (result != null) {
             ArrayList<Empresa> empresas = new ArrayList<Empresa>();
@@ -184,6 +236,11 @@ olvidada por el usuario
         }
     }
 
+    /**
+     * Error.
+     *
+     * @param error the error
+     */
     @Override
     public void error(String error) {
         Toast.makeText(IngresoActivity.this, error, Toast.LENGTH_LONG).show();

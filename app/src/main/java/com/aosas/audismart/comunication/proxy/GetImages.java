@@ -10,26 +10,42 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 
+
 /**
- * Created by dayanamartinez on 06-10-16.
+ * The type Get images.
+ * Proceso asincrono para obtener las imagenes
  */
 public class GetImages extends AsyncTask<String, Void, Bitmap> {
 
+    /**
+     * The Image view.
+     */
     ImageView imageView;
 
-    public GetImages(ImageView imageView,Context context) {
+    /**
+     * Instantiates a new Get images.
+     *
+     * @param imageView the image view
+     * @param context   the context
+     */
+    public GetImages(ImageView imageView, Context context) {
         this.imageView = imageView;
         Toast.makeText(context, "Decargando imagen", Toast.LENGTH_SHORT).show();
     }
 
 
+    /**
+     * Do in background bitmap.
+     *
+     * @param urls the urls
+     * @return the bitmap
+     */
     protected Bitmap doInBackground(String... urls) {
         String imageURL = urls[0];
         Bitmap bimage = null;
         try {
             InputStream in = new java.net.URL(imageURL).openStream();
             bimage = BitmapFactory.decodeStream(in);
-
         } catch (Exception e) {
             Log.e("Error Message", e.getMessage());
             e.printStackTrace();
@@ -37,6 +53,11 @@ public class GetImages extends AsyncTask<String, Void, Bitmap> {
         return bimage;
     }
 
+    /**
+     * On post execute.
+     *
+     * @param result the result
+     */
     protected void onPostExecute(Bitmap result) {
         imageView.setImageBitmap(result);
     }

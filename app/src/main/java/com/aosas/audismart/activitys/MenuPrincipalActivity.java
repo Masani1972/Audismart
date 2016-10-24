@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.aosas.audismart.R;
@@ -45,7 +43,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -53,6 +50,11 @@ import butterknife.InjectView;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
+/**
+ * The type Menu principal activity.
+ * Dashboard principal:
+ * Notificaciones, tickets, perfil
+ */
 public class MenuPrincipalActivity extends AppCompatActivity implements BaseActivity {
     private ExpandableListView explvlist;
     private HashMap<String, List<Notificacion>> listDataChildNotificaciones;
@@ -76,12 +78,23 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     private ScheduleClient scheduleClient;
     private ClienteUnico clienteUnico;
 
+    /**
+     * The Edit text empresas.
+     */
     @InjectView(R.id.editText_Empresas)
     AutoCompleteTextView editText_Empresas;
 
+    /**
+     * The Edit text impuestos.
+     */
     @InjectView(R.id.editText_Impuestos)
     AutoCompleteTextView editText_Impuestos;
 
+    /**
+     * On create.
+     *
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +103,7 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
        /* scheduleClient = new ScheduleClient(this);
         scheduleClient.doBindService();*/
 
+        //Se adiciona el icono a la barra de la actividad
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.logoapp);
         actionBar.setDisplayUseLogoEnabled(true);
@@ -124,12 +138,25 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
     }
 
+    /**
+     * On create options menu boolean.
+     *
+     * @param menu the menu
+     * @return the boolean
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_splash, menu);
         return true;
     }
+
+    /**
+     * On options item selected boolean.
+     *
+     * @param item the item
+     * @return the boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -147,17 +174,28 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         }
     }
 
+    /**
+     * Calendario.
+     *
+     * @param v the v
+     */
     public void calendario(View v){
        Intent i = new Intent(this,CalendarioActivity.class);
         startActivity(i);
 
     }
 
+    /**
+     * On stop.
+     */
     @Override
     protected void onStop() {
         super.onStop();
     }
 
+    /**
+     * On resume.
+     */
     @Override
     protected void onResume (){
 
@@ -166,17 +204,14 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
     }
 
     /*******************
-     Presentador¡¡ Logica de la  vista
-     *******************/
-
+     * Presentador¡¡ Logica de la  vista
+     */
     public void initalarm() {
         if (Preferences.getNotificaciones(this) !=null) {
             ArrayList<Notificacion> notificaciones = Preferences.getNotificaciones(this);
 
 
             for (int i = 0; i < notificaciones.size(); i++) {
-                Log.i("notificacion", notificaciones.get(i).id+" fecha "+notificaciones.get(i).fecha);
-
                 String fecha = notificaciones.get(i).antesFecha;
                 Calendar cal = Calendar.getInstance();
                 Date date = Util.stringToDate(Constantes.FORMATOFECHANOTIDICACIONJSONNOTIFICACION, fecha);
@@ -199,7 +234,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
                 Empresa empresa = (Empresa) listView.getItemAtPosition(position);
                 idEmpresa = empresa.id_empresa.replaceAll("\"", "");
-                Log.i("",idEmpresa);
             }
         });}
 
@@ -214,7 +248,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
                 Calendario calendario = (Calendario) listView.getItemAtPosition(position);
                 idCalendario = calendario.id_calendario.replaceAll("\"", "");
-                Log.i("",idCalendario);
             }
         });
         }
@@ -325,6 +358,12 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         }
     }
 
+    /**
+     * Filtrar tickets list.
+     *
+     * @param estado the estado
+     * @return the list
+     */
     public List<Ticket> filtrarTickets(String estado ){
         List<Ticket> ticketsConFiltro = new ArrayList<Ticket>();
         if(tickets!=null){
@@ -348,6 +387,12 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         repository.createRequets(this,buscarTicket,Constantes.BUSCAR_TICKET);
     }
 
+    /**
+     * Succes.
+     *
+     * @param succes      the succes
+     * @param jsonElement the json element
+     */
     @Override
     public void succes(String succes, JsonElement jsonElement) {
         if(succes.equals("Se actualizo con exito")){
@@ -397,6 +442,11 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
 
     }
 
+    /**
+     * Sets notificaciones.
+     *
+     * @param jsonArray the json array
+     */
     public void setNotificaciones(JsonArray jsonArray) {
         notificaciones = new ArrayList<Notificacion>();
         if (jsonArray != null) {
@@ -460,6 +510,11 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         }
     }
 
+    /**
+     * Error.
+     *
+     * @param error the error
+     */
     @Override
     public void error(String error) {
         if(error.equals(Constantes.CONSULTA_FECHASCLIENTE_RESPONSE_ERROR)){
@@ -468,7 +523,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             prepareListData();
             explvlist = (ExpandableListView)findViewById(R.id.ParentLevel);
             explvlist.setAdapter(new LevelMenuPrincipal(this, listDataChildNotificaciones, listDataHeaderNotificaciones,listDataChildTickets,listDataHeaderTickets));
-
             initalarm();
         }
         makeText(MenuPrincipalActivity.this, error, LENGTH_LONG).show();

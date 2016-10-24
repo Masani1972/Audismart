@@ -91,5 +91,6 @@ public  class Constantes {
     Extras Intent
      */
     public static final String EXTRA_NOTIFICACIONES = "notificacion";
+    public static final String EXTRA_NOTICIA = "noticia";
 
 }

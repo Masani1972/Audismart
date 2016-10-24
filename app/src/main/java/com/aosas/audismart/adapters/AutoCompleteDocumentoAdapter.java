@@ -15,8 +15,10 @@ import com.aosas.audismart.model.DocumentoIdentidad;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by Lmartinez on 27/04/2016.
+ * The type Autocomplete documento adapter.
+ *  Adaptador para la lista de documentos
  */
 public class AutocompleteDocumentoAdapter extends ArrayAdapter<DocumentoIdentidad> {
 
@@ -26,6 +28,13 @@ public class AutocompleteDocumentoAdapter extends ArrayAdapter<DocumentoIdentida
     private final List<DocumentoIdentidad> mDocuemnto_Suggestion;
     private final int mLayoutResourceId;
 
+    /**
+     * Instantiates a new Autocomplete documento adapter.
+     *
+     * @param context            the context
+     * @param resource           the resource
+     * @param documentoIdentidad the documento identidad
+     */
     public AutocompleteDocumentoAdapter(Context context, int resource, List<DocumentoIdentidad> documentoIdentidad) {
         super(context, resource, documentoIdentidad);
         this.mContext = context;
@@ -35,18 +44,43 @@ public class AutocompleteDocumentoAdapter extends ArrayAdapter<DocumentoIdentida
         this.mDocuemnto_Suggestion = new ArrayList<>();
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return mDocumento.size();
     }
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public DocumentoIdentidad getItem(int position) {
         return mDocumento.get(position);
     }
 
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Gets view.
+     *
+     * @param position    the position
+     * @param convertView the convert view
+     * @param parent      the parent
+     * @return the view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
@@ -64,6 +98,11 @@ public class AutocompleteDocumentoAdapter extends ArrayAdapter<DocumentoIdentida
         return convertView;
     }
 
+    /**
+     * Gets filter.
+     *
+     * @return the filter
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {

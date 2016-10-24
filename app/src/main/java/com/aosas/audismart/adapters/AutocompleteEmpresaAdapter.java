@@ -15,8 +15,10 @@ import com.aosas.audismart.model.Empresa;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by lmartinez on 20/04/2016.
+ * The type Autocomplete empresa adapter.
+ *  Adaptador para la lista de empresas
  */
 public class AutocompleteEmpresaAdapter extends ArrayAdapter<Empresa> {
 
@@ -26,6 +28,13 @@ public class AutocompleteEmpresaAdapter extends ArrayAdapter<Empresa> {
     private final List<Empresa> mEmpresa_Suggestion;
     private final int mLayoutResourceId;
 
+    /**
+     * Instantiates a new Autocomplete empresa adapter.
+     *
+     * @param context  the context
+     * @param resource the resource
+     * @param empresa  the empresa
+     */
     public AutocompleteEmpresaAdapter(Context context, int resource, List<Empresa> empresa) {
         super(context, resource, empresa);
         this.mContext = context;
@@ -35,18 +44,43 @@ public class AutocompleteEmpresaAdapter extends ArrayAdapter<Empresa> {
         this.mEmpresa_Suggestion = new ArrayList<>();
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return mEmpresa.size();
     }
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public Empresa getItem(int position) {
         return mEmpresa.get(position);
     }
 
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Gets view.
+     *
+     * @param position    the position
+     * @param convertView the convert view
+     * @param parent      the parent
+     * @return the view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
@@ -64,6 +98,11 @@ public class AutocompleteEmpresaAdapter extends ArrayAdapter<Empresa> {
         return convertView;
     }
 
+    /**
+     * Gets filter.
+     *
+     * @return the filter
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {

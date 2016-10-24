@@ -15,10 +15,11 @@ import com.aosas.audismart.model.Periodicidad;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by intergrupo on 13/07/16.
- */
 
+/**
+ * The type Autocomplete periodicidad adapter.
+ *  Adaptador para la lista de periodicidad
+ */
 public class AutocompletePeriodicidadAdapter extends ArrayAdapter<Periodicidad> {
 
     private final Context mContext;
@@ -27,6 +28,13 @@ public class AutocompletePeriodicidadAdapter extends ArrayAdapter<Periodicidad> 
     private final List<Periodicidad> mPeriodicidad_Suggestion;
     private final int mLayoutResourceId;
 
+    /**
+     * Instantiates a new Autocomplete periodicidad adapter.
+     *
+     * @param context      the context
+     * @param resource     the resource
+     * @param periodicidad the periodicidad
+     */
     public AutocompletePeriodicidadAdapter(Context context, int resource, List<Periodicidad> periodicidad) {
         super(context, resource, periodicidad);
         this.mContext = context;
@@ -36,18 +44,43 @@ public class AutocompletePeriodicidadAdapter extends ArrayAdapter<Periodicidad> 
         this.mPeriodicidad_Suggestion = new ArrayList<>();
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return mPeriodicidad.size();
     }
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public Periodicidad getItem(int position) {
         return mPeriodicidad.get(position);
     }
 
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Gets view.
+     *
+     * @param position    the position
+     * @param convertView the convert view
+     * @param parent      the parent
+     * @return the view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
@@ -65,6 +98,11 @@ public class AutocompletePeriodicidadAdapter extends ArrayAdapter<Periodicidad> 
         return convertView;
     }
 
+    /**
+     * Gets filter.
+     *
+     * @return the filter
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {
