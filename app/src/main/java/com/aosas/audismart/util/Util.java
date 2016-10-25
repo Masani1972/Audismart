@@ -6,21 +6,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
 
-import com.aosas.audismart.R;
 import com.aosas.audismart.model.Categoria;
 import com.aosas.audismart.model.Ciudad;
 import com.aosas.audismart.model.Departamento;
@@ -40,14 +34,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+
 /**
- * Created by lmartinez on 14/12/2015.
+ * The type Util.
  */
 public class Util {
 
 
-    /*
-    Convierte json en Arrays
+    /**
+     * Jsonto array list array list.
+     *  Convierte json en Arrays
+     *
+     * @param json   the json
+     * @param object the object
+     * @return the array list
      */
     public static ArrayList jsontoArrayList(String json, Object object) {
         if (object instanceof Departamento) {
@@ -77,21 +77,21 @@ public class Util {
             ArrayList<DocumentoIdentidad> documentos = gson.fromJson(json, type);
             return documentos;
 
-         } else if (object instanceof Periodicidad) {
+        } else if (object instanceof Periodicidad) {
             Gson gson = new Gson();
             Type type = new TypeToken<List<Periodicidad>>() {
             }.getType();
             ArrayList<Periodicidad> periodos = gson.fromJson(json, type);
             return periodos;
-
-
-
-    }
+        }
         return null;
     }
 
-    /*
-    Se obtiene un ND5 a partir de un texto
+    /**
+     * Text to md 5 string.
+     * Se obtiene un ND5 a partir de un texto
+     * @param text the text
+     * @return the string
      */
     public static String textToMD5(String text) {
         String original = text;
@@ -108,10 +108,14 @@ public class Util {
             sb.append(String.format("%02x", b & 0xff));
         }
 
-        return  sb.toString();
+        return sb.toString();
     }
 
-    /** Returns the consumer friendly device name */
+    /**
+     * Returns the consumer friendly device name
+     *
+     * @return the device name
+     */
     public static String getDeviceName() {
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
@@ -141,27 +145,42 @@ public class Util {
         return phrase;
     }
 
-    public static Date stringToDate(String formato, String fecha){
+    /**
+     * String to date date.
+     *
+     * @param formato the formato
+     * @param fecha   the fecha
+     * @return the date
+     */
+    public static Date stringToDate(String formato, String fecha) {
         SimpleDateFormat formatter = new SimpleDateFormat(formato, Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT-5:00"));
         try {
-            Date date = (Date)formatter.parse(fecha);
+            Date date = (Date) formatter.parse(fecha);
             return date;
         } catch (ParseException e) {
-         return null;
+            return null;
         }
     }
 
-    public static boolean validateFormularioRelative(RelativeLayout layout_Form,int camposValidos ){
+    /**
+     * Validate formulario relative boolean.
+     *
+     * @param layout_Form   the layout form
+     * @param camposValidos the campos validos
+     * @return the boolean
+     */
+    public static boolean validateFormularioRelative(RelativeLayout layout_Form, int camposValidos) {
         int editTextOk = 0;
         int childcount = layout_Form.getChildCount();
         for (int i = 0; i < childcount; i++) {
             View v = layout_Form.getChildAt(i);
-            if (v instanceof  EditText )
-            { EditText tv = (EditText) v;
+            if (v instanceof EditText) {
+                EditText tv = (EditText) v;
                 if ((tv != null && tv.getText().toString().length() > 0))
-                editTextOk++;
-                continue;}
+                    editTextOk++;
+                continue;
+            }
         }
 
         if (editTextOk == camposValidos)
@@ -170,10 +189,16 @@ public class Util {
             return false;
     }
 
-    public static boolean validateFormularioLinear(LinearLayout layout_Form){
+    /**
+     * Validate formulario linear boolean.
+     *
+     * @param layout_Form the layout form
+     * @return the boolean
+     */
+    public static boolean validateFormularioLinear(LinearLayout layout_Form) {
         int editTextOk = 0;
         int childcount = layout_Form.getChildCount();
-        for (int i = 1; i < childcount; i=i+2) {
+        for (int i = 1; i < childcount; i = i + 2) {
             View v = layout_Form.getChildAt(i);
             EditText tv = (EditText) v;
             if ((tv != null && tv.getText().toString().length() > 0))
@@ -181,71 +206,98 @@ public class Util {
             continue;
         }
 
-        if (editTextOk == childcount/2)
+        if (editTextOk == childcount / 2)
             return true;
         else
             return false;
     }
 
-    /*
-    Buscar nombre ciudad
+    /**
+     * Buscar ciudad string.
+     *
+     *     Buscar nombre ciudad
+     *
+     * @param context  the context
+     * @param id       the id
+     * @param idCiudad the id ciudad
+     * @return the string
      */
-    public static String buscarCiudad (Context context, String id,String idCiudad){
+    public static String buscarCiudad(Context context, String id, String idCiudad) {
         ArrayList<Ciudad> ciudad = Util.jsontoArrayList(FileAsserts.readJsonDescripcion(context, id), new Ciudad());
-        for(int i =0;i<ciudad.size();i++){
-            if(ciudad.get(i).Id_ciudad.equals(idCiudad)){
+        for (int i = 0; i < ciudad.size(); i++) {
+            if (ciudad.get(i).Id_ciudad.equals(idCiudad)) {
                 return ciudad.get(i).Nombre;
             }
         }
         return "";
     }
 
-    /*
-    Buscar nombre departamento
+    /**
+     * Buscar departamento string.
+     *
+     *     Buscar nombre departamento
+     * @param context the context
+     * @param id      the id
+     * @return the string
      */
-    public static String buscarDepartamento (Context context, String id){
-        ArrayList<Departamento> departamentos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"departamentos"),new Departamento());
-        for(int i =0;i<departamentos.size();i++){
-            if(departamentos.get(i).Id_departamento.equals(id)){
+    public static String buscarDepartamento(Context context, String id) {
+        ArrayList<Departamento> departamentos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context, "departamentos"), new Departamento());
+        for (int i = 0; i < departamentos.size(); i++) {
+            if (departamentos.get(i).Id_departamento.equals(id)) {
                 return departamentos.get(i).Nombre;
             }
         }
         return "";
     }
 
-    /*
-    Buscar nombre documento
-   */
-    public static String buscarDocumento (Context context, String id){
-        ArrayList<DocumentoIdentidad> tipoDocumento = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"documentos"),new DocumentoIdentidad());
-        for(int i =0;i<tipoDocumento.size();i++){
-            if(tipoDocumento.get(i).id_Documento.equals(id)){
+    /**
+     * Buscar documento string.
+     * Buscar nombre documento
+     *
+     * @param context the context
+     * @param id      the id
+     * @return the string
+     */
+    public static String buscarDocumento(Context context, String id) {
+        ArrayList<DocumentoIdentidad> tipoDocumento = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context, "documentos"), new DocumentoIdentidad());
+        for (int i = 0; i < tipoDocumento.size(); i++) {
+            if (tipoDocumento.get(i).id_Documento.equals(id)) {
                 return tipoDocumento.get(i).nombre;
             }
         }
         return "";
     }
 
-    /*
-    Buscar nombre categoria
-   */
-    public static String buscarCategoria(Context context, String id){
-        ArrayList<Categoria> categorias = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"categorias"),new Categoria());
-        for(int i =0;i<categorias.size();i++){
-            if(categorias.get(i).id_Categoria.equals(id)){
+    /**
+     * Buscar categoria string.
+     *
+     * Buscar nombre categoria
+     * @param context the context
+     * @param id      the id
+     * @return the string
+     */
+    public static String buscarCategoria(Context context, String id) {
+        ArrayList<Categoria> categorias = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context, "categorias"), new Categoria());
+        for (int i = 0; i < categorias.size(); i++) {
+            if (categorias.get(i).id_Categoria.equals(id)) {
                 return categorias.get(i).nombre_Categoria;
             }
         }
         return "";
     }
 
-    /*
-   Buscar nombre priodicidad
-  */
-    public static String buscarPeriodo(Context context, String id){
-        ArrayList<Periodicidad> prediodos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context,"periodicidad"),new Periodicidad());
-        for(int i =0;i<prediodos.size();i++){
-            if(prediodos.get(i).id.equals(id)){
+    /**
+     * Buscar periodo string.
+     *
+     * Buscar nombre priodicidad
+     * @param context the context
+     * @param id      the id
+     * @return the string
+     */
+    public static String buscarPeriodo(Context context, String id) {
+        ArrayList<Periodicidad> prediodos = Util.jsontoArrayList(FileAsserts.loadJSONFromAsset(context, "periodicidad"), new Periodicidad());
+        for (int i = 0; i < prediodos.size(); i++) {
+            if (prediodos.get(i).id.equals(id)) {
                 return prediodos.get(i).nombre;
             }
         }
@@ -253,16 +305,24 @@ public class Util {
     }
 
 
+    /**
+     * Gets path.
+     *
+     * @param context the context
+     * @param uri     the uri
+     * @return the path
+     * @throws URISyntaxException the uri syntax exception
+     */
     public static String getPath(Context context, Uri uri) throws URISyntaxException {
         String wholeID = DocumentsContract.getDocumentId(uri);
         String id = wholeID.split(":")[1];
 
-        String[] column = { MediaStore.Images.Media.DATA };
+        String[] column = {MediaStore.Images.Media.DATA};
         String sel = MediaStore.Images.Media._ID + "=?";
 
         Cursor cursor = context.getContentResolver().
                 query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        column, sel, new String[]{ id }, null);
+                        column, sel, new String[]{id}, null);
         String filePath = "";
         int columnIndex = cursor.getColumnIndex(column[0]);
 
@@ -270,8 +330,6 @@ public class Util {
             filePath = cursor.getString(columnIndex);
         }
         cursor.close();
-        return(filePath);
+        return (filePath);
     }
-
-
 }

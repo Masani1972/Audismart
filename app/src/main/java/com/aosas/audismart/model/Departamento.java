@@ -1,11 +1,17 @@
 package com.aosas.audismart.model;
 
 /**
- * Created by Lmartinez on 16/01/2016.
+ * The type Departamento.
+ *  Modelo para los departamentos
+ * se utiliza en el adaptador de Departamento
  */
 public class Departamento {
+    /**
+     * The Id departamento.
+     */
     public String Id_departamento;
+    /**
+     * The Nombre.
+     */
     public String Nombre;
-
-
 }

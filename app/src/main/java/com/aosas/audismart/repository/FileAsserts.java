@@ -1,10 +1,7 @@
 package com.aosas.audismart.repository;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.aosas.audismart.model.Ciudad;
-import com.aosas.audismart.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,14 +9,23 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+
 
 /**
- * Created by Lmartinez on 16/01/2016.
+ * The type File asserts.
+ * Lee y obtiene todos los archivos
+ * de los assets
  */
 public class FileAsserts {
 
-    //Metodo que se encarga de leer el archivo
+    /**
+     * Load json from asset string.
+     * Metodo que se encarga de leer el archivo
+     *
+     * @param context       the context
+     * @param nombreArchivo the nombre archivo
+     * @return the string
+     */
     public static String loadJSONFromAsset(Context context, String nombreArchivo) {
         String json = null;
         try {
@@ -38,25 +44,30 @@ public class FileAsserts {
 
     }
 
-    //Obtiene la info
-    public static String readJsonDescripcion(Context context, String id){
+    /**
+     * Read json descripcion string.
+     * Obtiene la informacion especifica del archivo
+     * @param context the context
+     * @param id      the id
+     * @return the string
+     */
+    public static String readJsonDescripcion(Context context, String id) {
         JSONArray obj;
         String archivo = "ciudades";
         //  Log.e("number exception", id);
         try {
-            JSONArray jsonArray = new JSONArray(loadJSONFromAsset(context,archivo));
+            JSONArray jsonArray = new JSONArray(loadJSONFromAsset(context, archivo));
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject c = jsonArray.getJSONObject(i);
 
-               String name= c.getString("name");
-                if(c.getString("name").equals(id)){
+                String name = c.getString("name");
+                if (c.getString("name").equals(id)) {
                     JSONArray jsonArrayc = c.getJSONArray("values");
-                    return jsonArrayc.toString();}
+                    return jsonArrayc.toString();
+                }
             }
 
         } catch (JSONException e) {
-            Log.e("error",e.getMessage());
-
         }
         return null;
     }

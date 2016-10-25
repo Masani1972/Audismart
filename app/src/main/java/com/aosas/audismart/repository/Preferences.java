@@ -17,8 +17,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by Lmartinez on 21/01/2016.
+ * The type Preferences.
+ * Almacena información en las preferencias del telefono
  */
 public class Preferences {
 
@@ -26,188 +28,277 @@ public class Preferences {
         return context.getSharedPreferences("AudiSmart", Context.MODE_PRIVATE);
     }
 
-    /*
-    Almacena si el usuario eligio guardar la sesion
+    /**
+     * Sets session.
+     * Almacena si el usuario eligio guardar la sesion
+     * @param context the context
+     * @param sesion  the sesion
      */
     public static void setSession(Context context, Boolean sesion) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(sesion != null)
-            editor.putBoolean(Constantes.SESION,sesion);
+        if (sesion != null)
+            editor.putBoolean(Constantes.SESION, sesion);
         else
             editor.remove(Constantes.SESION);
         editor.commit();
     }
 
+    /**
+     * Gets sesion.
+     *
+     * @param context the context
+     * @return the sesion
+     */
     public static Boolean getSesion(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
-       return sharedPref.getBoolean(Constantes.SESION, false);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
+        return sharedPref.getBoolean(Constantes.SESION, false);
     }
 
 
-    /*
-    Almacenamiento del id del cliente o usuario
+    /**
+     * Sets id client.
+     * Almacenamiento del id del cliente o usuario
+     * @param context the context
+     * @param id      the id
      */
     public static void setIdClient(Context context, String id) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(id != null)
+        if (id != null)
             editor.putString(Constantes.IDCLIENT, id);
         else
             editor.remove(Constantes.IDCLIENT);
         editor.commit();
     }
 
+    /**
+     * Gets id client.
+     *
+     * @param context the context
+     * @return the id client
+     */
     public static String getIdClient(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         return sharedPref.getString(Constantes.IDCLIENT, "");
     }
 
-    /*
-   Almacenamiento clientes
-    */
-    public static void setEmpresas(Context context, ArrayList<Empresa> empresas ) {
+    /**
+     * Sets empresas.
+     *    Almacenamiento clientes
+     * @param context  the context
+     * @param empresas the empresas
+     */
+    public static void setEmpresas(Context context, ArrayList<Empresa> empresas) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(empresas != null){
+        if (empresas != null) {
             Gson gson = new Gson();
             String json = gson.toJson(empresas);
-            editor.putString(Constantes.EMPRESAS, json);}
-        else
+            editor.putString(Constantes.EMPRESAS, json);
+        } else
             editor.remove(Constantes.EMPRESAS);
         editor.commit();
     }
 
+    /**
+     * Gets empresas.
+     *
+     * @param context the context
+     * @return the empresas
+     */
     public static ArrayList<Empresa> getEmpresas(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString(Constantes.EMPRESAS, null);
 
-        Type type = new TypeToken<List<Empresa>>() {}.getType();
+        Type type = new TypeToken<List<Empresa>>() {
+        }.getType();
         ArrayList<Empresa> empresas = gson.fromJson(json, type);
         return empresas;
     }
 
-    /*
-    Almacenamiento token de GCM
+    /**
+     * Sets token gcm.
+     * Almacenamiento token de GCM
+     * @param context the context
+     * @param token   the token
      */
     public static void setTokenGcm(Context context, String token) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(token != null)
+        if (token != null)
             editor.putString(Constantes.SENT_TOKEN_TO_SERVER, token);
         else
             editor.remove(Constantes.SENT_TOKEN_TO_SERVER);
         editor.commit();
     }
 
+    /**
+     * Gets token gcm.
+     *
+     * @param context the context
+     * @return the token gcm
+     */
     public static String getTokenGcm(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         return sharedPref.getString(Constantes.SENT_TOKEN_TO_SERVER, "");
     }
 
-    /*
-    Almacenamiento id de la empresa
+    /**
+     * Sets id company.
+     *     Almacenamiento id de la empresa
+     * @param context the context
+     * @param id      the id
      */
     public static void setIdCompany(Context context, String id) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(id != null)
+        if (id != null)
             editor.putString(Constantes.IDCOMPANY, id);
         else
             editor.remove(Constantes.IDCOMPANY);
         editor.commit();
     }
 
+    /**
+     * Gets id company.
+     *
+     * @param context the context
+     * @return the id company
+     */
     public static String getIdCompany(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         return sharedPref.getString(Constantes.IDCOMPANY, "0");
     }
 
-    /*
-    Almacenamiento notificaciones
+    /**
+     * Sets notificaciones.
+     * Almacenamiento notificaciones
+     * @param context        the context
+     * @param notificaciones the notificaciones
      */
-    public static void setNotificaciones(Context context, ArrayList<Notificacion> notificaciones ) {
+    public static void setNotificaciones(Context context, ArrayList<Notificacion> notificaciones) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(notificaciones != null){
-        Gson gson = new Gson();
-        String json = gson.toJson(notificaciones);
-            editor.putString(Constantes.NOTIFICACIONES, json);}
-        else
+        if (notificaciones != null) {
+            Gson gson = new Gson();
+            String json = gson.toJson(notificaciones);
+            editor.putString(Constantes.NOTIFICACIONES, json);
+        } else
             editor.remove(Constantes.NOTIFICACIONES);
         editor.commit();
     }
 
+    /**
+     * Clear notificaciones.
+     *
+     * @param context the context
+     */
     public static void clearNotificaciones(Context context) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
 
-            editor.remove(Constantes.NOTIFICACIONES);
+        editor.remove(Constantes.NOTIFICACIONES);
         editor.commit();
     }
 
+    /**
+     * Gets notificaciones.
+     *
+     * @param context the context
+     * @return the notificaciones
+     */
     public static ArrayList<Notificacion> getNotificaciones(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString(Constantes.NOTIFICACIONES, null);
-        Type type = new TypeToken<List<Notificacion>>() {}.getType();
+        Type type = new TypeToken<List<Notificacion>>() {
+        }.getType();
         ArrayList<Notificacion> notificaciones = gson.fromJson(json, type);
         return notificaciones;
     }
 
-    /*
-   Almacenamiento calendarios
-    */
-    public static void setCalendarios(Context context, ArrayList<Calendario> calendarios ) {
+    /**
+     * Sets calendarios.
+     *    Almacenamiento calendarios
+     * @param context     the context
+     * @param calendarios the calendarios
+     */
+    public static void setCalendarios(Context context, ArrayList<Calendario> calendarios) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(calendarios != null){
+        if (calendarios != null) {
             Gson gson = new Gson();
             String json = gson.toJson(calendarios);
-            editor.putString(Constantes.CALENDARIOS_PREFERENCES, json);}
-        else
+            editor.putString(Constantes.CALENDARIOS_PREFERENCES, json);
+        } else
             editor.remove(Constantes.CALENDARIOS_PREFERENCES);
         editor.commit();
     }
 
+    /**
+     * Gets calendarios.
+     *
+     * @param context the context
+     * @return the calendarios
+     */
     public static ArrayList<Calendario> getCalendarios(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString(Constantes.CALENDARIOS_PREFERENCES, null);
-        Type type = new TypeToken<List<Calendario>>() {}.getType();
+        Type type = new TypeToken<List<Calendario>>() {
+        }.getType();
         ArrayList<Calendario> calendarios = gson.fromJson(json, type);
         return calendarios;
     }
 
-    /*
-    Almacenamiento Usuario
+    /**
+     * Sets usuario.
+     *     Almacenamiento Usuario
+     * @param context the context
+     * @param user    the user
      */
     public static void setUsuario(Context context, User user) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(user != null){
+        if (user != null) {
             Gson gson = new Gson();
             String json = gson.toJson(user);
-            editor.putString(Constantes.USUSARIO, json);}
-        else
+            editor.putString(Constantes.USUSARIO, json);
+        } else
             editor.remove(Constantes.USUSARIO);
         editor.commit();
     }
 
+    /**
+     * Gets usuario.
+     *
+     * @param context the context
+     * @return the usuario
+     */
     public static User getUsuario(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString(Constantes.USUSARIO, "0");
         User user = gson.fromJson(json, User.class);
         return user;
     }
 
-    /*
-    Almacenamiento tickets
-    */
-    public static void setTickets(Context context, ArrayList<Ticket> tikets ) {
+    /**
+     * Sets tickets.
+     *    Almacenamiento tickets
+     * @param context the context
+     * @param tikets  the tikets
+     */
+
+    public static void setTickets(Context context, ArrayList<Ticket> tikets) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(tikets != null){
+        if (tikets != null) {
             Gson gson = new Gson();
             String json = gson.toJson(tikets);
-            editor.putString(Constantes.TICKETS, json);}
-        else
+            editor.putString(Constantes.TICKETS, json);
+        } else
             editor.remove(Constantes.TICKETS);
         editor.commit();
     }
 
+    /**
+     * Clear tickets.
+     *
+     * @param context the context
+     */
     public static void clearTickets(Context context) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
 
@@ -215,35 +306,52 @@ public class Preferences {
         editor.commit();
     }
 
+    /**
+     * Gets tickets.
+     *
+     * @param context the context
+     * @return the tickets
+     */
     public static ArrayList<Ticket> getTickets(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString(Constantes.TICKETS, null);
-        Type type = new TypeToken<List<Ticket>>() {}.getType();
+        Type type = new TypeToken<List<Ticket>>() {
+        }.getType();
         ArrayList<Ticket> tickets = gson.fromJson(json, type);
         return tickets;
     }
 
 
-    /*
-    Almacenamiento noticias
-    */
-    public static void setNoticias(Context context, ArrayList<Noticia> noticias ) {
+    /**
+     * Sets noticias.
+     *     Almacenamiento noticias
+     * @param context  the context
+     * @param noticias the noticias
+     */
+    public static void setNoticias(Context context, ArrayList<Noticia> noticias) {
         SharedPreferences.Editor editor = Preferences.getSharedPreferences(context).edit();
-        if(noticias != null){
+        if (noticias != null) {
             Gson gson = new Gson();
             String json = gson.toJson(noticias);
-            editor.putString(Constantes.NOTICIAS, json);}
-        else
+            editor.putString(Constantes.NOTICIAS, json);
+        } else
             editor.remove(Constantes.NOTICIAS);
         editor.commit();
     }
 
+    /**
+     * Gets noticias.
+     *
+     * @param context the context
+     * @return the noticias
+     */
     public static ArrayList<Noticia> getNoticias(Context context) {
-        SharedPreferences sharedPref =  Preferences.getSharedPreferences(context);
+        SharedPreferences sharedPref = Preferences.getSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPref.getString(Constantes.NOTICIAS, null);
-        Type type = new TypeToken<List<Noticia>>() {}.getType();
+        Type type = new TypeToken<List<Noticia>>() {
+        }.getType();
         ArrayList<Noticia> noticias = gson.fromJson(json, type);
         return noticias;
     }

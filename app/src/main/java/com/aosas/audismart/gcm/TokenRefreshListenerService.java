@@ -4,14 +4,16 @@ import android.content.Intent;
 
 import com.google.android.gms.iid.InstanceIDListenerService;
 
+
 /**
- * Created by lmartinez on 14/03/2016.
+ * The type Token refresh listener service.
+ * Gestiona las actualizaciones de los token
  */
 public class TokenRefreshListenerService extends InstanceIDListenerService {
 
-    private static final String TAG = "MyInstanceIDLS";
-
-
+    /**
+     * On token refresh.
+     */
     @Override
     public void onTokenRefresh() {
         Intent intent = new Intent(this, RegistrationIntentService.class);

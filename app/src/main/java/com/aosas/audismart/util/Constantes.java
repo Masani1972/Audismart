@@ -1,16 +1,20 @@
 package com.aosas.audismart.util;
 
 /**
- * Created by Lmartinez on 21/01/2016.
+ * The type Preferences.
+ * Contiene las constantes de la app
  */
 public  class Constantes {
 
-    //URL WebServices
+    /**
+     * URL WebServices
+     */
     public static final String URLSERVICES="https://aosmart.aosas.com/movil/";
     public static final String URLIMAGENES="https://aosmart.aosas.com/";
     public static final String SERVICES="WS.php";
 
-    /*Metodos Servicios Web
+    /**
+    Metodos Servicios Web
     */
     public static final String REGISTRO_USUARIO = "REGISTRO CLIENTE";
     public static final String LOGIN = "LOGIN";
@@ -35,7 +39,7 @@ public  class Constantes {
     public static final String CALIFICAR_TICKET="CALIFICAR TICKET";
     public static final String BUSCAR_NOTICIA="BUSCAR NOTICIA";
 
-    /*
+    /**
     Preferencias
      */
     public static final String SESION="sesion";
@@ -59,19 +63,19 @@ public  class Constantes {
      */
     public static final String SO = "Android";
 
-   /*
+   /**
    Formatos fechas
     */
     public static final String FORMATOFECHANOTIDICACIONJSON="yyyy-MM-dd";
     public static final String FORMATOFECHANOTIDICACIONJSONNOTIFICACION="yyyy-MM-dd hh:mm:ss";
 
-    /*
+    /**
     Activitys result
      */
     public static final int UPDATECOMPANY=1;
     public static final int FILE_SELECT_CODE = 0;
 
-    /*
+    /**
     Response Succes
      */
     public static final String ACTUALIZA_EMPRESA_RESPONSE="Se actualizo con exito";
@@ -80,14 +84,14 @@ public  class Constantes {
     public static final String CERRAR_TICKET_RESPONSE = "Se actualizo con exito";
     public static final String BUSCAR_NOTICIA_RESPONSE = "Noticias encontradas";
 
-    /*
+    /**
     Response Error
    */
     public static final String CONSULTA_FECHASCLIENTE_RESPONSE_ERROR="No se han encontrado fechas";
     public static final String BUSCAR_TICKET_RESPONSE_ERROR="No se han encontrado tickets";
 
 
-    /*
+    /**
     Extras Intent
      */
     public static final String EXTRA_NOTIFICACIONES = "notificacion";

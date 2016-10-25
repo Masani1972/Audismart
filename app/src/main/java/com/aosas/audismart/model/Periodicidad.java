@@ -1,10 +1,18 @@
 package com.aosas.audismart.model;
 
-/**
- * Created by intergrupo on 13/07/16.
- */
 
+/**
+ * The type Periodicidad.
+ * Modelo para la lista de periodicidad
+ * se utiliza en el adaptador de periodicidad
+ */
 public class Periodicidad {
+    /**
+     * The Id.
+     */
     public String id;
+    /**
+     * The Nombre.
+     */
     public String nombre;
 }

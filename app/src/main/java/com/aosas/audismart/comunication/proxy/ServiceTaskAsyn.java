@@ -31,6 +31,7 @@ import retrofit.Response;
 
 /**
  * The type Service task asyn.
+ * Para consumo de servicios web, se interpretan los requests
  */
 public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
     private ProgressDialog dialog;

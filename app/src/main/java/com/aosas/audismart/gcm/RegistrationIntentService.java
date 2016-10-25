@@ -14,6 +14,7 @@ import com.google.android.gms.iid.InstanceID;
 
 /**
  * The type Registration intent service.
+ * Servicio para obtener el token
  */
 public class RegistrationIntentService extends IntentService {
 

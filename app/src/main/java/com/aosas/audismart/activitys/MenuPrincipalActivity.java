@@ -222,9 +222,6 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
         }
     }
 
-
-
-
     private void cargarListaEmpresas() {
         if(Preferences.getEmpresas(this)!=null){
         ArrayList arrayListEmpresas = Preferences.getEmpresas(this);
@@ -251,13 +248,11 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             }
         });
         }
-
     }
 
     /*
      * Preparing the list data
     */
-
     private void prepareListData() {
         listDataHeaderNotificaciones = new ArrayList<String>();
         listDataChildNotificaciones = new HashMap<String, List<Notificacion>>();
