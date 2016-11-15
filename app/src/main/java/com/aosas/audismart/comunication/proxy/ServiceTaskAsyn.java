@@ -182,24 +182,24 @@ public class ServiceTaskAsyn extends AsyncTask<Void, Void, Response> {
      */
     protected void onPostExecute(Response resultado) {
         if(resultado!=null){
-        BufferedReader bf = null;
-        StringBuilder sb = new StringBuilder();
-        try {
-            bf = new BufferedReader(new InputStreamReader(((ResponseBody)resultado.body()).byteStream()));
-            String line;
-            while((line = bf.readLine())!=null){
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String result = sb.toString();
-        Log.i(TAG, result);
-        IRepository presenter = new Repository();
-        presenter.createResponse(result, metodo, activity);
-        if (dialog.isShowing()) {
-            dialog.dismiss();
-        }
+                BufferedReader bf = null;
+                StringBuilder sb = new StringBuilder();
+                try {
+                    bf = new BufferedReader(new InputStreamReader(((ResponseBody)resultado.body()).byteStream()));
+                    String line;
+                    while((line = bf.readLine())!=null){
+                        sb.append(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String result = sb.toString();
+                Log.i(TAG, result);
+                IRepository presenter = new Repository();
+                presenter.createResponse(result, metodo, activity);
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
     }
     else{
         IRepository presenter = new Repository();

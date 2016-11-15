@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -115,6 +116,12 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity {
     @InjectView(R.id.edit_AsuntoRespuesta)
     EditText edit_AsuntoRespuesta;
 
+    /**
+     * The Rating bar.
+     */
+    @InjectView(R.id.ratingBar)
+    RatingBar ratingBar;
+
 
     /**
      * On create.
@@ -143,6 +150,7 @@ public class TicketActivity extends AppCompatActivity implements BaseActivity {
         text_estado.setText("Estado: " + ticket.estado);
         editText_asunto.setText(ticket.asunto);
         fecha_respuesta.setText(ticket.fecha);
+        ratingBar.setRating(Float.parseFloat(ticket.calificacion));
         BuscarTicket buscarTicket = new BuscarTicket(ticket.id_ticket, "", "", Constantes.BUSCAR_TICKET_RESPUESTA);
         repository.createRequets(this, buscarTicket, Constantes.BUSCAR_TICKET_RESPUESTA);
     }

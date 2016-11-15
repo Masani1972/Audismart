@@ -1,6 +1,8 @@
 package com.aosas.audismart.activitys;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -169,9 +171,36 @@ public class MenuPrincipalActivity extends AppCompatActivity implements BaseActi
             case R.id.action_noticias:
                 startActivity(new Intent(this,NoticiasActivity.class));
                 return true;
+            case R.id.action_close_sesion:
+                cerrarSesion();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    private void cerrarSesion() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Salir");
+        alertDialog.setMessage("¿Deseas salir de la aplicación?");
+
+        alertDialog.setPositiveButton("Si",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Preferences.setSession(MenuPrincipalActivity.this,false);
+                        finishAffinity();
+                    }
+                });
+
+        alertDialog.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
     }
 
     /**

@@ -5,6 +5,7 @@
     <string name="action_noticias">Noticias</string>
     <string name="action_crearticket">Crear Ticket</string>
     <string name="action_perfil">Mi Perfil</string>
+    <string name="action_close_sesion">Cerrar sesion</string>
 
     <!--Excepciones y mensajes generales-->
     <string name="formularioIncompleto">Por favor diligenciar el formulario</string>
